@@ -218,7 +218,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:
 .footer{background:#f8f9fb;border-top:1px solid var(--border);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-size:10.5px;color:#8896a7}
 .footer strong{color:var(--navy)}
 </style>
-<script>(function(){function _ok(r,onOk){return r.json().then(function(b){if(!r.ok)throw b;onOk(b);return b;});}window.GRID=window.GRID||{};window.GRID.docId="01KSQ95ESJ8VPTQ36YTVGME187";window.GRID._stateUpdatedAt='';window.GRID._stateUpdatedAtByName=window.GRID._stateUpdatedAtByName||{};window.GRID.states={get:function(name){var n=String(name||'').trim();if(!n)return Promise.reject({error:'validation_error',detail:'state name is required'});return fetch('/api/v1/documents/'+"01KSQ95ESJ8VPTQ36YTVGME187"+'/states/'+encodeURIComponent(n)).then(function(r){return _ok(r,function(b){window.GRID._stateUpdatedAtByName[n]=b.updated_at||'';});});},set:function(name,data,ifUpdatedAt){var n=String(name||'').trim();if(!n)return Promise.reject({error:'validation_error',detail:'state name is required'});return fetch('/api/v1/documents/'+"01KSQ95ESJ8VPTQ36YTVGME187"+'/states/'+encodeURIComponent(n),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({state:data,if_updated_at:(typeof ifUpdatedAt==='string'?ifUpdatedAt:(window.GRID._stateUpdatedAtByName[n]||''))})}).then(function(r){return _ok(r,function(b){window.GRID._stateUpdatedAtByName[n]=b.updated_at||'';});});},patch:function(name,patchData,ifUpdatedAt){var n=String(name||'').trim();if(!n)return Promise.reject({error:'validation_error',detail:'state name is required'});return fetch('/api/v1/documents/'+"01KSQ95ESJ8VPTQ36YTVGME187"+'/states/'+encodeURIComponent(n),{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({patch:patchData,if_updated_at:(typeof ifUpdatedAt==='string'?ifUpdatedAt:(window.GRID._stateUpdatedAtByName[n]||''))})}).then(function(r){return _ok(r,function(b){window.GRID._stateUpdatedAtByName[n]=b.updated_at||'';});});}};window.GRID.state={get:function(){return fetch('/api/v1/documents/'+"01KSQ95ESJ8VPTQ36YTVGME187"+'/state').then(function(r){return _ok(r,function(b){window.GRID._stateUpdatedAt=b.updated_at||'';});});},set:function(data,ifUpdatedAt){return fetch('/api/v1/documents/'+"01KSQ95ESJ8VPTQ36YTVGME187"+'/state',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({state:data,if_updated_at:(typeof ifUpdatedAt==='string'?ifUpdatedAt:(window.GRID._stateUpdatedAt||''))})}).then(function(r){return _ok(r,function(b){window.GRID._stateUpdatedAt=b.updated_at||'';});});},patch:function(patchData,ifUpdatedAt){return fetch('/api/v1/documents/'+"01KSQ95ESJ8VPTQ36YTVGME187"+'/state',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({patch:patchData,if_updated_at:(typeof ifUpdatedAt==='string'?ifUpdatedAt:(window.GRID._stateUpdatedAt||''))})}).then(function(r){return _ok(r,function(b){window.GRID._stateUpdatedAt=b.updated_at||'';});});}};}());</script></head>
+</head>
 <body>
 
 <script>
@@ -317,7 +317,7 @@ const DATA={
      turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ J2 em branco, J3 incompleto.'},
     {thpBase:0,thpCopa:0,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:0,
      turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ Aguardando preenchimento J2.'},
-    {thpBase:0,thpCopa:0,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:109,hcsImp:0,
+    {thpBase:150939,thpCopa:120605,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:109,hcsImp:0,
      turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ Aguardando preenchimento J3.'}
   ]},
   BRMG04:{cluster:"MG's",jogos:[
@@ -327,6 +327,19 @@ const DATA={
      turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''},
     {thpBase:1868,thpCopa:1721,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:23,
      turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''}
+  ]},
+  BRRC02:{cluster:'RCs',jogos:[
+    {thpBase:556507,thpCopa:426019,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:0,
+     turnos:[{t:'T1',ent:'07:40',sai:'16:00',acao:'—',st:'Normal',hcs:0},{t:'T2',ent:'16:00',sai:'00:00',acao:'—',st:'Normal',hcs:0},{t:'T3',ent:'00:00',sai:'07:40',acao:'—',st:'Normal',hcs:0}],
+     hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],
+     obs:'⚠️ THP preenchido. HCs, Turnos e Config aguardando.'},
+    {thpBase:576989,thpCopa:480361,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:0,
+     turnos:[{t:'T1',ent:'07:40',sai:'16:00',acao:'—',st:'Normal',hcs:0},{t:'T2',ent:'16:00',sai:'00:00',acao:'—',st:'Normal',hcs:0},{t:'T3',ent:'00:00',sai:'07:40',acao:'—',st:'Normal',hcs:0}],
+     hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],
+     obs:'⚠️ THP preenchido. HCs, Turnos e Config aguardando.'},
+    {thpBase:0,thpCopa:0,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:0,
+     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],
+     obs:'⚠️ J3 ainda não preenchido.'}
   ]},
   BRRC01:{cluster:'RCs',jogos:[
     {thpBase:1187325,thpCopa:1030006,parada:'18:20–21:20',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:923,
@@ -1035,8 +1048,8 @@ function openGerencial(){
     <button class="gp gp3" onclick="setJogo(2)">J3 · Qua 24/06 · 19h00</button>
   </div>
 </div>
-<div class="subbar">Plano Operacional · 24 CADs completos · 6 parciais · 7 sem resposta · 8 XS · Atualizado 28/05/2026</div>
-<div class="alert">⚫ &nbsp;<span><strong>ATENÇÃO:</strong> Sem resposta: BRSP02, BRSP10, BRSP25, BRSP26, BRSP11, BRRC02, BRRC03. Parciais: BRSP18/19 (HCs J2/J3) · BRMG01 (J2/J3) · BRSP24 · BRMG04 · BRES01 (J1). XS parciais: BRXSP1, BRXSP10, BRXSP16, BRXSP18, XSP4.</span></div>
+<div class="subbar">Plano Operacional · 24 CADs completos · 7 parciais · 6 sem resposta · 8 XS · Atualizado 28/05/2026</div>
+<div class="alert">⚫ &nbsp;<span><strong>ATENÇÃO:</strong> Sem resposta: BRSP02, BRSP10, BRSP25, BRSP26, BRSP11, BRRC03. Parciais: BRRC02 (J3+HCs) · BRSP18/19 (HCs J2/J3) · BRMG01 (J2/J3) · BRSP24 · BRMG04 · BRES01 (J1). XS parciais: BRXSP1, BRXSP10, BRXSP16, BRXSP18, XSP4.</span></div>
 
 <!-- ══ OPERACIONAL ══ -->
 <div id="oper-content" style="display:none">
@@ -1366,111 +1379,6 @@ function setGerTab(t){
 // Init: open gerencial by default
 openGerencial();
 render();
-</script>
-<script>
-/* Grid: only allow approved Grid domains to open unsandboxed tabs */
-(function(){
-  var allowedHosts = ["figma.com", "www.figma.com", "furydocs.io", "zeroheight.com", "google.com", "docs.google.com", "meet.google.com", "grid.adminml.com", "grid-artifacts.adminml.com", "mercadolibre.atlassian.net", "mercadolibre-opsgenie.atlassian.net", "app.datadoghq.com", "grafana-service.furycloud.io", "web.furycloud.io", "nasdaq-meli.app.opsgenie.com", "meli.enterprise.slack.com"];
-  var allowedSuffixes = [".adminml.com", ".atlassian.net", ".google.com", ".furycloud.io", ".melioffice.com", ".melisystems.com"];
-  var allowedPathPrefixes = {"github.com": ["/melisource/"], "www.github.com": ["/melisource/"]};
-  function normalizeUrl(rawUrl){
-    try {
-      return new URL(String(rawUrl || ""), window.location.href);
-    } catch (_err) {
-      return null;
-    }
-  }
-  function isAllowedUrl(rawUrl){
-    var parsed = normalizeUrl(rawUrl);
-    if(!parsed) return false;
-    if(parsed.protocol === "slack:") return true;
-    if(parsed.protocol !== "https:") return false;
-    var h = (parsed.hostname || "").toLowerCase();
-    if(!h) return false;
-    if(allowedHosts.indexOf(h) !== -1) return true;
-    for(var i = 0; i < allowedSuffixes.length; i++){
-      var s = allowedSuffixes[i];
-      if(h === s.slice(1) || (h.length > s.length && h.slice(-s.length) === s)) return true;
-    }
-    var pathPrefixes = allowedPathPrefixes[h];
-    if(pathPrefixes){
-      var p = parsed.pathname || "/";
-      for(var j = 0; j < pathPrefixes.length; j++){
-        if(p.slice(0, pathPrefixes[j].length) === pathPrefixes[j]) return true;
-      }
-    }
-    return false;
-  }
-  function requestParentPopup(rawUrl){
-    var parsed = normalizeUrl(rawUrl);
-    if(!parsed || !window.parent || window.parent === window) return false;
-    try {
-      window.parent.postMessage({type: "grid-open-safe-popup", url: parsed.href}, window.location.origin);
-      return true;
-    } catch (_err) {
-      return false;
-    }
-  }
-
-  document.addEventListener("click", function(event){
-    var target = event.target;
-    var anchor = target && target.closest ? target.closest("a[href]") : null;
-    if(!anchor) return;
-    var href = anchor.getAttribute("href") || "";
-    if(!href || href.charAt(0) === "#") return;
-    var opensNewTab = anchor.target === "_blank" || event.ctrlKey || event.metaKey || event.button === 1;
-    if(!opensNewTab) return;
-    if(!isAllowedUrl(href)) {
-      event.preventDefault();
-      event.stopPropagation();
-      return;
-    }
-    if(requestParentPopup(href)) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-  }, true);
-
-  var nativeOpen = window.open;
-  window.open = function(rawUrl, target, features){
-    if(!isAllowedUrl(rawUrl)) return null;
-    if(requestParentPopup(rawUrl)) return null;
-    return nativeOpen ? nativeOpen.call(window, normalizeUrl(rawUrl).href, target, features) : null;
-  };
-})();
-</script>
-<script>
-/* Grid: sync iframe URL mutations to parent address bar */
-(function(){
-  function notifyParent(search, hash){
-    if(!window.parent || window.parent === window) return;
-    try{
-      window.parent.postMessage(
-        {type:"grid-url-sync", search:search, hash:hash},
-        window.location.origin
-      );
-    }catch(_){}
-  }
-  function parseAndNotify(url){
-    try{
-      var p = new URL(String(url), window.location.href);
-      notifyParent(p.search, p.hash);
-    }catch(_){}
-  }
-  var _push = history.pushState.bind(history);
-  var _replace = history.replaceState.bind(history);
-  history.pushState = function(state, title, url){
-    _push(state, title, url);
-    if(url != null) parseAndNotify(url);
-  };
-  history.replaceState = function(state, title, url){
-    _replace(state, title, url);
-    if(url != null) parseAndNotify(url);
-  };
-  window.addEventListener("hashchange", function(){
-    notifyParent(window.location.search, window.location.hash);
-  });
-})();
 </script>
 </body>
 </html>
