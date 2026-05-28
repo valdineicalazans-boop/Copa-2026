@@ -329,17 +329,21 @@ const DATA={
      turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''}
   ]},
   BRRC02:{cluster:'RCs',jogos:[
-    {thpBase:556507,thpCopa:426019,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:0,
-     turnos:[{t:'T1',ent:'07:40',sai:'16:00',acao:'—',st:'Normal',hcs:0},{t:'T2',ent:'16:00',sai:'00:00',acao:'—',st:'Normal',hcs:0},{t:'T3',ent:'00:00',sai:'07:40',acao:'—',st:'Normal',hcs:0}],
-     hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],
-     obs:'⚠️ THP preenchido. HCs, Turnos e Config aguardando.'},
-    {thpBase:576989,thpCopa:480361,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:0,
-     turnos:[{t:'T1',ent:'07:40',sai:'16:00',acao:'—',st:'Normal',hcs:0},{t:'T2',ent:'16:00',sai:'00:00',acao:'—',st:'Normal',hcs:0},{t:'T3',ent:'00:00',sai:'07:40',acao:'—',st:'Normal',hcs:0}],
-     hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],
-     obs:'⚠️ THP preenchido. HCs, Turnos e Config aguardando.'},
-    {thpBase:0,thpCopa:0,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:0,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],
-     obs:'⚠️ J3 ainda não preenchido.'}
+    {thpBase:556507,thpCopa:426019,parada:'18:40–21:20',refBase:'—',refCopa:'—',abs:'—',hcsTotal:294,hcsImp:294,
+     turnos:[{t:'T1',ent:'07:40',sai:'16:00',acao:'Sem alteração.',st:'Normal',hcs:0},{t:'T2',ent:'16:00',sai:'00:00',acao:'T2 opera normal, para às 18:40, retorna às 21:20. 50% jantar 17:00–18:00, 50% jantar 17:50–18:40.',st:'Impacto',hcs:294},{t:'T3',ent:'00:00',sai:'07:40',acao:'Sem alteração.',st:'Normal',hcs:0}],
+     hcsTbl:[{t:'T2',out:20,inp:191,mwh:39,outros:44,tot:294}],hcsTot:{out:20,inp:191,mwh:39,outros:44,tot:294},
+     etds:[],cfg:[{c:'CAP5',a:'Zerar capacidade durante a janela do jogo.',p:'18:40–21:20',r:'Flow Local'}],
+     obs:''},
+    {thpBase:576989,thpCopa:480361,parada:'21:10–00:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:303,hcsImp:303,
+     turnos:[{t:'T1',ent:'07:40',sai:'16:00',acao:'Sem alteração.',st:'Normal',hcs:0},{t:'T2',ent:'16:00',sai:'00:00',acao:'T2 normal, para às 21:10, retorna às 00:00, HE até 02:00. T2 jantar até 20:00, T3 jantar normal.',st:'Impacto',hcs:303},{t:'T3',ent:'00:00',sai:'07:40',acao:'Entrada postergada para 02:00.',st:'Impacto',hcs:0}],
+     hcsTbl:[{t:'T2',out:20,inp:196,mwh:43,outros:44,tot:303}],hcsTot:{out:20,inp:196,mwh:43,outros:44,tot:303},
+     etds:[],cfg:[{c:'CAP5',a:'Zerar capacidade durante a janela do jogo.',p:'21:10–00:00',r:'Flow Local'}],
+     obs:'Jogo noturno — T3 com entrada postergada para 02:00.'},
+    {thpBase:591819,thpCopa:454759,parada:'18:40–21:20',refBase:'—',refCopa:'—',abs:'—',hcsTotal:311,hcsImp:311,
+     turnos:[{t:'T1',ent:'07:40',sai:'16:00',acao:'Sem alteração.',st:'Normal',hcs:0},{t:'T2',ent:'16:00',sai:'00:00',acao:'T2 opera normal, para às 18:40, retorna às 21:20.',st:'Impacto',hcs:311},{t:'T3',ent:'00:00',sai:'07:40',acao:'Sem alteração.',st:'Normal',hcs:0}],
+     hcsTbl:[{t:'T2',out:22,inp:201,mwh:44,outros:44,tot:311}],hcsTot:{out:22,inp:201,mwh:44,outros:44,tot:311},
+     etds:[],cfg:[{c:'CAP5',a:'Zerar capacidade durante a janela do jogo.',p:'18:40–21:20',r:'Flow Local'}],
+     obs:''}
   ]},
   BRRC01:{cluster:'RCs',jogos:[
     {thpBase:1187325,thpCopa:1030006,parada:'18:20–21:20',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:923,
@@ -1048,8 +1052,8 @@ function openGerencial(){
     <button class="gp gp3" onclick="setJogo(2)">J3 · Qua 24/06 · 19h00</button>
   </div>
 </div>
-<div class="subbar">Plano Operacional · 24 CADs completos · 7 parciais · 6 sem resposta · 8 XS · Atualizado 28/05/2026</div>
-<div class="alert">⚫ &nbsp;<span><strong>ATENÇÃO:</strong> Sem resposta: BRSP02, BRSP10, BRSP25, BRSP26, BRSP11, BRRC03. Parciais: BRRC02 (J3+HCs) · BRSP18/19 (HCs J2/J3) · BRMG01 (J2/J3) · BRSP24 · BRMG04 · BRES01 (J1). XS parciais: BRXSP1, BRXSP10, BRXSP16, BRXSP18, XSP4.</span></div>
+<div class="subbar">Plano Operacional · 15 CADs completos · 8 parciais · 6 sem resposta · 8 XS · Atualizado 28/05/2026 · 11h15</div>
+<div class="alert">⚫ &nbsp;<span><strong>ATENÇÃO:</strong> Sem resposta: BRSP02, BRSP10, BRSP25, BRSP26, BRSP11, BRRC03. Parciais: BRRC01 (HCs②) · BRSP18/19 (HCs J2/J3) · BRMG01 (J2/J3) · BRSP04 (HCs②) · BRSP24 · BRMG04 (HCs②) · BRES01 (J1). XS parciais: BRXSP1, BRXSP10, BRXSP16, BRXSP18, XSP4.</span></div>
 
 <!-- ══ OPERACIONAL ══ -->
 <div id="oper-content" style="display:none">
