@@ -3,1394 +3,475 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Grid — Plano Operacional Copa do Mundo 2026</title>
+<title>⚽ Plano Operacional Copa do Mundo 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh}
-:root{--navy:#1a1a2e;--mid:#16213e;--gold:#ffc800;--gold-lt:#fffde7;--red:#c62828;--red-lt:#ffebee;--org:#e65100;--org-lt:#fff3e0;--blue:#1565c0;--blu-lt:#e3f2fd;--grn:#1b5e20;--grn-lt:#e8f5e9;--prp:#4a148c;--prp-lt:#f3e5f5;--teal:#00695c;--teal-lt:#e0f2f1;--border:#eaedf0;--muted:#7b8fa1}
-
-.topbar{background:var(--navy);padding:11px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+html,body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#1a1a2e;height:100%;overflow:hidden}
+:root{--navy:#1a1a2e;--mid:#16213e;--gold:#ffc800;--red:#c62828;--orange:#e65100;--blue:#1565c0;--green:#1b5e20;--grn-lt:#e8f5e9;--gold-lt:#fffde7;--border:#eaedf0;--muted:#7b8fa1;--white:#fff}
+.topbar{background:var(--navy);padding:11px 32px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.3);flex-shrink:0}
 .topbar-title{color:#fff;font-size:13px;font-weight:800}
 .topbar-title span{color:var(--gold)}
-.game-pills{display:flex;gap:6px}
-.gp{padding:5px 14px;border-radius:20px;font-size:10px;font-weight:700;border:none;cursor:pointer;transition:opacity .15s,outline .1s}
-.gp.active{outline:2px solid #fff;outline-offset:1px}
-.gp1{background:#1565c0;color:#fff}.gp2{background:#e65100;color:#fff}.gp3{background:#2e7d32;color:#fff}
-.subbar{background:var(--mid);padding:6px 32px;font-size:9px;color:var(--gold);letter-spacing:.6px;font-weight:600}
-.alert{background:#ffebee;border-left:4px solid var(--red);padding:10px 32px;font-size:11.5px;color:#7f1d1d;display:flex;gap:10px;align-items:center}
-
-.content{padding:20px 32px 40px}
-
-/* Filter */
-.fbar{background:#fff;border-radius:12px;border:1px solid var(--border);padding:11px 18px;display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.tabs-bar{background:var(--mid);display:flex;align-items:flex-end;padding:0 32px;gap:4px;flex-shrink:0}
+.tab-btn{color:rgba(255,255,255,.55);padding:8px 18px;font-size:10px;font-weight:700;cursor:pointer;border:none;background:none;font-family:'Inter',sans-serif;border-radius:6px 6px 0 0;letter-spacing:.3px;transition:all .2s}
+.tab-btn:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.08)}
+.tab-btn.active{background:var(--white);color:var(--navy);padding-bottom:10px}
+.toolbar{background:var(--white);border-bottom:1px solid var(--border);padding:10px 32px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;flex-shrink:0}
 .flbl{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;white-space:nowrap}
-.seg{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.seg button{padding:5px 14px;font-size:11px;font-weight:600;border:none;cursor:pointer;background:#fff;color:#455a64;font-family:'Inter',sans-serif;transition:background .15s}
-.seg button.on{background:var(--blue);color:#fff}
-.fsep{width:1px;background:var(--border);height:24px}
-.fsel{border:1px solid var(--border);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--navy);background:#fff;font-family:'Inter',sans-serif;cursor:pointer}
-
-/* Section title */
-.sec-title{font-size:9.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* KPIs */
-.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px}
-.kpi{background:#fff;border-radius:12px;padding:16px;border:1px solid var(--border);position:relative;overflow:hidden}
-.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.kpi.r::before{background:var(--red)}.kpi.o::before{background:var(--org)}.kpi.b::before{background:var(--blue)}.kpi.g::before{background:var(--grn)}.kpi.n::before{background:var(--navy)}
-.kpi-lbl{font-size:9px;font-weight:700;color:#8896a7;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
-.kpi-val{font-size:22px;font-weight:800;line-height:1;margin-bottom:3px}
-.kpi.r .kpi-val{color:var(--red)}.kpi.o .kpi-val{color:var(--org)}.kpi.b .kpi-val{color:var(--blue)}.kpi.g .kpi-val{color:var(--grn)}.kpi.n .kpi-val{color:var(--navy)}
-.kpi-sub{font-size:10px;color:#aab4be}
-
-/* CAD Cards */
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:24px}
-.ccard{background:#fff;border-radius:13px;border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:box-shadow .18s,transform .18s}
-.ccard:hover{box-shadow:0 6px 24px rgba(0,0,0,.1);transform:translateY(-2px)}
-.ccard-hdr{padding:11px 16px;display:flex;justify-content:space-between;align-items:center}
-.ccard-name{font-size:17px;font-weight:800;color:#fff}
-.ccard-badge{font-size:9px;color:rgba(255,255,255,.75);background:rgba(0,0,0,.22);padding:3px 9px;border-radius:12px;font-weight:600}
-.ccard-body{padding:14px 16px}
-.ccard-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #f5f6f8;font-size:11.5px}
-.ccard-row:last-child{border-bottom:none}
-.ccard-row .lbl{color:#8896a7;font-weight:500}.ccard-row .val{font-weight:700;color:var(--navy)}.ccard-row .val.r{color:var(--red)}
-
-/* Strategy items inside CAD cards */
-.ccard-strats{padding:10px 16px;border-top:1px solid var(--border);background:#fafbfc}
-.ccard-strat{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px}
-.ccard-strat:last-child{margin-bottom:0}
-.ccard-strat-icon{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
-.ccard-strat-text strong{display:block;font-size:10.5px;font-weight:700;color:var(--navy);margin-bottom:1px}
-.ccard-strat-text p{font-size:10px;color:#5d6b7a;line-height:1.45}
-
-.ccard-foot{background:#f0f2f5;padding:7px 16px;font-size:9.5px;color:var(--blue);font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .15s}
-.ccard-foot:hover{background:#e3f2fd}
-
-/* Cluster view */
-.cluster-view{background:#fff;border-radius:13px;border:1px solid var(--border);overflow:hidden;margin-bottom:20px}
-.cluster-hdr{padding:14px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
-.cluster-badge{font-size:11px;font-weight:700;color:#fff;padding:4px 14px;border-radius:20px}
-.cluster-sub{font-size:11px;color:var(--muted)}
-.cluster-kpis{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border)}
-.ckpi{padding:14px 18px;text-align:center;border-right:1px solid var(--border)}
-.ckpi:last-child{border-right:none}
-.ckpi-val{font-size:20px;font-weight:800}
-.ckpi-lbl{font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
-.cluster-table{width:100%;border-collapse:collapse;font-size:12px}
-.cluster-table th{background:#f7f8fa;padding:9px 16px;text-align:left;font-weight:700;font-size:9.5px;color:#6b7a8d;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
-.cluster-table td{padding:10px 16px;border-bottom:1px solid #f5f6f8;color:#2d3748;font-weight:500}
-.cluster-table tr:last-child td{border-bottom:none}
-.cluster-table tr.cad-row:hover td{background:#f8f9fb;cursor:pointer}
-.cad-link{font-weight:700;color:var(--blue)}
-
-/* Cluster strategy section */
-.cluster-strats-hdr{padding:12px 18px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);background:#f7f8fa;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.cluster-cad-strats{padding:14px 18px;border-bottom:1px solid var(--border)}
-.cluster-cad-strats:last-child{border-bottom:none}
-.cluster-cad-label{font-size:11px;font-weight:800;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.cluster-cad-label span{display:inline-block;width:8px;height:8px;border-radius:50%}
-.strat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.strat-item{display:flex;gap:10px;align-items:flex-start;background:#f8f9fb;border-radius:10px;padding:12px 14px;border:1px solid var(--border)}
-.strat-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.strat-text strong{display:block;font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:3px}
-.strat-text p{font-size:10.5px;color:#5d6b7a;line-height:1.5}
-
-/* Detail overlay */
-#detail-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:200;justify-content:center;align-items:flex-start;overflow-y:auto;padding:24px}
-#detail-overlay.open{display:flex}
-.detail-box{background:#fff;border-radius:16px;width:100%;max-width:1000px;overflow:hidden;margin:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
-.detail-topbar{background:var(--navy);padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
-.detail-topbar-title{color:#fff;font-size:14px;font-weight:800}
-.detail-topbar-title span{color:var(--gold)}
-.detail-close{background:rgba(255,255,255,.15);border:none;color:#fff;padding:5px 12px;border-radius:8px;font-size:11px;cursor:pointer;font-weight:700;font-family:'Inter',sans-serif}
-.detail-close:hover{background:rgba(255,255,255,.25)}
-.game-tabs{display:flex;border-bottom:1px solid var(--border);background:#fff;padding:0 20px}
-.gtab{padding:10px 16px;font-size:11.5px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
-.gtab.active.g1{color:var(--blue);border-bottom-color:var(--blue)}
-.gtab.active.g2{color:var(--org);border-bottom-color:var(--org)}
-.gtab.active.g3{color:#2e7d32;border-bottom-color:#2e7d32}
-.detail-content{padding:20px}
-
-/* Detail sections */
-.dsec{margin-bottom:20px}
-.dsec-hdr{font-size:9.5px;font-weight:800;color:#fff;padding:5px 12px;border-radius:6px;display:inline-flex;align-items:center;gap:6px;margin-bottom:12px;letter-spacing:.3px}
-.dsec-hdr.blu{background:var(--blue)}.dsec-hdr.drk{background:#2d3e50}.dsec-hdr.grn{background:var(--grn)}.dsec-hdr.prp{background:var(--prp)}.dsec-hdr.gry{background:#455a64}.dsec-hdr.nav{background:var(--navy)}
-.kpi-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
-.kpi-mini-card{padding:10px 12px;border-radius:8px;text-align:center;border:1px solid transparent}
-.kpi-mini-card .v{font-size:15px;font-weight:800}.kpi-mini-card .l{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;margin-top:2px}
-
-/* Tables */
-.dtbl{width:100%;border-collapse:collapse;font-size:11.5px}
-.dtbl th{background:#f7f8fa;padding:7px 10px;text-align:left;font-weight:700;font-size:9px;color:#6b7a8d;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
-.dtbl td{padding:7px 10px;border-bottom:1px solid #f5f6f8;color:#2d3748;font-weight:500}
-.dtbl tr:last-child td{border-bottom:none}
-.dtbl .ttl td{font-weight:700;background:#f7f8fa;color:var(--navy)}
-.badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:9.5px;font-weight:700}
-.badge.imp{background:#fff3e0;color:var(--org)}.badge.norm{background:#e8f5e9;color:var(--grn)}.badge.ok{background:#e3f2fd;color:var(--blue)}.badge.folga{background:#f3e5f5;color:var(--prp)}
-.neg{color:var(--red);font-weight:700}
-
-/* Strategy section in detail */
-.strat-detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.strat-detail-item{display:flex;gap:12px;align-items:flex-start;background:#f8f9fb;border-radius:10px;padding:14px;border:1px solid var(--border)}
-.strat-detail-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.strat-detail-text strong{display:block;font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px}
-.strat-detail-text p{font-size:11px;color:#5d6b7a;line-height:1.55}
-.obs-box{background:#fffde7;border-left:3px solid var(--gold);padding:10px 14px;border-radius:0 8px 8px 0;font-size:11px;color:#5d4037;line-height:1.6;margin-top:4px}
-
-/* Pontos de Atenção */
-.pda-section{background:#fff;border-radius:13px;border:1px solid var(--border);border-left:4px solid var(--gold);padding:20px 24px;margin-bottom:24px}
-.pda-title{font-size:12px;font-weight:800;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.pda-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.pda-item{display:flex;gap:12px;align-items:flex-start}
-.pda-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.pda-icon.gy{background:#f0f2f5}.pda-icon.bl{background:var(--blu-lt)}.pda-icon.og{background:var(--org-lt)}
-.pda-item-title{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px}
-.pda-item-text{font-size:11px;color:#5d6b7a;line-height:1.55}
-
-/* ── MAIN NAVIGATION TABS ── */
-.main-nav{background:#fff;border-bottom:2px solid var(--border);display:flex;padding:0 32px;gap:0;position:sticky;top:54px;z-index:90}
-.main-tab{padding:10px 22px;font-size:12px;font-weight:700;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;transition:color .15s,border-color .15s;white-space:nowrap}
-.main-tab.active{color:var(--navy);border-bottom-color:var(--gold)}
-.ger-content{padding:20px 32px 40px;display:none}
-.ger-content.visible{display:block}
-.ger-subtabs{display:flex;gap:6px;margin-bottom:20px}
-.ger-stab{padding:6px 18px;border-radius:20px;font-size:11px;font-weight:700;border:2px solid var(--border);cursor:pointer;background:#fff;color:#455a64;transition:all .15s;font-family:'Inter',sans-serif}
-.ger-stab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
-.ger-game-hdr{color:#fff;padding:10px 18px;border-radius:10px 10px 0 0;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase}
-.ger-game-hdr.g1{background:#1565c0}.ger-game-hdr.g2{background:#e65100}.ger-game-hdr.g3{background:#2e7d32}
-.ger-table-wrap{background:#fff;border-radius:0 0 12px 12px;border:1px solid var(--border);border-top:none;overflow-x:auto;margin-bottom:28px}
-.ger-tbl{width:100%;border-collapse:collapse;font-size:12px;min-width:900px}
-.ger-tbl th{background:#f7f8fa;padding:9px 14px;text-align:left;font-weight:700;font-size:9.5px;color:#6b7a8d;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--border);white-space:nowrap}
-.ger-tbl td{padding:9px 14px;border-bottom:1px solid #f3f4f6;vertical-align:middle}
-.ger-tbl tr:last-child td{border-bottom:none}
-.ger-tbl tr.total-row td{background:#f0f2f5;font-weight:800;border-top:2px solid var(--border)}
-.ger-tbl tr:not(.total-row):hover td{background:#fafbfc;cursor:pointer}
-.ger-cad-name{font-weight:800;font-size:13px}
-.ger-cluster-tag{font-size:9px;font-weight:700;color:#fff;padding:2px 8px;border-radius:10px;display:inline-block;margin-top:2px}
-.ger-num{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
-.ger-loss{text-align:right;font-weight:700;color:var(--red)}
-.ger-abs-gap{font-weight:700;color:var(--org);font-size:10px}
-.ger-etds{font-size:10px;color:#455a64;line-height:1.6;max-width:220px}
-.ger-etds strong{display:block;color:var(--navy);font-size:10.5px;margin-bottom:2px}
-.ger-parada{font-size:11px;font-weight:600;color:#2d3748;white-space:nowrap}
-.ger-empty{color:#bbb;font-size:11px;font-style:italic}
-.ger-hcs{text-align:right;font-weight:700;color:var(--blue)}
-.xs-disclaimer{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 16px;font-size:11px;color:#5d4037;margin-bottom:16px;display:flex;gap:8px;align-items:flex-start}
-
-.ger-gtab.on{background:var(--navy)!important;color:#fff!important}
-.btn-grupo{padding:5px 14px;font-size:11px;font-weight:600;border:none;cursor:pointer;background:#fff;color:#455a64;font-family:'Inter',sans-serif;transition:background .15s}
-.btn-grupo.on{background:var(--blue);color:#fff}
-
-/* ── EXEC TABLE ── */
-.gtab-exec{padding:7px 18px;font-size:11.5px;font-weight:700;border:2px solid #e0e3e8;border-radius:8px 8px 0 0;cursor:pointer;background:#f7f8fa;color:#455a64;font-family:'Inter',sans-serif;transition:all .15s;margin-right:3px;border-bottom:none}
-.gtab-exec.active{background:#fff;color:var(--navy);border-color:var(--gold);border-bottom-color:#fff;position:relative;z-index:1}
-/* New ec- table classes */
-.ec-tbl{width:100%;border-collapse:collapse;font-size:11.5px;background:#fff;border:1px solid #d0d5dd}
-.ec-tbl thead th{background:#f0f2f5;padding:9px 11px;font-size:10px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.5px;border:1px solid #d0d5dd;text-align:center;vertical-align:middle;line-height:1.35;white-space:nowrap}
-.ec-cad-th{text-align:left!important;width:100px;min-width:90px}
-.ec-num-th{width:90px;text-align:center!important}
-.ec-txt-th{min-width:120px;text-align:center!important}
-.ec-wide{min-width:180px!important}
-.ec-cluster-row td{background:#e8edf2;padding:6px 12px;border:1px solid #d0d5dd;font-size:10px}
-.ec-cluster-badge{color:#fff;padding:3px 12px;border-radius:4px;font-size:10px;font-weight:800;letter-spacing:.7px;text-transform:uppercase}
-.ec-xs-note{font-size:9px;color:#666;margin-left:8px}
-.ec-row td{border:1px solid #e5e9f0;padding:8px 11px;vertical-align:middle;transition:background .1s}
-.ec-row:hover td{background:#f0f4ff;cursor:pointer}
-.ec-cad-td{font-weight:800;font-size:12px;color:#1a1a2e;white-space:nowrap;text-align:left;min-width:90px}
-.ec-num-td{text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap;color:#1a1a2e;font-size:11.5px}
-.ec-loss-td{text-align:center;font-weight:700;color:#c62828;white-space:nowrap;font-size:11.5px;line-height:1.35}
-.ec-loss-td small{font-size:9.5px;font-weight:600;display:block}
-.ec-txt-td{font-size:11px;color:#374151;line-height:1.55;text-align:left;max-width:200px}
-.ec-hcs{color:#1565c0!important;font-weight:800!important}
-.ec-sub-row td{background:#eef2ff;font-size:11.5px;border:1px solid #c7d2fe;padding:8px 11px;text-align:center}
-.ec-sub-label{text-align:left!important;font-weight:800;color:#1a1a2e}
-.ec-sub-row .ec-loss-td{text-align:center}
-.ec-mt{color:#bbb;font-weight:400}
-.esx-ok{background:#dcfce7;color:#15803d;padding:1px 5px;border-radius:4px;font-size:9px;font-weight:800;margin-left:3px;vertical-align:middle}
-.esx-par{background:#fef9c3;color:#a16207;padding:1px 5px;border-radius:4px;font-size:9px;font-weight:800;margin-left:3px;vertical-align:middle}
-.ec-game-header{color:#fff;padding:9px 16px;border-radius:8px;font-size:12px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-/* keep old exec-tbl for compat */
-.exec-tbl{display:none}
-
-/* Footer */
-.footer{background:#f8f9fb;border-top:1px solid var(--border);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-size:10.5px;color:#8896a7}
+.fsel{border:1px solid var(--border);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--navy);background:var(--white);font-family:'Inter',sans-serif;cursor:pointer;min-width:160px}
+.fsep{width:1px;background:var(--border);height:26px}
+.kpi-strip{display:flex;margin-left:auto}
+.ks{padding:4px 16px;border-left:1px solid var(--border);text-align:right}
+.ks-val{font-size:15px;font-weight:800;color:var(--navy);line-height:1}
+.ks-val.r{color:var(--red)}.ks-val.b{color:var(--blue)}
+.ks-lbl{font-size:8.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+.count-bar{padding:7px 32px;font-size:10.5px;color:var(--muted);background:#f8f9fb;border-bottom:1px solid var(--border);flex-shrink:0}
+.page-wrap{display:flex;flex-direction:column;height:100vh}
+.tab-panel{display:none;flex:1;flex-direction:column;overflow:hidden}
+.tab-panel.active{display:flex}
+.tbl-scroll{flex:1;overflow:auto;padding:0 32px 32px}
+.master-tbl{width:100%;border-collapse:collapse;font-size:11.5px;background:var(--white);border:1px solid var(--border);min-width:1400px}
+.master-tbl thead th{position:sticky;top:0;z-index:10;background:var(--navy);color:rgba(255,255,255,.88);padding:9px 11px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border:1px solid rgba(255,255,255,.1);text-align:center;vertical-align:bottom;white-space:nowrap;line-height:1.35}
+.master-tbl thead th.thl{text-align:left}
+.master-tbl thead th.thr{text-align:right}
+.master-tbl td{padding:8px 11px;border:1px solid var(--border);vertical-align:middle}
+.master-tbl tr.dr:hover td{background:#fafbfc}
+.master-tbl tr.total td{background:#f0f2f5;font-weight:700;border-top:2px solid var(--navy)}
+.c-cluster{font-size:10px;font-weight:600;white-space:nowrap}
+.cl-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.c-cad{font-weight:800;font-size:12.5px;white-space:nowrap;border-left:3px solid transparent!important}
+.c-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:500}
+.c-gap{text-align:right;font-weight:700;color:var(--red);white-space:nowrap}
+.c-gap small{display:block;font-size:9.5px;font-weight:600}
+.c-ctr{text-align:center;font-size:11px}
+.c-txt{font-size:11px;line-height:1.5;color:#374151}
+.c-hcs{text-align:right;font-weight:700;color:var(--blue)}
+.empty{color:#c5bfb5;font-style:italic}
+.footer{background:#f8f9fb;border-top:1px solid var(--border);padding:11px 32px;display:flex;justify-content:space-between;font-size:10.5px;color:#8896a7;flex-shrink:0}
 .footer strong{color:var(--navy)}
 </style>
-</head>
+<script>(function(){function _ok(r,onOk){return r.json().then(function(b){if(!r.ok)throw b;onOk(b);return b;});}window.GRID=window.GRID||{};window.GRID.docId="01KSRARPR2FKGSZJX77A71M6HZ";window.GRID._stateUpdatedAt='';window.GRID._stateUpdatedAtByName=window.GRID._stateUpdatedAtByName||{};window.GRID.states={get:function(name){var n=String(name||'').trim();if(!n)return Promise.reject({error:'validation_error',detail:'state name is required'});return fetch('/api/v1/documents/'+"01KSRARPR2FKGSZJX77A71M6HZ"+'/states/'+encodeURIComponent(n)).then(function(r){return _ok(r,function(b){window.GRID._stateUpdatedAtByName[n]=b.updated_at||'';});});},set:function(name,data,ifUpdatedAt){var n=String(name||'').trim();if(!n)return Promise.reject({error:'validation_error',detail:'state name is required'});return fetch('/api/v1/documents/'+"01KSRARPR2FKGSZJX77A71M6HZ"+'/states/'+encodeURIComponent(n),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({state:data,if_updated_at:(typeof ifUpdatedAt==='string'?ifUpdatedAt:(window.GRID._stateUpdatedAtByName[n]||''))})}).then(function(r){return _ok(r,function(b){window.GRID._stateUpdatedAtByName[n]=b.updated_at||'';});});},patch:function(name,patchData,ifUpdatedAt){var n=String(name||'').trim();if(!n)return Promise.reject({error:'validation_error',detail:'state name is required'});return fetch('/api/v1/documents/'+"01KSRARPR2FKGSZJX77A71M6HZ"+'/states/'+encodeURIComponent(n),{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({patch:patchData,if_updated_at:(typeof ifUpdatedAt==='string'?ifUpdatedAt:(window.GRID._stateUpdatedAtByName[n]||''))})}).then(function(r){return _ok(r,function(b){window.GRID._stateUpdatedAtByName[n]=b.updated_at||'';});});}};window.GRID.state={get:function(){return fetch('/api/v1/documents/'+"01KSRARPR2FKGSZJX77A71M6HZ"+'/state').then(function(r){return _ok(r,function(b){window.GRID._stateUpdatedAt=b.updated_at||'';});});},set:function(data,ifUpdatedAt){return fetch('/api/v1/documents/'+"01KSRARPR2FKGSZJX77A71M6HZ"+'/state',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({state:data,if_updated_at:(typeof ifUpdatedAt==='string'?ifUpdatedAt:(window.GRID._stateUpdatedAt||''))})}).then(function(r){return _ok(r,function(b){window.GRID._stateUpdatedAt=b.updated_at||'';});});},patch:function(patchData,ifUpdatedAt){return fetch('/api/v1/documents/'+"01KSRARPR2FKGSZJX77A71M6HZ"+'/state',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({patch:patchData,if_updated_at:(typeof ifUpdatedAt==='string'?ifUpdatedAt:(window.GRID._stateUpdatedAt||''))})}).then(function(r){return _ok(r,function(b){window.GRID._stateUpdatedAt=b.updated_at||'';});});}};}());</script></head>
 <body>
-
 <script>
-const CLUSTER_COLOR={'Nordeste':'#1565c0','RIO-SUL':'#2e7d32',"MG's":'#6a1b9a','Cajamar 01':'#ad1457','Cajamar 02':'#c62828','GRU':'#00838f','São Paulo':'#e65100','Metros':'#00695c','RCs':'#37474f','XS-SP':'#006064'};
-const GAME_LABELS=['Jogo 1 · Sáb, 13/06 · 19h00–20h55','Jogo 2 · Sex, 19/06 · 21h30–23h25','Jogo 3 · Qua, 24/06 · 19h00–20h55'];
-const GAME_TAB=['g1','g2','g3'];
-
-const DATA={
-  BRSP04:{cluster:'Cajamar 01',jogos:[
-    {thpBase:271976,thpCopa:225579,parada:'18:30–21:30',refBase:'18:00–20:00',refCopa:'16:00–18:00',abs:'11% → 13%',hcsTotal:0,hcsImp:497,
-     turnos:[{t:'T1',ent:'06:00',sai:'14:00',acao:'Normal — sem impacto',st:'Normal',hcs:210},{t:'T2',ent:'14:00',sai:'22:00',acao:'+1h postergado',st:'Impacto',hcs:195},{t:'T3',ent:'22:00',sai:'06:00',acao:'+1h postergado',st:'Impacto',hcs:170},{t:'T4',ent:'08:00',sai:'17:00',acao:'+1h postergado',st:'Impacto',hcs:88},{t:'T5',ent:'17:00',sai:'01:00',acao:'+1h postergado',st:'Impacto',hcs:112}],
-     hcsTbl:[{t:'T1',out:89,inp:89,mwh:89,outros:89,tot:356},{t:'T2',out:144,inp:144,mwh:144,outros:144,tot:576},{t:'T3',out:18,inp:18,mwh:18,outros:18,tot:72}],hcsTot:{out:251,inp:251,mwh:251,outros:251,tot:1004},
-     etds:[{orig:'19:00',ant:'15:00',delta:'-4',vol:'12.400',obs:'Antecipação 4h'},{orig:'20:00',ant:'16:00',delta:'-4',vol:'9.800',obs:'Antecipação 4h'},{orig:'21:00',ant:'17:00',delta:'-4',vol:'7.200',obs:'Antecipação 4h'},{orig:'22:00',ant:'18:00',delta:'-4',vol:'5.100',obs:'Antecipação 4h'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 durante a janela do jogo.',p:'18:30–21:30',r:'Gestor Local'},{c:'Refeitório',a:'Antecipação de 2h.',p:'16:00–18:00',r:'—'}],
-     obs:'TV na área de descanso / projeção. Entrada às 21:30 — assistem em casa. Saída antecipada às 18:00.'},
-    {thpBase:311860,thpCopa:272072,parada:'21:30–23:30',refBase:'18:00–20:00',refCopa:'18:00–20:00',abs:'—',hcsTotal:0,hcsImp:528,
-     turnos:[{t:'T1',ent:'06:00',sai:'14:00',acao:'Normal',st:'Normal',hcs:0},{t:'T2',ent:'14:00',sai:'22:00',acao:'Postergado',st:'Impacto',hcs:0},{t:'T3',ent:'22:00',sai:'06:00',acao:'Postergado',st:'Impacto',hcs:0}],
-     hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},
-     etds:[{orig:'22:00',ant:'18:00',delta:'-4',vol:'—',obs:'Antecipação'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 durante a janela do jogo.',p:'21:30–23:30',r:'Gestor Local'}],
-     obs:''},
-    {thpBase:356785,thpCopa:291192,parada:'18:30–21:30',refBase:'18:00–20:00',refCopa:'16:00–18:00',abs:'—',hcsTotal:0,hcsImp:622,
-     turnos:[{t:'T1',ent:'06:00',sai:'14:00',acao:'Normal',st:'Normal',hcs:0},{t:'T2',ent:'14:00',sai:'22:00',acao:'Postergado',st:'Impacto',hcs:0},{t:'T3',ent:'22:00',sai:'06:00',acao:'Postergado',st:'Impacto',hcs:0}],
-     hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},
-     etds:[{orig:'20:00',ant:'16:00',delta:'-4',vol:'—',obs:'Antecipação'},{orig:'22:00',ant:'18:00',delta:'-4',vol:'—',obs:'Antecipação'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 durante a janela do jogo.',p:'18:30–21:30',r:'Gestor Local'}],
-     obs:''}
-  ]},
-  BRSP06:{cluster:'São Paulo',jogos:[
-    {thpBase:246718,thpCopa:215878,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:989,hcsImp:684,
-     turnos:[{t:'T1',ent:'06:00',sai:'14:20',acao:'Sem alteração.',st:'Normal',hcs:0},{t:'T2',ent:'14:20',sai:'20:00',acao:'Saída antecipada, jantar normal até 20:00',st:'Impacto',hcs:0},{t:'T3',ent:'20:00',sai:'06:00',acao:'Entrada antecipada, saída normal fazendo HE até 06:00',st:'Impacto',hcs:0}],
-     hcsTbl:[{t:'T2',out:56,inp:631,mwh:133,outros:103,tot:923}],hcsTot:{out:56,inp:631,mwh:133,outros:103,tot:923},
-     etds:[],cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'18:00–22:00',r:'—'}],
-     obs:''},
-    {thpBase:310800,thpCopa:271950,parada:'21:30–23:30',refBase:'—',refCopa:'—',abs:'—',hcsTotal:1233,hcsImp:1455,
-     turnos:[{t:'T1',ent:'06:00',sai:'14:20',acao:'Sem alteração.',st:'Normal',hcs:0},{t:'T2',ent:'14:20',sai:'22:40',acao:'Jantar antecipado para 17:30–18:30. Sem alteração de transporte.',st:'Impacto',hcs:0},{t:'T3',ent:'22:40',sai:'06:00',acao:'Sem alteração.',st:'Normal',hcs:0}],
-     hcsTbl:[{t:'T2',out:56,inp:661,mwh:135,outros:103,tot:955}],hcsTot:{out:56,inp:661,mwh:135,outros:103,tot:955},
-     etds:[],cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'21:30–23:30',r:'—'}],
-     obs:''},
-    {thpBase:362932,thpCopa:317566,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:1456,hcsImp:1008,
-     turnos:[{t:'T1',ent:'06:00',sai:'14:20',acao:'Sem alteração.',st:'Normal',hcs:0},{t:'T2',ent:'14:20',sai:'23:40',acao:'Jantar antecipado para 17:30–18:30. HE para troca de turno com T3.',st:'Impacto',hcs:0},{t:'T3',ent:'23:40',sai:'06:00',acao:'Entrada postergada pós-jogo.',st:'Impacto',hcs:0}],
-     hcsTbl:[{t:'T2',out:56,inp:631,mwh:133,outros:103,tot:923}],hcsTot:{out:56,inp:631,mwh:133,outros:103,tot:923},
-     etds:[],cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'18:00–22:00',r:'—'}],
-     obs:''}
-  ]},
-  BRSP09:{cluster:'Cajamar 02',jogos:[
-    {thpBase:1374,thpCopa:1132,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:10,hcsImp:10,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''},
-    {thpBase:2162,thpCopa:1802,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:17,hcsImp:17,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''},
-    {thpBase:2136,thpCopa:1792,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:17,hcsImp:17,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''}
-  ]},
-  BRSP14:{cluster:'Cajamar 01',jogos:[
-    {thpBase:77918,thpCopa:64873,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:216,hcsImp:216,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[{c:'CAP5',a:'Zerar CAP5 na janela.',p:'18:00–22:00',r:'—'}],obs:''},
-    {thpBase:104024,thpCopa:84873,parada:'21:30–23:30',refBase:'—',refCopa:'—',abs:'—',hcsTotal:308,hcsImp:308,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[{c:'CAP5',a:'Zerar CAP5 na janela.',p:'21:30–23:30',r:'—'}],obs:''},
-    {thpBase:136218,thpCopa:109942,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:343,hcsImp:321,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[{c:'CAP5',a:'Zerar CAP5 na janela.',p:'18:00–22:00',r:'—'}],obs:''}
-  ]},
-  BRSP18:{cluster:'GRU',jogos:[
-    {thpBase:56295,thpCopa:43049,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:388,hcsImp:225,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ J2 e J3 sem HCs — aguardando preenchimento.'},
-    {thpBase:66056,thpCopa:51115,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:388,hcsImp:210,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''},
-    {thpBase:82222,thpCopa:60088,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:388,hcsImp:225,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''}
-  ]},
-  BRSP19:{cluster:'GRU',jogos:[
-    {thpBase:88417,thpCopa:73386,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:544,hcsImp:307,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ J2 e J3 sem HCs.'},
-    {thpBase:96205,thpCopa:81954,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:0,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ Aguardando HCs J2.'},
-    {thpBase:111657,thpCopa:90775,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:0,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ Aguardando HCs J3.'}
-  ]},
-  BRSP24:{cluster:'Metros',jogos:[
-    {thpBase:8000,thpCopa:6800,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:35,hcsImp:10,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''},
-    {thpBase:12000,thpCopa:10200,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:48,hcsImp:10,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''},
-    {thpBase:16000,thpCopa:13800,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:48,hcsImp:23,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''}
-  ]},
-  BRSP30:{cluster:'GRU',jogos:[
-    {thpBase:3000,thpCopa:2500,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:11,hcsImp:7,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''},
-    {thpBase:3000,thpCopa:2500,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:11,hcsImp:7,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''},
-    {thpBase:3000,thpCopa:2500,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:11,hcsImp:7,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''}
-  ]},
-  BRMG01:{cluster:"MG's",jogos:[
-    {thpBase:52660,thpCopa:41091,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:109,hcsImp:192,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ J2 em branco, J3 incompleto.'},
-    {thpBase:0,thpCopa:0,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:0,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ Aguardando preenchimento J2.'},
-    {thpBase:150939,thpCopa:120605,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:109,hcsImp:0,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ Aguardando preenchimento J3.'}
-  ]},
-  BRMG04:{cluster:"MG's",jogos:[
-    {thpBase:792,thpCopa:703,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:13,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ HCs total no ② não preenchido.'},
-    {thpBase:1027,thpCopa:939,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:15,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''},
-    {thpBase:1868,thpCopa:1721,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:23,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''}
-  ]},
-  BRRC02:{cluster:'RCs',jogos:[
-    {thpBase:556507,thpCopa:426019,parada:'18:40–21:20',refBase:'—',refCopa:'—',abs:'—',hcsTotal:294,hcsImp:294,
-     turnos:[{t:'T1',ent:'07:40',sai:'16:00',acao:'Sem alteração.',st:'Normal',hcs:0},{t:'T2',ent:'16:00',sai:'00:00',acao:'T2 opera normal, para às 18:40, retorna às 21:20. 50% jantar 17:00–18:00, 50% jantar 17:50–18:40.',st:'Impacto',hcs:294},{t:'T3',ent:'00:00',sai:'07:40',acao:'Sem alteração.',st:'Normal',hcs:0}],
-     hcsTbl:[{t:'T2',out:20,inp:191,mwh:39,outros:44,tot:294}],hcsTot:{out:20,inp:191,mwh:39,outros:44,tot:294},
-     etds:[],cfg:[{c:'CAP5',a:'Zerar capacidade durante a janela do jogo.',p:'18:40–21:20',r:'Flow Local'}],
-     obs:''},
-    {thpBase:1142409,thpCopa:931039,parada:'21:10–00:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:318,hcsImp:318,
-     turnos:[{t:'T1',ent:'07:40',sai:'16:00',acao:'Sem alteração.',st:'Normal',hcs:0},{t:'T2',ent:'16:00',sai:'00:00',acao:'T2 NORMAL, PÁRA AS 21:10, RETORNA 00:00, HE ATÉ 02:00. T2 jantar até 20:00. T3 jantar normal.',st:'Impacto',hcs:318},{t:'T3',ent:'00:00',sai:'07:40',acao:'Entrada postergada para 02:00.',st:'Impacto',hcs:0}],
-     hcsTbl:[{t:'T2',out:20,inp:196,mwh:43,outros:59,tot:318}],hcsTot:{out:20,inp:196,mwh:43,outros:59,tot:318},
-     etds:[],cfg:[{c:'CAP5',a:'Zerar capacidade durante a janela do jogo.',p:'21:10–00:00',r:'Flow Local'}],
-     obs:'Jogo noturno — T3 com entrada postergada para 02:00.'},
-    {thpBase:1177247,thpCopa:962678,parada:'18:40–21:20',refBase:'—',refCopa:'—',abs:'—',hcsTotal:326,hcsImp:326,
-     turnos:[{t:'T1',ent:'07:40',sai:'16:00',acao:'Sem alteração.',st:'Normal',hcs:0},{t:'T2',ent:'16:00',sai:'00:00',acao:'T2 OPERA NORMAL, PÁRA AS 18:40, RETORNA 21:20. 50% janta 17:00–18:00, 50% janta 17:50–18:40.',st:'Impacto',hcs:326},{t:'T3',ent:'00:00',sai:'07:40',acao:'Sem alteração.',st:'Normal',hcs:0}],
-     hcsTbl:[{t:'T2',out:19,inp:205,mwh:43,outros:59,tot:326}],hcsTot:{out:19,inp:205,mwh:43,outros:59,tot:326},
-     etds:[],cfg:[{c:'CAP5',a:'Zerar capacidade durante a janela do jogo.',p:'18:40–21:20',r:'Flow Local'}],
-     obs:''}
-  ]},
-  BRRC03:{cluster:'RCs',jogos:[
-    {thpBase:508246,thpCopa:443189,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:341,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ THP e HCs Impacto ✅ — falta Total HCs no ②, Turnos e Config.'},
-    {thpBase:531848,thpCopa:437985,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:296,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ THP e HCs Impacto ✅ — falta Total HCs no ②.'},
-    {thpBase:546545,thpCopa:431953,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:340,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ THP e HCs Impacto ✅ — falta Total HCs no ②.'}
-  ]},
-  BRRC01:{cluster:'RCs',jogos:[
-    {thpBase:1187325,thpCopa:1030006,parada:'18:20–21:20',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:923,
-     turnos:[{t:'T1',ent:'06:00',sai:'14:20',acao:'Sem alteração.',st:'Normal',hcs:0},{t:'T2',ent:'14:20',sai:'20:00',acao:'Saída antecipada — docas fechadas das 18:20 às 21:20.',st:'Impacto',hcs:0}],
-     hcsTbl:[{t:'T2',out:56,inp:631,mwh:133,outros:103,tot:923}],hcsTot:{out:56,inp:631,mwh:133,outros:103,tot:923},
-     etds:[],cfg:[{c:'CAP5',a:'Fechar docas das 18:20 às 21:20.',p:'18:20–21:20',r:'Flow Local'}],
-     obs:'Impacto de 3h sem recebimento. CAD fecha às 22h40 e só reabre às 22h40 do DOM — negociando antecipação da curva de recebimento até as 18h.'},
-    {thpBase:1527246,thpCopa:1340084,parada:'20:40–23:40',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:811,
-     turnos:[{t:'T2',ent:'14:20',sai:'22:40',acao:'Jantar antecipado 17:30–18:30. HE troca com T3.',st:'Impacto',hcs:0},{t:'T3',ent:'22:40',sai:'06:00',acao:'Entrada postergada pós-jogo.',st:'Impacto',hcs:0}],
-     hcsTbl:[{t:'T3',out:48,inp:573,mwh:110,outros:81,tot:811}],hcsTot:{out:48,inp:573,mwh:110,outros:81,tot:811},
-     etds:[],cfg:[{c:'CAP5',a:'Fechar docas das 20:40 às 23:40.',p:'20:40–23:40',r:'Flow Local'}],
-     obs:'Impacto de 3h. Possível impacto em SLA de pátio com curvas concentradas próximo ao horário do jogo.'},
-    {thpBase:1527246,thpCopa:1340084,parada:'18:20–21:20',refBase:'—',refCopa:'—',abs:'—',hcsTotal:0,hcsImp:955,
-     turnos:[{t:'T2',ent:'14:20',sai:'22:40',acao:'Jantar antecipado.',st:'Impacto',hcs:0}],
-     hcsTbl:[{t:'T2',out:56,inp:661,mwh:135,outros:103,tot:955}],hcsTot:{out:56,inp:661,mwh:135,outros:103,tot:955},
-     etds:[],cfg:[{c:'CAP5',a:'Fechar docas das 18:20 às 21:20.',p:'18:20–21:20',r:'Flow Local'}],
-     obs:'Impacto de 3h. Possível impacto em SLA de pátio.'}
-  ]},
-  BRES01:{cluster:'RCs',jogos:[
-    {thpBase:0,thpCopa:0,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:26,hcsImp:0,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:'⚠️ J1 THP Base zerado — aguardando preenchimento.'},
-    {thpBase:6000,thpCopa:5000,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:46,hcsImp:22,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''},
-    {thpBase:6000,thpCopa:5000,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:46,hcsImp:22,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''}
-  ]},
-  BRDF01:{cluster:'Metros',jogos:[
-    {thpBase:8000,thpCopa:6800,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:36,hcsImp:18,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''},
-    {thpBase:12000,thpCopa:9800,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:74,hcsImp:29,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''},
-    {thpBase:16000,thpCopa:14200,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:67,hcsImp:13,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''}
-  ]},
-  BRSP15:{cluster:'Cajamar 01',jogos:[
-    {thpBase:64993,thpCopa:51763,parada:'18:00–22:00',refBase:'—',refCopa:'16:00–18:00',abs:'—',hcsTotal:142,hcsImp:142,
-     turnos:[{t:'T1',ent:'05:45',sai:'14:45',acao:'Sem impacto',st:'Normal',hcs:0},{t:'T2',ent:'14:30',sai:'23:00',acao:'Parada para assistir ao jogo',st:'Impacto',hcs:0},{t:'T3',ent:'22:30',sai:'07:00',acao:'Antecipação de entrada',st:'Impacto',hcs:0}],
-     hcsTbl:[{t:'T2',out:42,inp:0,mwh:0,outros:12,tot:54},{t:'T3',out:30,inp:0,mwh:0,outros:10,tot:40},{t:'T4',out:0,inp:23,mwh:0,outros:0,tot:23}],hcsTot:{out:72,inp:23,mwh:0,outros:22,tot:142},
-     etds:[{orig:'20:00',ant:'16:00',delta:'-4h',vol:'18.734',obs:'Antecipação de 4h'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'18:00–22:00',r:'Gestor Local'},{c:'Fretado',a:'Ajuste de roteiros.',p:'—',r:'People'},{c:'Refeitório',a:'Antecipação do horário.',p:'16:00–18:00',r:'—'}],
-     obs:''},
-    {thpBase:87627,thpCopa:72736,parada:'21:30–23:30',refBase:'—',refCopa:'—',abs:'—',hcsTotal:362,hcsImp:362,
-     turnos:[{t:'T1',ent:'05:45',sai:'14:45',acao:'Sem impacto',st:'Normal',hcs:0},{t:'T2',ent:'14:30',sai:'23:00',acao:'Parada para assistir ao jogo',st:'Impacto',hcs:0},{t:'T3',ent:'22:30',sai:'07:00',acao:'Antecipação de entrada',st:'Impacto',hcs:0},{t:'T4',ent:'09:00',sai:'18:00',acao:'Sem impacto',st:'Normal',hcs:0},{t:'T5',ent:'17:00',sai:'02:00',acao:'Parada para assistir ao jogo',st:'Impacto',hcs:0}],
-     hcsTbl:[{t:'T2',out:52,inp:0,mwh:0,outros:0,tot:52},{t:'T3',out:69,inp:0,mwh:0,outros:0,tot:69},{t:'T4',out:0,inp:46,mwh:0,outros:0,tot:46},{t:'T5',out:25,inp:44,mwh:0,outros:0,tot:69}],hcsTot:{out:146,inp:90,mwh:0,outros:0,tot:308},
-     etds:[],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'21:30–23:30',r:'Gestor Local'},{c:'Fretado',a:'Ajuste de roteiros.',p:'—',r:'People'},{c:'Refeitório',a:'Sem alteração.',p:'—',r:'—'}],
-     obs:''},
-    {thpBase:108861,thpCopa:88763,parada:'18:00–22:00',refBase:'—',refCopa:'16:00–18:00',abs:'—',hcsTotal:387,hcsImp:387,
-     turnos:[{t:'T1',ent:'05:45',sai:'14:45',acao:'Sem impacto',st:'Normal',hcs:0},{t:'T2',ent:'14:30',sai:'23:00',acao:'Parada para assistir ao jogo',st:'Impacto',hcs:0},{t:'T3',ent:'22:30',sai:'07:00',acao:'Antecipação de entrada',st:'Impacto',hcs:0}],
-     hcsTbl:[{t:'T2',out:72,inp:23,mwh:0,outros:22,tot:142}],hcsTot:{out:72,inp:23,mwh:0,outros:22,tot:387},
-     etds:[{orig:'20:00',ant:'16:00',delta:'-4h',vol:'—',obs:'Antecipação'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'18:00–22:00',r:'Gestor Local'}],
-     obs:''}
-  ]},
-
-  BRRS01:{cluster:'Metros',jogos:[
-    {thpBase:16000,thpCopa:15000,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:24,hcsImp:7,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''},
-    {thpBase:16000,thpCopa:15200,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:55,hcsImp:18,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''},
-    {thpBase:16000,thpCopa:12300,parada:'—',refBase:'—',refCopa:'—',abs:'—',hcsTotal:76,hcsImp:30,
-     turnos:[],hcsTbl:[],hcsTot:{out:0,inp:0,mwh:0,outros:0,tot:0},etds:[],cfg:[],obs:''}
-  ]},
-
-  BRBA01:{cluster:'Nordeste',jogos:[
-    {thpBase:190664,thpCopa:164108,parada:'19:00–21:00',refBase:'18:00–20:00',refCopa:'16:00–18:00',abs:'11% → 13%',hcsTotal:1072,hcsImp:414,
-     turnos:[{t:'T1',ent:'05:55',sai:'15:35',acao:'Sem alteração',st:'Normal',hcs:440},{t:'T2',ent:'14:40',sai:'00:07',acao:'Jantar antecipado às 17:30h e 18h. Sem alteração de transporte.',st:'Impacto',hcs:414},{t:'T3',ent:'22:40',sai:'07:27',acao:'Sem alteração',st:'Normal',hcs:218}],
-     hcsTbl:[{t:'T2',out:272,inp:105,mwh:0,outros:37,tot:414}],hcsTot:{out:272,inp:105,mwh:0,outros:37,tot:414},
-     etds:[{orig:'20:00',ant:'16:00',delta:'-4h',vol:'40.704',obs:'Antecipação de 4h para garantir SLA'},{orig:'01:00',ant:'01:00',delta:'0',vol:'24.916',obs:'Ajuste de cap'},{orig:'03:00',ant:'03:00',delta:'0',vol:'51.109',obs:'Ajuste de cap'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP durante a parada da operação para assistir o jogo.',p:'19:00–21:00',r:'Vaniri Chaves'},{c:'Refeitório',a:'Alinhamento da antecipação do horário de refeição com refeitório + preparação de lanche.',p:'16:00–18:00',r:'Maria Luiza Duplat'}],
-     obs:'Impacto na capacidade dos CPTs de 01h e 03h, gestionado via CAP5.\nRisco de diferimento: CPT 01h: 3.949 unid. | CPT 03h: 9.266 unid.\nRisco estimado no dia: ~9%'},
-    {thpBase:211253,thpCopa:178897,parada:'22:00–00:00',refBase:'18:00–20:00',refCopa:'18:00–20:00',abs:'—',hcsTotal:1183,hcsImp:652,
-     turnos:[{t:'T1',ent:'05:55',sai:'15:35',acao:'Sem alteração',st:'Normal',hcs:443},{t:'T2',ent:'14:40',sai:'00:07',acao:'Sem alteração',st:'Normal',hcs:426},{t:'T3',ent:'22:40',sai:'07:27',acao:'Antecipação de 100% do T3 — entrada às 21h para assistir ao jogo.',st:'Impacto',hcs:226},{t:'T4',ent:'08:40',sai:'20:20',acao:'Sem alteração',st:'Normal',hcs:88}],
-     hcsTbl:[{t:'T2',out:282,inp:107,mwh:0,outros:37,tot:426},{t:'T3',out:206,inp:0,mwh:0,outros:20,tot:226}],hcsTot:{out:488,inp:107,mwh:0,outros:57,tot:652},
-     etds:[{orig:'01:00',ant:'01:00',delta:'0',vol:'36.817',obs:'Ajuste de cap'},{orig:'03:00',ant:'03:00',delta:'0',vol:'35.963',obs:'Ajuste de cap'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP durante a parada da operação para assistir o jogo.',p:'22:00–00:00',r:'Vaniri Chaves'},{c:'Fretado',a:'Antecipação do roteiro do T3 para entrada às 21h no CAD.',p:'De 22h → 21h',r:'Maria Luiza Duplat'},{c:'Refeitório',a:'Alinhamento com refeitório sobre lanche para o horário do jogo.',p:'—',r:'Maria Luiza Duplat'}],
-     obs:'Risco de diferimento: CPT 01h: 9.650 unid. | CPT 03h: 5.650 unid.\nRisco estimado no dia: ~8%'},
-    {thpBase:230840,thpCopa:193963,parada:'19:00–21:00',refBase:'18:00–20:00',refCopa:'16:00–18:00',abs:'—',hcsTotal:1215,hcsImp:414,
-     turnos:[{t:'T1',ent:'05:55',sai:'15:35',acao:'Sem alteração',st:'Normal',hcs:433},{t:'T2',ent:'14:40',sai:'00:07',acao:'Jantar antecipado às 17:30h e 18h. Sem alteração de transporte.',st:'Impacto',hcs:414},{t:'T3',ent:'22:40',sai:'07:27',acao:'Sem alteração',st:'Normal',hcs:219},{t:'T4',ent:'08:40',sai:'20:20',acao:'Saída antecipada às 17:30h.',st:'Impacto',hcs:149}],
-     hcsTbl:[{t:'T2',out:274,inp:103,mwh:0,outros:37,tot:414}],hcsTot:{out:274,inp:103,mwh:0,outros:37,tot:414},
-     etds:[{orig:'20:00',ant:'16:00',delta:'-4h',vol:'53.283',obs:'Antecipação de 4h para garantir SLA'},{orig:'01:00',ant:'01:00',delta:'0',vol:'49.367',obs:'Ajuste de cap'},{orig:'03:00',ant:'03:00',delta:'0',vol:'54.275',obs:'Ajuste de cap'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP durante a parada da operação para assistir o jogo.',p:'19:00–21:00',r:'Vaniri Chaves'},{c:'Fretado',a:'Antecipação da saída do T4 às 17:30h.',p:'17:30',r:'Maria Luiza Duplat'},{c:'Refeitório',a:'Alinhamento com refeitório sobre lanche para o horário do jogo.',p:'16:00–18:00',r:'Maria Luiza Duplat'}],
-     obs:'Risco de diferimento: CPT 01h: 9.887 unid. | CPT 03h: 16.136 unid.\nRisco estimado no dia: ~12%'}
-  ]},
-
-  BRBA02:{cluster:'Nordeste',jogos:[
-    {thpBase:16610,thpCopa:14446,parada:'19:00–21:15',refBase:'19:00–21:00',refCopa:'18:00–19:00',abs:'6,52%',hcsTotal:186,hcsImp:62,
-     turnos:[{t:'T1',ent:'06:15',sai:'15:15',acao:'Sem alterações',st:'Normal',hcs:67},{t:'T2',ent:'15:00',sai:'23:47',acao:'Sem alterações',st:'Normal',hcs:62},{t:'T3',ent:'23:00',sai:'07:07',acao:'Sem alterações',st:'Normal',hcs:57}],
-     hcsTbl:[{t:'T2',out:44,inp:13,mwh:0,outros:5,tot:62}],hcsTot:{out:44,inp:13,mwh:0,outros:5,tot:62},
-     etds:[{orig:'20:00',ant:'16:00',delta:'-4h',vol:'3.550',obs:'Antecipação de 4h'},{orig:'22:00',ant:'22:00',delta:'0',vol:'2.386',obs:'Ajuste de cap'},{orig:'00:00',ant:'00:00',delta:'0',vol:'4.944',obs:'Ajuste de cap'}],
-     cfg:[{c:'CAP5',a:'Zerar a capacidade no intervalo de parada para assistir ao jogo.',p:'19:00–21:15',r:'Amanda Papa'},{c:'CPT',a:'Ajuste de capacidade conforme parada programada.',p:'—',r:'Amanda Papa'},{c:'Fretado',a:'Sem impacto.',p:'—',r:'—'},{c:'Refeitório',a:'Antecipação da abertura em 1h.',p:'18:00–19:00',r:'Maria Luiza Duplat'}],
-     obs:'Risco de diferimento: CPT 22h: 176 unid. | CPT 00h: 632 unid.\nRisco estimado no dia: ~6,5%'},
-    {thpBase:17350,thpCopa:14833,parada:'21:00–23:40',refBase:'19:00–21:00',refCopa:'20:00–21:00',abs:'6,39%',hcsTotal:210,hcsImp:125,
-     turnos:[{t:'T1',ent:'06:15',sai:'15:15',acao:'Sem alterações',st:'Normal',hcs:73},{t:'T2',ent:'15:00',sai:'23:47',acao:'Sem alterações',st:'Normal',hcs:67},{t:'T3',ent:'23:00',sai:'07:07',acao:'+2 horas de HE — entrada antecipada para acompanhar o jogo.',st:'Impacto',hcs:58},{t:'T4',ent:'09:00',sai:'18:00',acao:'Sem alterações',st:'Normal',hcs:12}],
-     hcsTbl:[{t:'T2',out:42,inp:20,mwh:0,outros:5,tot:67},{t:'T3',out:35,inp:19,mwh:0,outros:4,tot:58}],hcsTot:{out:77,inp:39,mwh:0,outros:9,tot:125},
-     etds:[{orig:'22:00',ant:'18:00',delta:'-4h',vol:'3.103',obs:'Antecipação de 4h'},{orig:'00:00',ant:'00:00',delta:'0',vol:'2.288',obs:'Ajuste de cap'}],
-     cfg:[{c:'CAP5',a:'Zerar a capacidade no intervalo de parada para assistir ao jogo.',p:'21:00–23:40',r:'Amanda Papa'},{c:'CPT',a:'Ajuste de capacidade conforme parada programada.',p:'—',r:'Amanda Papa'},{c:'Fretado',a:'Antecipação do T3 em 2h para acompanhar o jogo em casa.',p:'De 23h → 21h',r:'Maria Luiza Duplat'}],
-     obs:'Risco de diferimento: CPT 00h: 94 unid.\nRisco estimado no dia: ~0,6%'},
-    {thpBase:18562,thpCopa:15791,parada:'19:00–21:15',refBase:'19:00–21:00',refCopa:'18:00–19:00',abs:'6,28%',hcsTotal:219,hcsImp:67,
-     turnos:[{t:'T1',ent:'06:15',sai:'15:15',acao:'Sem alterações',st:'Normal',hcs:72},{t:'T2',ent:'15:00',sai:'23:47',acao:'Sem alterações',st:'Normal',hcs:67},{t:'T3',ent:'23:00',sai:'07:07',acao:'Sem alterações',st:'Normal',hcs:57},{t:'T4',ent:'09:00',sai:'20:00',acao:'-2,5 horas — saída antecipada para acompanhar o jogo.',st:'Impacto',hcs:23}],
-     hcsTbl:[{t:'T2',out:42,inp:21,mwh:0,outros:4,tot:67}],hcsTot:{out:42,inp:21,mwh:0,outros:4,tot:67},
-     etds:[{orig:'20:00',ant:'16:00',delta:'-4h',vol:'2.011',obs:'Antecipação de 4h'},{orig:'22:00',ant:'22:00',delta:'0',vol:'3.432',obs:'Ajuste de cap'},{orig:'00:00',ant:'00:00',delta:'0',vol:'4.685',obs:'Ajuste de cap'}],
-     cfg:[{c:'CAP5',a:'Zerar a capacidade no intervalo de parada para assistir ao jogo.',p:'19:00–21:15',r:'Amanda Papa'},{c:'CPT',a:'Ajuste de capacidade conforme parada programada.',p:'—',r:'Amanda Papa'},{c:'Fretado',a:'Antecipar saída do T4.',p:'17:30',r:'Maria Luiza Duplat'},{c:'Refeitório',a:'Antecipação da abertura em 1h.',p:'18:00–19:00',r:'Maria Luiza Duplat'}],
-     obs:'Risco de diferimento: CPT 22h: 438 unid. | CPT 00h: 918 unid.\nRisco estimado no dia: ~8%'}
-  ]},
-
-  BRPE01:{cluster:'Nordeste',jogos:[
-    {thpBase:115928,thpCopa:92548,parada:'18:00–22:00',refBase:'18:00–20:00',refCopa:'17:30–18:30',abs:'6% → 12%',hcsTotal:244,hcsImp:244,
-     turnos:[{t:'T1',ent:'06:15',sai:'15:15',acao:'Normal — Sem impacto',st:'Normal',hcs:0},{t:'T2',ent:'15:00',sai:'23:47',acao:'HE Antecipação — colabs realizam horas extras antes da parada para compensar a janela do jogo.',st:'Impacto',hcs:244},{t:'T3',ent:'23:00',sai:'07:07',acao:'Normal — Sem impacto',st:'Normal',hcs:0},{t:'T4',ent:'09:00',sai:'20:00',acao:'Folga',st:'Normal',hcs:0}],
-     hcsTbl:[{t:'T2',out:156,inp:68,mwh:0,outros:20,tot:244}],hcsTot:{out:156,inp:68,mwh:0,outros:20,tot:244},
-     etds:[{orig:'19:00',ant:'15:00',delta:'-4h',vol:'16.846',obs:'Antecipação de 4h para garantir SLA'},{orig:'20:00',ant:'16:00',delta:'-4h',vol:'5.361',obs:'Antecipação de 4h para garantir SLA'}],
-     cfg:[{c:'CAP5',a:'Zerar no período previsto de parada — 18:00 às 22:00.',p:'18:00–22:00',r:'Valdinei Calazans'},{c:'Fretado',a:'Ajuste de roteiro para HE do T2 — garantir transporte para os colaboradores em HE.',p:'—',r:'Maira & Ive'},{c:'Refeitório',a:'50% dos colaboradores às 17:30 | 50% às 18:00 — antecipação para liberar o refeitório antes do jogo.',p:'17:30–18:30',r:'Maira & Ive'}],
-     obs:'Aguardando validação das HEs. Status do Refeitório e Transporte para atender as demandas.'},
-    {thpBase:133837,thpCopa:108757,parada:'20:30–00:00',refBase:'18:00–20:00',refCopa:'18:00–20:00',abs:'6%',hcsTotal:403,hcsImp:403,
-     turnos:[{t:'T1',ent:'06:15',sai:'15:15',acao:'Normal — Sem impacto',st:'Normal',hcs:0},{t:'T2',ent:'15:00',sai:'23:47',acao:'HE Extensão — T2 permanece em HE para garantir volume antes da parada.',st:'Impacto',hcs:244},{t:'T3',ent:'23:00',sai:'07:07',acao:'HE Antecipação — T3 antecipa entrada para cobrir a janela do jogo.',st:'Impacto',hcs:159},{t:'T4',ent:'09:00',sai:'19:48',acao:'Saída antecipada às 18:00',st:'Impacto',hcs:0}],
-     hcsTbl:[{t:'T2',out:156,inp:68,mwh:0,outros:20,tot:244},{t:'T3',out:145,inp:0,mwh:0,outros:14,tot:159}],hcsTot:{out:301,inp:68,mwh:0,outros:34,tot:403},
-     etds:[{orig:'01:00',ant:'21:00',delta:'-4h',vol:'7.370',obs:'Não será realizado conforme informação de Intel. Controlar na CAP5.'}],
-     cfg:[{c:'CAP5',a:'Zerar no período previsto de parada — 21:00 às 00:00.',p:'21:00–00:00',r:'Valdinei Calazans'},{c:'Fretado',a:'Ajuste de roteiro para HE dos T2 e T3.',p:'—',r:'Maira & Ive'},{c:'Refeitório',a:'Sem alteração.',p:'—',r:'—'}],
-     obs:'Aguardando validação das HEs.'},
-    {thpBase:140571,thpCopa:117923,parada:'18:00–22:00',refBase:'18:00–20:00',refCopa:'17:30–18:30',abs:'6% → 12%',hcsTotal:244,hcsImp:244,
-     turnos:[{t:'T1',ent:'06:15',sai:'15:15',acao:'Normal — Sem impacto',st:'Normal',hcs:0},{t:'T2',ent:'15:00',sai:'23:47',acao:'HE Antecipação — colabs realizam horas extras antes da parada para compensar a janela do jogo.',st:'Impacto',hcs:0},{t:'T3',ent:'23:00',sai:'07:07',acao:'Normal — Sem impacto',st:'Normal',hcs:244},{t:'T4',ent:'09:00',sai:'19:48',acao:'Saída antecipada às 18:00',st:'Normal',hcs:0}],
-     hcsTbl:[{t:'T2',out:156,inp:68,mwh:0,outros:20,tot:244}],hcsTot:{out:156,inp:68,mwh:0,outros:20,tot:244},
-     etds:[{orig:'19:00',ant:'15:00',delta:'-4h',vol:'13.811',obs:'Antecipação de 4h para garantir SLA'},{orig:'20:00',ant:'16:00',delta:'-4h',vol:'6.600',obs:'Antecipação de 4h para garantir SLA'}],
-     cfg:[{c:'CAP5',a:'Zerar no período previsto de parada — 18:00 às 22:00.',p:'18:00–22:00',r:'Valdinei Calazans'},{c:'Fretado',a:'Ajuste de roteiro para HE do T2.',p:'—',r:'Maira & Ive'},{c:'Refeitório',a:'50% dos colaboradores às 17:30 | 50% às 18:00.',p:'17:30–18:30',r:'Maira & Ive'}],
-     obs:'Aguardando validação das HEs.'}
-  ]},
-
-  BRPR01:{cluster:'RIO-SUL',jogos:[
-    {thpBase:63000,thpCopa:51970,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:527,hcsImp:224,
-     turnos:[{t:'T1',ent:'05:45',sai:'14:45',acao:'Sem impacto',st:'Normal',hcs:0},{t:'T2',ent:'14:15',sai:'23:00',acao:'Antecipação de entrada — assiste ao jogo antes de iniciar o turno.',st:'Impacto',hcs:61},{t:'T3',ent:'22:30',sai:'07:15',acao:'Sem impacto',st:'Normal',hcs:0},{t:'T4',ent:'09:00',sai:'17:50',acao:'Sem impacto',st:'Normal',hcs:0},{t:'T5',ent:'17:45',sai:'02:30',acao:'Antecipação — assiste ao jogo antes de iniciar o turno.',st:'Impacto',hcs:0}],
-     hcsTbl:[{t:'T2',out:61,inp:0,mwh:0,outros:96,tot:157},{t:'T5',out:0,inp:17,mwh:0,outros:50,tot:67}],hcsTot:{out:61,inp:17,mwh:0,outros:146,tot:224},
-     etds:[{orig:'19:00',ant:'18:00',delta:'-1h',vol:'8.900',obs:'Antecipação de 1h'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'18:00–22:00',r:'Flow Local'},{c:'Fretado',a:'Antecipação T2 e T5.',p:'—',r:'People'}],
-     obs:''},
-    {thpBase:83000,thpCopa:62400,parada:'21:30–23:30',refBase:'—',refCopa:'—',abs:'—',hcsTotal:894,hcsImp:750,
-     turnos:[{t:'T1',ent:'05:45',sai:'14:45',acao:'Sem impacto',st:'Normal',hcs:0},{t:'T2',ent:'14:15',sai:'23:00',acao:'Antecipação de entrada',st:'Impacto',hcs:69},{t:'T3',ent:'22:30',sai:'07:15',acao:'Antecipação de entrada',st:'Impacto',hcs:55},{t:'T4',ent:'09:00',sai:'17:50',acao:'Sem impacto',st:'Normal',hcs:0},{t:'T5',ent:'17:45',sai:'02:30',acao:'Antecipação — assiste ao jogo antes de iniciar.',st:'Impacto',hcs:49}],
-     hcsTbl:[{t:'T2',out:69,inp:0,mwh:0,outros:96,tot:165},{t:'T3',out:55,inp:0,mwh:0,outros:96,tot:151},{t:'T5',out:49,inp:59,mwh:0,outros:326,tot:434}],hcsTot:{out:173,inp:59,mwh:0,outros:518,tot:750},
-     etds:[{orig:'23:00',ant:'19:00',delta:'-4h',vol:'5.800',obs:'Antecipação de 4h para garantir SLA'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'21:30–23:30',r:'Flow Local'},{c:'Fretado',a:'Antecipação T2 e T3.',p:'—',r:'People'}],
-     obs:'Jogo mais tardio — atenção à antecipação do T3 para cobertura da operação noturna.'},
-    {thpBase:98000,thpCopa:83400,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:874,hcsImp:634,
-     turnos:[{t:'T1',ent:'05:45',sai:'14:45',acao:'Sem impacto',st:'Normal',hcs:0},{t:'T2',ent:'14:15',sai:'23:00',acao:'Antecipação de entrada',st:'Impacto',hcs:69},{t:'T3',ent:'22:30',sai:'07:15',acao:'Postergação de entrada — T3 entra após o jogo.',st:'Impacto',hcs:55},{t:'T4',ent:'09:00',sai:'17:50',acao:'Antecipação de saída',st:'Impacto',hcs:0},{t:'T5',ent:'17:45',sai:'02:30',acao:'Antecipação de entrada',st:'Impacto',hcs:27}],
-     hcsTbl:[{t:'T2',out:69,inp:0,mwh:0,outros:96,tot:165},{t:'T3',out:55,inp:0,mwh:0,outros:0,tot:55},{t:'T5',out:27,inp:59,mwh:0,outros:328,tot:414}],hcsTot:{out:151,inp:59,mwh:0,outros:424,tot:634},
-     etds:[{orig:'19:00',ant:'18:00',delta:'-1h',vol:'11.000',obs:'Antecipação de 1h'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'18:00–22:00',r:'Flow Local'},{c:'Fretado',a:'Antecipações T2, T4, T5 e postergação T3.',p:'—',r:'People'}],
-     obs:''}
-  ]},
-
-  BRRJ02:{cluster:'RIO-SUL',jogos:[
-    {thpBase:112307,thpCopa:100053,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:308,hcsImp:79,
-     turnos:[{t:'T1',ent:'05:45',sai:'14:45',acao:'Sem impacto',st:'Normal',hcs:125},{t:'T2',ent:'14:07',sai:'23:00',acao:'Postergar saída 1h',st:'Impacto',hcs:79},{t:'T3',ent:'22:20',sai:'06:27',acao:'Sem impacto',st:'Normal',hcs:81},{t:'T4',ent:'09:00',sai:'18:48',acao:'Antecipar saída em 1h',st:'Impacto',hcs:23},{t:'T5',ent:'18:48',sai:'03:30',acao:'Sem impacto',st:'Normal',hcs:0}],
-     hcsTbl:[{t:'T2',out:79,inp:0,mwh:0,outros:0,tot:79}],hcsTot:{out:79,inp:0,mwh:0,outros:0,tot:79},
-     etds:[],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'18:00–22:00',r:'Flow Local'},{c:'Fretado',a:'Postergar saída T2, antecipar saída T4.',p:'±1h',r:'People'}],
-     obs:'Sem ETDs antecipados — estratégia de mitigação via ajuste de turnos e CAP5.'},
-    {thpBase:148197,thpCopa:129065,parada:'21:30–23:30',refBase:'—',refCopa:'—',abs:'—',hcsTotal:391,hcsImp:188,
-     turnos:[{t:'T1',ent:'05:45',sai:'14:45',acao:'Sem impacto',st:'Normal',hcs:125},{t:'T2',ent:'14:07',sai:'23:00',acao:'Postergar saída 1h ou antecipar saída',st:'Impacto',hcs:79},{t:'T3',ent:'22:20',sai:'06:27',acao:'Antecipar entrada em 1h20min',st:'Impacto',hcs:81},{t:'T4',ent:'09:00',sai:'18:48',acao:'Sem impacto',st:'Normal',hcs:78},{t:'T5',ent:'18:48',sai:'03:30',acao:'Sem impacto',st:'Normal',hcs:28}],
-     hcsTbl:[{t:'T2',out:79,inp:0,mwh:0,outros:0,tot:79},{t:'T3',out:81,inp:0,mwh:0,outros:0,tot:81},{t:'T5',out:28,inp:0,mwh:0,outros:0,tot:28}],hcsTot:{out:188,inp:0,mwh:0,outros:0,tot:188},
-     etds:[],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'21:30–23:30',r:'Flow Local'},{c:'Fretado',a:'Postergar T2, antecipar T3.',p:'—',r:'People'}],
-     obs:'Sem ETDs antecipados — estratégia via ajuste de turnos e CAP5.'},
-    {thpBase:159630,thpCopa:138576,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:434,hcsImp:150,
-     turnos:[{t:'T1',ent:'05:45',sai:'14:45',acao:'Sem impacto',st:'Normal',hcs:125},{t:'T2',ent:'14:07',sai:'23:00',acao:'Postergar saída 1h',st:'Impacto',hcs:79},{t:'T3',ent:'22:20',sai:'06:27',acao:'Sem impacto',st:'Normal',hcs:81},{t:'T4',ent:'09:00',sai:'18:48',acao:'Antecipar saída em 1h',st:'Impacto',hcs:78},{t:'T5',ent:'18:48',sai:'03:30',acao:'Sem impacto',st:'Normal',hcs:71}],
-     hcsTbl:[{t:'T2',out:79,inp:0,mwh:0,outros:0,tot:79},{t:'T5',out:71,inp:0,mwh:0,outros:0,tot:71}],hcsTot:{out:150,inp:0,mwh:0,outros:0,tot:150},
-     etds:[],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'18:00–22:00',r:'Flow Local'},{c:'Fretado',a:'Postergar T2, antecipar T4.',p:'±1h',r:'People'}],
-     obs:'Sem ETDs antecipados — estratégia via ajuste de turnos e CAP5.'}
-  ]},
-
-  BRMG02:{cluster:"MG's",jogos:[
-    {thpBase:72859,thpCopa:64477,parada:'18:30–21:30',refBase:'—',refCopa:'—',abs:'—',hcsTotal:243,hcsImp:253,
-     turnos:[{t:'T1',ent:'06:00',sai:'15:00',acao:'Sem impacto',st:'Normal',hcs:113},{t:'T2',ent:'14:30',sai:'23:00',acao:'Parada para assistir ao jogo',st:'Impacto',hcs:77},{t:'T4',ent:'09:00',sai:'18:00',acao:'Saída antecipada',st:'Impacto',hcs:53}],
-     hcsTbl:[{t:'T1',out:60,inp:30,mwh:10,outros:13,tot:113},{t:'T2',out:45,inp:20,mwh:5,outros:7,tot:77},{t:'T4',out:30,inp:13,mwh:4,outros:6,tot:53}],hcsTot:{out:135,inp:63,mwh:19,outros:26,tot:243},
-     etds:[{orig:'20:00',ant:'16:00',delta:'-4h',vol:'—',obs:'Antecipação'},{orig:'22:00',ant:'18:00',delta:'-4h',vol:'—',obs:'Antecipação'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'18:30–21:30',r:'Gestor Local'}],
-     obs:''},
-    {thpBase:96059,thpCopa:84409,parada:'21:30–23:30',refBase:'—',refCopa:'—',abs:'—',hcsTotal:376,hcsImp:396,
-     turnos:[{t:'T1',ent:'06:00',sai:'15:00',acao:'Sem impacto',st:'Normal',hcs:0},{t:'T2',ent:'14:30',sai:'23:00',acao:'Parada para assistir ao jogo',st:'Impacto',hcs:179},{t:'T3',ent:'22:30',sai:'07:00',acao:'Antecipação de entrada',st:'Impacto',hcs:130},{t:'T4',ent:'09:00',sai:'18:00',acao:'Sem impacto',st:'Normal',hcs:67}],
-     hcsTbl:[{t:'T2',out:100,inp:50,mwh:15,outros:14,tot:179},{t:'T3',out:80,inp:35,mwh:10,outros:5,tot:130},{t:'T4',out:40,inp:17,mwh:5,outros:5,tot:67}],hcsTot:{out:220,inp:102,mwh:30,outros:24,tot:376},
-     etds:[{orig:'23:00',ant:'19:00',delta:'-4h',vol:'—',obs:'Antecipação'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'21:30–23:30',r:'Gestor Local'},{c:'Fretado',a:'Antecipar T3.',p:'—',r:'People'}],
-     obs:''},
-    {thpBase:134445,thpCopa:120044,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:614,hcsImp:582,
-     turnos:[{t:'T1',ent:'06:00',sai:'15:00',acao:'Sem impacto',st:'Normal',hcs:345},{t:'T2',ent:'14:30',sai:'23:00',acao:'Parada para assistir ao jogo',st:'Impacto',hcs:252},{t:'T4',ent:'09:00',sai:'18:00',acao:'Saída antecipada',st:'Impacto',hcs:17}],
-     hcsTbl:[{t:'T1',out:190,inp:90,mwh:35,outros:30,tot:345},{t:'T2',out:150,inp:70,mwh:20,outros:12,tot:252},{t:'T4',out:10,inp:5,mwh:1,outros:1,tot:17}],hcsTot:{out:350,inp:165,mwh:56,outros:43,tot:614},
-     etds:[{orig:'20:00',ant:'16:00',delta:'-4h',vol:'—',obs:'Antecipação'},{orig:'22:00',ant:'18:00',delta:'-4h',vol:'—',obs:'Antecipação'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 na janela do jogo.',p:'18:00–22:00',r:'Gestor Local'}],
-     obs:''}
-  ]},
-
-  BRMG03:{cluster:"MG's",jogos:[
-    {thpBase:11682,thpCopa:10284,parada:'18:30–21:15',refBase:'20:30–22:30',refCopa:'21:00–23:00',abs:'25,12%',hcsTotal:83,hcsImp:86,
-     turnos:[{t:'T1',ent:'06:00',sai:'15:00',acao:'Sem impacto',st:'Normal',hcs:0},{t:'T2',ent:'14:30',sai:'23:00',acao:'Parada para assistir ao jogo',st:'Impacto',hcs:0}],
-     hcsTbl:[{t:'T2',out:47,inp:22,mwh:7,outros:10,tot:86}],hcsTot:{out:47,inp:22,mwh:7,outros:10,tot:86},
-     etds:[{orig:'19:00',ant:'15:00',delta:'-4h',vol:'235',obs:'Antecipação de 4h'},{orig:'21:00',ant:'17:00',delta:'-4h',vol:'2.473',obs:'Antecipação de 4h'}],
-     cfg:[{c:'CAP5',a:'Fechar CAP das horas de parada.',p:'18:30–21:15',r:'José Rafael'},{c:'Fretado',a:'Adiantar T2 em 1 hora.',p:'—',r:'People'},{c:'Refeitório',a:'Postergar início em 0,5 hora.',p:'—',r:'—'}],
-     obs:'⚠️ Coluna HCs no ② não preenchida (total = 0 no índice), mas seção ③ está completa.'},
-    {thpBase:17139,thpCopa:15145,parada:'21:00–23:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:120,hcsImp:126,
-     turnos:[{t:'T1',ent:'06:00',sai:'15:00',acao:'Sem impacto',st:'Normal',hcs:0},{t:'T2',ent:'14:30',sai:'23:00',acao:'Parada para assistir ao jogo',st:'Impacto',hcs:0}],
-     hcsTbl:[{t:'T2',out:67,inp:35,mwh:11,outros:13,tot:126}],hcsTot:{out:67,inp:35,mwh:11,outros:13,tot:126},
-     etds:[{orig:'22:00',ant:'18:00',delta:'-4h',vol:'1.200',obs:'Antecipação de 4h'}],
-     cfg:[{c:'CAP5',a:'Fechar CAP das horas de parada.',p:'21:00–23:00',r:'José Rafael'},{c:'Fretado',a:'Adiantar T2 em 1 hora.',p:'—',r:'People'}],
-     obs:'⚠️ Coluna HCs no ② não preenchida.'},
-    {thpBase:27821,thpCopa:24043,parada:'18:30–21:15',refBase:'—',refCopa:'—',abs:'—',hcsTotal:219,hcsImp:223,
-     turnos:[{t:'T1',ent:'06:00',sai:'15:00',acao:'Sem impacto',st:'Normal',hcs:0},{t:'T2',ent:'14:30',sai:'23:00',acao:'Parada para assistir ao jogo',st:'Impacto',hcs:0}],
-     hcsTbl:[{t:'T2',out:127,inp:60,mwh:16,outros:20,tot:223}],hcsTot:{out:127,inp:60,mwh:16,outros:20,tot:223},
-     etds:[{orig:'19:00',ant:'15:00',delta:'-4h',vol:'3.510',obs:'Antecipação de 4h'},{orig:'21:00',ant:'17:00',delta:'-4h',vol:'0',obs:'Aguardando vol.'}],
-     cfg:[{c:'CAP5',a:'Fechar CAP das horas de parada.',p:'18:30–21:15',r:'José Rafael'},{c:'Fretado',a:'Adiantar T2 em 1 hora.',p:'—',r:'People'},{c:'Refeitório',a:'Postergar início em 0,5 hora.',p:'—',r:'—'}],
-     obs:'⚠️ Coluna HCs no ② não preenchida.'}
-  ]},
-
-  BRSC02:{cluster:'RIO-SUL',jogos:[
-    {thpBase:290000,thpCopa:242500,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:2175,hcsImp:2173,
-     turnos:[{t:'T1',ent:'06:40',sai:'15:30',acao:'Sem necessidade de ajuste',st:'OK',hcs:850},{t:'T2',ent:'15:15',sai:'00:00',acao:'Sem necessidade de ajuste',st:'OK',hcs:725},{t:'T3',ent:'22:30',sai:'06:55',acao:'Sem necessidade de ajuste',st:'OK',hcs:600},{t:'T4',ent:'09:00',sai:'18:40',acao:'Sem necessidade de ajuste',st:'OK',hcs:0}],
-     hcsTbl:[{t:'T1',out:534,inp:179,mwh:41,outros:95,tot:849},{t:'T2',out:443,inp:164,mwh:41,outros:77,tot:725},{t:'T3',out:393,inp:152,mwh:23,outros:31,tot:599},{t:'T4',out:0,inp:0,mwh:0,outros:0,tot:0}],hcsTot:{out:1370,inp:495,mwh:105,outros:203,tot:2173},
-     etds:[{orig:'20:00',ant:'18:00',delta:'-2h',vol:'8.000',obs:'Antecipação de 2h'},{orig:'22:00',ant:'18:00',delta:'-4h',vol:'31.500',obs:'Antecipação de 4h para garantir SLA'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 durante a janela do jogo para toda a operação.',p:'18:00–22:00',r:'Flow Local'}],
-     obs:'CAD com maior volume do RIO-SUL. Parada total de 4h com retomada após o término do jogo.'},
-    {thpBase:290000,thpCopa:244500,parada:'20:30–00:30',refBase:'—',refCopa:'—',abs:'—',hcsTotal:2325,hcsImp:2198,
-     turnos:[{t:'T1',ent:'06:40',sai:'15:30',acao:'Sem necessidade de ajuste',st:'OK',hcs:850},{t:'T2',ent:'15:15',sai:'00:00',acao:'Sem necessidade de ajuste',st:'OK',hcs:725},{t:'T3',ent:'22:30',sai:'06:55',acao:'Antecipar chegada do T3 em 1h — chegar às 21h para cobrir a saída do T2 durante o jogo.',st:'OK',hcs:600},{t:'T4',ent:'09:00',sai:'18:40',acao:'Sem necessidade de ajuste',st:'OK',hcs:150}],
-     hcsTbl:[{t:'T1',out:534,inp:179,mwh:41,outros:95,tot:849},{t:'T2',out:443,inp:164,mwh:41,outros:77,tot:725},{t:'T3',out:393,inp:152,mwh:23,outros:31,tot:599},{t:'T4',out:0,inp:0,mwh:0,outros:25,tot:25}],hcsTot:{out:1370,inp:495,mwh:105,outros:228,tot:2198},
-     etds:[{orig:'22:00',ant:'20:00',delta:'-2h',vol:'28.000',obs:'Antecipação de 2h'},{orig:'00:00',ant:'21:00',delta:'-3h',vol:'25.000',obs:'Antecipação de 3h para garantir SLA'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 durante a janela do jogo.',p:'20:30–00:30',r:'Flow Local'},{c:'Fretado',a:'Antecipar chegada do T3 em 1h — ônibus saindo 1h mais cedo para T3 chegar às 21h no CAD.',p:'De 22h → 21h',r:'People'}],
-     obs:'Jogo noturno exige atenção redobrada ao T3 — antecipação de entrada é crítica para cobertura da operação.'},
-    {thpBase:340000,thpCopa:292500,parada:'18:00–22:00',refBase:'—',refCopa:'—',abs:'—',hcsTotal:2325,hcsImp:2198,
-     turnos:[{t:'T1',ent:'06:40',sai:'15:30',acao:'Sem necessidade de ajuste',st:'OK',hcs:850},{t:'T2',ent:'15:15',sai:'00:00',acao:'Sem necessidade de ajuste',st:'OK',hcs:725},{t:'T3',ent:'22:30',sai:'06:55',acao:'Sem necessidade de ajuste',st:'OK',hcs:600},{t:'T4',ent:'09:00',sai:'18:40',acao:'Antecipar saída do T4 em 2h para que possam assistir o jogo em casa.',st:'OK',hcs:150}],
-     hcsTbl:[{t:'T1',out:534,inp:179,mwh:41,outros:95,tot:849},{t:'T2',out:443,inp:164,mwh:41,outros:77,tot:725},{t:'T3',out:393,inp:152,mwh:23,outros:31,tot:599},{t:'T4',out:0,inp:0,mwh:0,outros:25,tot:25}],hcsTot:{out:1370,inp:495,mwh:105,outros:228,tot:2198},
-     etds:[{orig:'20:00',ant:'18:00',delta:'-2h',vol:'10.700',obs:'Antecipação de 2h'},{orig:'22:00',ant:'18:00',delta:'-2h',vol:'36.800',obs:'Antecipação de 2h'}],
-     cfg:[{c:'CAP5',a:'Zerar CAP5 durante a janela do jogo para toda a operação.',p:'18:00–22:00',r:'Flow Local'},{c:'Fretado',a:'Antecipar saída do T4 em 2h.',p:'De 18h40 → 16h50',r:'People'}],
-     obs:'Maior THP do cluster no Jogo 3 — baseline mais alto exige planejamento de retomada eficiente.'}
-  ]}
+const fmt=n=>(n||n===0)?Number(n).toLocaleString('pt-BR'):'';
+const CL_COLOR={
+  "RC´s":"#37474f","Cajamar 01":"#ad1457","Cajamar 02":"#c62828",
+  "GRU":"#00838f","São Paulo":"#e65100","Nordeste":"#1565c0",
+  "Rio-Sul":"#2e7d32","MG´s":"#6a1b9a","Metros":"#00695c",
+  "Cross Dock":"#006064","":" #b0bec5"
 };
+function clr(cl){return CL_COLOR[cl]||"#b0bec5";}
 
-let viewMode='cad', selFilter='all', activeJogo=0, activeDetail=null;
+// ── DADOS ─────────────────────────────────────────────────────────────────────
+// [cluster, cad, b, c, gap, abs, cpts, etdAlter, tEnt, tSai, tAss, hcsGeral, ref, conf, com]
 
-const fmt=n=>typeof n==='number'?n.toLocaleString('pt-BR'):n;
-const pct=(b,c)=>b?((c-b)/b*100).toFixed(1)+'%':'—';
-
-function badgeSt(st){
-  const m={Impacto:'imp',Normal:'norm',OK:'ok',Folga:'folga'};
-  return `<span class="badge ${m[st]||'norm'}">${st}</span>`;
-}
-
-// ── STRATEGY BUILDER ─────────────────────────────────────
-const CFG_META={
-  'CAP5':    {icon:'⚙️',bg:'#e3f2fd',fg:'#0d47a1'},
-  'CPT':     {icon:'📊',bg:'#e8f5e9',fg:'#1b5e20'},
-  'Fretado': {icon:'🚌',bg:'#fff3e0',fg:'#e65100'},
-  'Refeitório':{icon:'🍽️',bg:'#fce4ec',fg:'#880e4f'},
-  'PT':      {icon:'📋',bg:'#e0f7fa',fg:'#006064'},
-  'CT':      {icon:'🔄',bg:'#f3e5f5',fg:'#4a148c'},
-};
-
-function buildStrategies(jg){
-  const items=[];
-  // Parada
-  if(jg.parada&&jg.parada!=='—'){
-    items.push({icon:'🏭',bg:'#e8f5e9',fg:'#1b5e20',
-      title:'Parada de Produção',
-      text:`Parada programada: ${jg.parada}. CAP5 zerado durante toda a janela do jogo.`});
-  }
-  // ETDs antecipados
-  const antEtds=jg.etds.filter(e=>e.delta!=='0'&&parseFloat(e.delta)<0);
-  if(antEtds.length>0){
-    items.push({icon:'⏰',bg:'#fffde7',fg:'#f57f17',
-      title:`Antecipação de ETDs (${antEtds.length} ETD${antEtds.length>1?'s':''})`,
-      text:antEtds.map(e=>`${e.orig} → ${e.ant} (${e.delta}) · ${e.vol} unid.`).join('\n')});
-  }
-  // Turnos impactados
-  const impTurnos=jg.turnos.filter(t=>t.st==='Impacto');
-  if(impTurnos.length>0){
-    items.push({icon:'👥',bg:'#f3e5f5',fg:'#4a148c',
-      title:'Movimentação de Turnos',
-      text:impTurnos.map(t=>`${t.t}: ${t.acao}`).join('\n')});
-  }
-  // Config items
-  jg.cfg.forEach(c=>{
-    if(!c.a||c.a==='—'||c.a.toLowerCase().includes('sem impacto'))return;
-    const m=CFG_META[c.c]||{icon:'📋',bg:'#f5f5f5',fg:'#455a64'};
-    items.push({icon:m.icon,bg:m.bg,fg:m.fg,
-      title:c.c+(c.p&&c.p!=='—'?` — ${c.p}`:''),
-      text:c.a+(c.r&&c.r!=='—'?`\nResponsável: ${c.r}`:'')});
-  });
-  return items;
-}
-
-function renderStratItems(items, cls='strat-detail-grid', itemCls='strat-detail-item', iconCls='strat-detail-icon'){
-  if(!items.length)return '';
-  return `<div class="${cls}">${items.map(it=>`
-    <div class="${itemCls}">
-      <div class="${iconCls}" style="background:${it.bg}">${it.icon}</div>
-      <div class="strat-text">
-        <strong style="color:${it.fg}">${it.title}</strong>
-        <p>${it.text.replace(/\n/g,'<br>')}</p>
-      </div>
-    </div>`).join('')}</div>`;
-}
-
-// ── DETAIL ────────────────────────────────────────────────
-function renderDetail(cadName,jogoIdx){
-  const d=DATA[cadName]; const j=d.jogos[jogoIdx];
-  const loss=j.thpBase?j.thpCopa-j.thpBase:0;
-  const lossPct=j.thpBase?(loss/j.thpBase*100).toFixed(1):0;
-  const cc=CLUSTER_COLOR[d.cluster];
-
-  const tabs=GAME_LABELS.map((l,i)=>`<div class="gtab ${GAME_TAB[i]}${i===jogoIdx?' active':''}" onclick="renderDetail('${cadName}',${i})">${l}</div>`).join('');
-
-  // ① Capacidade
-  const s1=`<div class="dsec"><span class="dsec-hdr blu">① Impacto na Capacidade</span>
-  <div class="kpi-mini">
-    <div class="kpi-mini-card" style="background:#e3f2fd;border-color:#90caf9"><div class="v" style="color:#1565c0">${fmt(j.thpBase)}</div><div class="l" style="color:#1565c0">THP Base</div></div>
-    <div class="kpi-mini-card" style="background:#fff3e0;border-color:#ffcc80"><div class="v" style="color:#e65100">${fmt(j.thpCopa)}</div><div class="l" style="color:#e65100">THP c/Copa</div></div>
-    <div class="kpi-mini-card" style="background:#ffebee;border-color:#ef9a9a"><div class="v" style="color:#c62828">${fmt(loss)} (${lossPct}%)</div><div class="l" style="color:#c62828">Perda THP</div></div>
-  </div>
-  <table class="dtbl"><thead><tr><th>Métrica</th><th>Baseline</th><th>c/ Copa do Mundo</th><th>Delta / Ação</th></tr></thead><tbody>
-    <tr><td>THP Diário</td><td>${fmt(j.thpBase)}</td><td>${fmt(j.thpCopa)}</td><td class="neg">${fmt(loss)} (${lossPct}%)</td></tr>
-    <tr><td>Parada de Produção</td><td>Sem parada</td><td>${j.parada}</td><td>CAP5 zerado na janela</td></tr>
-    <tr><td>Refeições (janela)</td><td>${j.refBase}</td><td>${j.refCopa}</td><td>Ajuste de horário</td></tr>
-    <tr><td>Risco Absenteísmo</td><td colspan="2">${j.abs}</td><td>—</td></tr>
-  </tbody></table></div>`;
-
-  // ② Turnos
-  const t2r=j.turnos.map(t=>`<tr><td style="font-weight:700;color:${cc}">${t.t}</td><td>${t.ent}</td><td>${t.sai}</td><td>${t.acao}</td><td>${badgeSt(t.st)}</td><td style="font-weight:700">${t.hcs?fmt(t.hcs):'—'}</td></tr>`).join('');
-  const totHcs=j.turnos.reduce((s,t)=>s+(t.hcs||0),0);
-  const s2=`<div class="dsec"><span class="dsec-hdr drk">② Movimento dos Turnos</span>
-  <table class="dtbl"><thead><tr><th>Turno</th><th>Entrada</th><th>Saída</th><th>Ação Copa</th><th>Status</th><th>HCs</th></tr></thead>
-  <tbody>${t2r}<tr class="ttl"><td colspan="5" style="text-align:right;padding-right:12px;font-weight:700">Total HCs no CAD</td><td style="font-weight:800;font-size:13px">${fmt(totHcs)}</td></tr></tbody></table></div>`;
-
-  // ③ HCs
-  const t3r=j.hcsTbl.map(r=>`<tr><td style="font-weight:700;color:${cc}">${r.t}</td><td>${fmt(r.out)}</td><td>${fmt(r.inp)}</td><td>${fmt(r.mwh)}</td><td>${fmt(r.outros)}</td><td style="font-weight:700">${fmt(r.tot)}</td></tr>`).join('');
-  const tt=j.hcsTot;
-  const s3=`<div class="dsec"><span class="dsec-hdr grn">③ Turnos que Assistem + QTd de HCs</span>
-  <table class="dtbl"><thead><tr><th>Turno</th><th>HCs OUT</th><th>HCs IN</th><th>HCs MWH</th><th>HCs Outros</th><th>Total</th></tr></thead>
-  <tbody>${t3r}<tr class="ttl"><td style="font-weight:700">Total HCs com Impacto</td><td>${fmt(tt.out)}</td><td>${fmt(tt.inp)}</td><td>${fmt(tt.mwh)}</td><td>${fmt(tt.outros)}</td><td style="font-weight:800;font-size:13px">${fmt(tt.tot)}</td></tr></tbody></table></div>`;
-
-  // ④ ETDs
-  const etdR=j.etds.map(e=>`<tr><td style="font-weight:700">${e.orig}</td><td style="font-weight:700;color:${cc}">${e.ant}</td><td class="${e.delta!=='0'?'neg':''}">${e.delta}</td><td>${e.vol}</td><td>${e.obs}</td></tr>`).join('');
-  const s4=`<div class="dsec"><span class="dsec-hdr prp">④ ETDs Antecipados</span>
-  <table class="dtbl"><thead><tr><th>ETD Original</th><th>ETD Antecipado</th><th>Δ Horas</th><th>Vol. Estimado</th><th>Observação</th></tr></thead>
-  <tbody>${etdR}</tbody></table></div>`;
-
-  // ⑤ Config
-  const cfgR=j.cfg.map(c=>`<tr><td style="font-weight:700;color:${cc}">${c.c}</td><td>${c.a}</td><td>${c.p}</td><td>${c.r}</td></tr>`).join('');
-  const s5=`<div class="dsec"><span class="dsec-hdr gry">⑤ Alterações de Configuração (PT · CT · CAP5 · CPT · Fretado · Refeitório)</span>
-  <table class="dtbl"><thead><tr><th>Configuração</th><th>Ação</th><th>Período</th><th>Responsável</th></tr></thead>
-  <tbody>${cfgR}</tbody></table></div>`;
-
-  // Estratégia
-  const stratItems=buildStrategies(j);
-  const sStrat=stratItems.length?`<div class="dsec"><span class="dsec-hdr nav">⭐ Resumo da Estratégia de Mitigação</span>
-  ${renderStratItems(stratItems,'strat-detail-grid','strat-detail-item','strat-detail-icon')}</div>`:'';
-
-  // Obs
-  const sObs=j.obs?`<div class="obs-box">📌 ${j.obs.replace(/\n/g,'<br>')}</div>`:'';
-
-  document.getElementById('detail-overlay').innerHTML=`
-  <div class="detail-box">
-    <div class="detail-topbar">
-      <div class="detail-topbar-title">CAD ${cadName} <span>· Cluster: ${d.cluster}</span></div>
-      <button class="detail-close" onclick="closeDetail()">✕ Fechar</button>
-    </div>
-    <div class="game-tabs">${tabs}</div>
-    <div class="detail-content">${s1}${s2}${s3}${s4}${s5}${sStrat}${sObs}</div>
-  </div>`;
-  document.getElementById('detail-overlay').classList.add('open');
-  activeDetail=cadName;
-}
-
-function closeDetail(){
-  document.getElementById('detail-overlay').classList.remove('open');
-  activeDetail=null;
-}
-
-// ── MAIN RENDER ────────────────────────────────────────────
-function render(){
-  const j=activeJogo;
-  const isXS=(typeof activeGrupo!=='undefined'&&activeGrupo==='xs');
-  const activeData=isXS?DATA_XS:DATA;
-  const allCads=Object.keys(activeData);
-
-  document.querySelectorAll('.gp').forEach((el,i)=>{
-    if(el.id==='btn-ger') return;
-    el.classList.toggle('active',i===j+1);
-  });
-
-  let totalBase=0,totalCopa=0,totalHcs=0,totalImp=0;
-  allCads.forEach(k=>{const jg=activeData[k].jogos[j];totalBase+=jg.thpBase||0;totalCopa+=jg.thpCopa||0;totalHcs+=jg.hcsTotal||0;totalImp+=jg.hcsImp||0;});
-  const avgLoss=totalBase?((totalCopa-totalBase)/totalBase*100).toFixed(1):0;
-
-  document.getElementById('view-seg-cad').classList.toggle('on',viewMode==='cad');
-  document.getElementById('view-seg-cluster').classList.toggle('on',viewMode==='cluster');
-
-  const fsel=document.getElementById('fsel');
-  if(viewMode==='cad'){
-    fsel.innerHTML=`<option value="all">Todos os CADs</option>`+allCads.map(k=>`<option value="${k}">${k}</option>`).join('');
-  } else {
-    const clusters=[...new Set(allCads.map(k=>activeData[k].cluster))];
-    fsel.innerHTML=`<option value="all">Todos os Clusters</option>`+clusters.map(c=>`<option value="${c}">${c}</option>`).join('');
-  }
-  fsel.value=selFilter;
-
-  document.getElementById('kpi-base').textContent=fmt(totalBase);
-  document.getElementById('kpi-copa').textContent=fmt(totalCopa);
-  document.getElementById('kpi-loss').textContent=Math.abs(avgLoss)+'%';
-  document.getElementById('kpi-hcs').textContent=fmt(totalHcs);
-  document.getElementById('kpi-imp').textContent=fmt(totalImp);
-
-  let cadsToShow=allCads;
-  if(viewMode==='cad'&&selFilter!=='all') cadsToShow=[selFilter];
-  if(viewMode==='cluster'&&selFilter!=='all') cadsToShow=allCads.filter(k=>activeData[k].cluster===selFilter);
-
-  const area=document.getElementById('main-area');
-
-  if(viewMode==='cluster'&&!isXS){
-    const clusters=selFilter==='all'?[...new Set(allCads.map(k=>activeData[k].cluster))]:[selFilter];
-    area.innerHTML=clusters.map(cl=>{
-      const cads=allCads.filter(k=>activeData[k].cluster===cl);
-      const cb=cads.reduce((s,k)=>s+activeData[k].jogos[j].thpBase,0);
-      const cc=cads.reduce((s,k)=>s+activeData[k].jogos[j].thpCopa,0);
-      const ch=cads.reduce((s,k)=>s+activeData[k].jogos[j].hcsTotal,0);
-      const ci=cads.reduce((s,k)=>s+activeData[k].jogos[j].hcsImp,0);
-      const cp=cb?((cc-cb)/cb*100).toFixed(1):0;
-      const clr=CLUSTER_COLOR[cl]||'#455a64';
-
-      const tableRows=cads.map(k=>{
-        const jg=activeData[k].jogos[j];
-        const dl=jg.thpBase?jg.thpCopa-jg.thpBase:0;
-        const pp=jg.thpBase?((dl/jg.thpBase)*100).toFixed(1):'—';
-        return `<tr class="cad-row" onclick="renderDetail('${k}',${j})">
-          <td><span class="cad-link">${k}</span></td>
-          <td>${fmt(jg.thpBase)}</td><td>${fmt(jg.thpCopa)}</td>
-          <td class="neg">${fmt(dl)} (${pp}%)</td>
-          <td>${fmt(jg.hcsTotal)}</td><td>${fmt(jg.hcsImp)}</td>
-          <td style="color:#455a64;font-size:10px">${jg.parada}</td>
-        </tr>`;
-      }).join('');
-
-      const cadStratCards=cads.map(k=>{
-        const jg=activeData[k].jogos[j];
-        const items=buildStrategies(jg);
-        const cc2=CLUSTER_COLOR[activeData[k].cluster]||'#455a64';
-        if(!items.length)return '';
-        return `<div class="cluster-cad-strats">
-          <div class="cluster-cad-label"><span style="background:${cc2};width:8px;height:8px;border-radius:50%;display:inline-block"></span>${k}</div>
-          <div class="strat-grid">${items.map(it=>`
-            <div class="strat-item">
-              <div class="strat-icon" style="background:${it.bg}">${it.icon}</div>
-              <div class="strat-text"><strong style="color:${it.fg}">${it.title}</strong><p>${it.text.replace(/\n/g,'<br>')}</p></div>
-            </div>`).join('')}
-          </div>
-          ${jg.obs?`<div class="obs-box" style="margin-top:10px">📌 ${jg.obs.replace(/\n/g,'<br>')}</div>`:''}
-        </div>`;
-      }).join('');
-
-      return `<div class="cluster-view">
-        <div class="cluster-hdr">
-          <span class="cluster-badge" style="background:${clr}">${cl}</span>
-          <span class="cluster-sub">${cads.length} CAD${cads.length>1?'s':''} · ${cads.join(' · ')}</span>
-        </div>
-        <div class="cluster-kpis">
-          <div class="ckpi"><div class="ckpi-val" style="color:var(--blue)">${fmt(cb)}</div><div class="ckpi-lbl">THP Base Total</div></div>
-          <div class="ckpi"><div class="ckpi-val" style="color:var(--org)">${fmt(cc)}</div><div class="ckpi-lbl">THP c/Copa Total</div></div>
-          <div class="ckpi"><div class="ckpi-val" style="color:var(--red)">${Math.abs(cp)}%</div><div class="ckpi-lbl">% Perda Média</div></div>
-          <div class="ckpi"><div class="ckpi-val" style="color:var(--navy)">${fmt(ch)}</div><div class="ckpi-lbl">Total HCs</div></div>
-        </div>
-        <table class="cluster-table"><thead><tr><th>CAD</th><th>THP Base</th><th>THP c/Copa</th><th>Perda THP</th><th>Total HCs</th><th>HCs Impacto</th><th>Janela Parada</th></tr></thead>
-        <tbody>${tableRows}</tbody></table>
-        <div class="cluster-strats-hdr">Estratégias de Mitigação por CAD</div>
-        ${cadStratCards}
-      </div>`;
-    }).join('');
-
-  } else {
-    // CAD cards — works for both Full and XS
-    area.innerHTML=`<div class="cards-grid">${cadsToShow.map(k=>{
-      const d=activeData[k]; const jg=d.jogos[j];
-      const dl=jg.thpBase?jg.thpCopa-jg.thpBase:0;
-      const pp=jg.thpBase?((dl/jg.thpBase)*100).toFixed(1):'—';
-      const clr=CLUSTER_COLOR[d.cluster]||'#455a64';
-      const stratItems=isXS?[]:buildStrategies(jg).slice(0,3);
-      const stratHtml=stratItems.length?`<div class="ccard-strats">${stratItems.map(it=>`
-        <div class="ccard-strat">
-          <div class="ccard-strat-icon" style="background:${it.bg}">${it.icon}</div>
-          <div class="ccard-strat-text">
-            <strong style="color:${it.fg}">${it.title}</strong>
-            <p>${it.text.split('\n')[0]}</p>
-          </div>
-        </div>`).join('')}</div>`:'';
-      const footLabel=isXS?'Ver dados do jogo ↗':'Ver detalhes completos: ① ② ③ ④ ⑤ <span>↗</span>';
-      const footClick=isXS?`onclick="renderDetail('${k}',${j})"`:` onclick="renderDetail('${k}',${j})"`;
-      return `<div class="ccard">
-        <div class="ccard-hdr" style="background:${clr}">
-          <span class="ccard-name">${k}</span><span class="ccard-badge">${d.cluster}${isXS?' · XS':''}</span>
-        </div>
-        <div class="ccard-body">
-          <div class="ccard-row"><span class="lbl">THP Base</span><span class="val">${jg.thpBase?fmt(jg.thpBase):'—'}</span></div>
-          <div class="ccard-row"><span class="lbl">THP c/Copa</span><span class="val">${jg.thpCopa?fmt(jg.thpCopa):'—'}</span></div>
-          <div class="ccard-row"><span class="lbl">Perda THP</span><span class="val r">${dl?fmt(dl)+' ('+pp+'%)':'—'}</span></div>
-          <div class="ccard-row"><span class="lbl">HCs Impactados</span><span class="val">${fmt(jg.hcsImp)} de ${fmt(jg.hcsTotal)}</span></div>
-          <div class="ccard-row"><span class="lbl">Unidade</span><span class="val">${isXS?'📦 pedidos':'📦 peças'}</span></div>
-        </div>
-        ${stratHtml}
-        <div class="ccard-foot"${footClick}>${footLabel}</div>
-      </div>`;
-    }).join('')}</div>`;
-  }
-}
-
-function setJogo(i){
-  activeJogo=i;
-  mainTab='operacional';
-  document.getElementById('oper-content').style.display='block';
-  document.getElementById('ger-content').style.display='none';
-  // Fix: Gerencial pill is index 0, so J1=idx1, J2=idx2, J3=idx3
-  document.querySelectorAll('.gp').forEach((el,idx)=>{
-    if(el.id==='btn-ger'){el.classList.remove('active');return;}
-    el.classList.toggle('active',idx===i+1);
-  });
-  render();
-  if(activeDetail)renderDetail(activeDetail,i);
-}
-function setView(m){viewMode=m;selFilter='all';render();}
-function setFilter(v){selFilter=v;render();}
-function setGrupo(g){
-  activeGrupo=g;
-  selFilter='all';
-  document.querySelectorAll('.btn-grupo').forEach(el=>el.classList.toggle('on',el.dataset.g===g));
-  render();
-}
-
-// ── XS CROSS DOCK DATA ────────────────────────────────────
-const DATA_XS={
-  BRXSP9:{cluster:'XS-SP',unidade:'pacotes',jogos:[
-    {thpBase:711725,thpCopa:538000,abs:'—',hcsTotal:2017,hcsImp:626,parada:'—',etds:[]},
-    {thpBase:536672,thpCopa:540000,abs:'—',hcsTotal:1975,hcsImp:1293,parada:'—',etds:[]},
-    {thpBase:562155,thpCopa:542000,abs:'—',hcsTotal:2262,hcsImp:738,parada:'—',etds:[]}
-  ]},
-  BRXSP23:{cluster:'XS-SP',unidade:'pacotes',jogos:[
-    {thpBase:65122,thpCopa:48000,abs:'—',hcsTotal:593,hcsImp:198,parada:'—',etds:[]},
-    {thpBase:101193,thpCopa:88000,abs:'—',hcsTotal:593,hcsImp:395,parada:'—',etds:[]},
-    {thpBase:111374,thpCopa:89000,abs:'—',hcsTotal:593,hcsImp:198,parada:'—',etds:[]}
-  ]},
-  BRXSP17:{cluster:'XS-SP',unidade:'pacotes',jogos:[
-    {thpBase:80000,thpCopa:61000,abs:'—',hcsTotal:668,hcsImp:223,parada:'—',etds:[]},
-    {thpBase:115000,thpCopa:90000,abs:'—',hcsTotal:752,hcsImp:501,parada:'—',etds:[]},
-    {thpBase:115000,thpCopa:90000,abs:'—',hcsTotal:799,hcsImp:266,parada:'—',etds:[]}
-  ]},
-  BRXSP10:{cluster:'XS-SP',unidade:'pacotes',jogos:[
-    {thpBase:260333,thpCopa:130000,abs:'—',hcsTotal:271,hcsImp:0,parada:'—',etds:[]},
-    {thpBase:424156,thpCopa:380000,abs:'—',hcsTotal:826,hcsImp:0,parada:'—',etds:[]},
-    {thpBase:443822,thpCopa:373000,abs:'—',hcsTotal:785,hcsImp:0,parada:'—',etds:[]}
-  ]},
-  BRXSP1:{cluster:'XS-SP',unidade:'pacotes',jogos:[
-    {thpBase:0,thpCopa:0,abs:'—',hcsTotal:0,hcsImp:0,parada:'—',etds:[]},
-    {thpBase:317669,thpCopa:250000,abs:'—',hcsTotal:838,hcsImp:955,parada:'—',etds:[]},
-    {thpBase:328289,thpCopa:225000,abs:'—',hcsTotal:838,hcsImp:941,parada:'—',etds:[]}
-  ]},
-  BRXSP16:{cluster:'XS-SP',unidade:'pacotes',jogos:[
-    {thpBase:0,thpCopa:0,abs:'—',hcsTotal:0,hcsImp:0,parada:'—',etds:[]},
-    {thpBase:0,thpCopa:0,abs:'—',hcsTotal:285,hcsImp:0,parada:'—',etds:[]},
-    {thpBase:0,thpCopa:0,abs:'—',hcsTotal:285,hcsImp:0,parada:'—',etds:[]}
-  ]},
-  BRXSP18:{cluster:'XS-SP',unidade:'pacotes',jogos:[
-    {thpBase:703000,thpCopa:538000,abs:'—',hcsTotal:285,hcsImp:0,parada:'—',etds:[]},
-    {thpBase:0,thpCopa:0,abs:'—',hcsTotal:285,hcsImp:0,parada:'—',etds:[]},
-    {thpBase:0,thpCopa:0,abs:'—',hcsTotal:285,hcsImp:0,parada:'—',etds:[]}
-  ]},
-  XSP4:{cluster:'XS-SP',unidade:'pacotes',jogos:[
-    {thpBase:703000,thpCopa:538000,abs:'—',hcsTotal:285,hcsImp:0,parada:'—',etds:[]},
-    {thpBase:0,thpCopa:0,abs:'—',hcsTotal:285,hcsImp:0,parada:'—',etds:[]},
-    {thpBase:0,thpCopa:0,abs:'—',hcsTotal:285,hcsImp:0,parada:'—',etds:[]}
-  ]}
-};
-
-// ── GERENCIAL — 3 jogos lado a lado ──────────────────────
-let gerGrupo='cads';
-function setGerGrupo(g){
-  gerGrupo=g;
-  document.querySelectorAll('.ger-gtab').forEach(el=>el.classList.toggle('active',el.dataset.g===g));
-  renderGerencial();
-}
-
-const CLR_MAP={'Nordeste':'#1565c0','RIO-SUL':'#2e7d32',"MG's":'#6a1b9a','Cajamar 01':'#ad1457','Metros':'#00695c','XS-SP':'#00838f','RCs':'#37474f'};
-const G_LABELS=[{label:'J1',full:'Sáb, 13/06',cls:'g1',bg:'#1565c0'},{label:'J2',full:'Sex, 19/06',cls:'g2',bg:'#e65100'},{label:'J3',full:'Qua, 24/06',cls:'g3',bg:'#2e7d32'}];
-
-function absCell(a){
-  if(!a||a==='—') return '<span class="ger-empty">—</span>';
-  if(a.includes('→')){const p=a.split('→');return `<span style="font-size:10px">${p[0].trim()}<span style="color:#e65100;font-weight:700"> →${p[1].trim()}▲</span></span>`;}
-  return `<span style="font-size:11px">${a}</span>`;
-}
-
-function etdCell(etds){
-  if(!etds||!etds.length) return '<span class="ger-empty">—</span>';
-  const a=etds.filter(e=>e.delta&&e.delta!=='0'&&parseFloat(e.delta)<0);
-  if(!a.length) return '<span class="ger-empty">—</span>';
-  return `<span style="font-size:10px;font-weight:700;color:var(--navy)">${a.length} ETD${a.length>1?'s':''}</span><br><span style="font-size:9.5px;color:#5d6b7a">${a.map(e=>`${e.orig}→${e.ant}`).join(' · ')}</span>`;
-}
-
-function renderGerencial(){
-  const area=document.getElementById('ger-area');
-  if(!area) return;
-  const isXS=gerGrupo==='xs';
-  const dataObj=isXS?DATA_XS:DATA;
-  const cads=Object.keys(dataObj);
-  const gameInfo=[
-    {num:1,label:'Sáb, 13/06 · 19h00–20h55',cor:'#1565c0'},
-    {num:2,label:'Sex, 19/06 · 21h30–23h25',cor:'#e65100'},
-    {num:3,label:'Qua, 24/06 · 19h00–20h55',cor:'#2e7d32'}
-  ];
-
-  const disclaimer=isXS?`<div class="xs-disclaimer" style="margin-bottom:16px">📦 <span><strong>Cross Dock — volumes em unidades de pedidos.</strong></span></div>`:'';
-
-  const tables=gameInfo.map(g=>{
-    const j=g.num-1;
-    let tBase=0,tCopa=0;
-
-    const rows=cads.map(k=>{
-      const d=dataObj[k];
-      const jg=d.jogos[j];
-      const clr=CLR_MAP[d.cluster]||'#455a64';
-      const loss=jg.thpBase&&jg.thpCopa?jg.thpCopa-jg.thpBase:null;
-      const pct=jg.thpBase&&loss?(loss/jg.thpBase*100).toFixed(1):null;
-      tBase+=jg.thpBase||0; tCopa+=jg.thpCopa||0;
-
-      // ETDs
-      let etdCell='<span style="color:#bbb;font-size:11px">—</span>';
-      if(!isXS&&jg.etds&&jg.etds.length){
-        const a=jg.etds.filter(e=>e.delta&&e.delta!=='0'&&parseFloat(e.delta)<0);
-        if(a.length){
-          const routes=a.map(e=>`${e.orig}→${e.ant}`).join(' · ');
-          etdCell=`<span style="font-size:11px;font-weight:700;color:#1a1a2e">${a.length} ETD${a.length>1?'s':''}</span><br><span style="font-size:9.5px;color:#6b7a8d;line-height:1.6">${routes}</span>`;
-        }
-      }
-
-      const onclk=!isXS?`onclick="renderDetail('${k}',${j})"` :'';
-      return `<tr ${onclk} style="${!isXS?'cursor:pointer':''}">
-        <td style="border-left:3px solid ${clr};padding:10px 14px">
-          <span style="font-weight:800;font-size:13px;color:${clr}">${k}</span>
-        </td>
-        <td style="padding:10px 14px;text-align:right;font-size:12.5px;font-weight:500;color:#2d3748">${jg.thpBase?fmt(jg.thpBase):'<span style="color:#bbb">—</span>'}</td>
-        <td style="padding:10px 14px;text-align:right;font-size:12.5px;font-weight:500;color:#2d3748">${jg.thpCopa?fmt(jg.thpCopa):'<span style="color:#bbb">—</span>'}</td>
-        <td style="padding:10px 14px;text-align:right">${loss?`<span style="font-size:12.5px;font-weight:700;color:#c62828">${fmt(loss)} <span style="font-size:11px">(${Math.abs(pct)}%)</span></span>`:'<span style="color:#bbb;font-size:11px">—</span>'}</td>
-        <td style="padding:10px 20px">${etdCell}</td>
-      </tr>`;
-    }).join('');
-
-    const tLoss=tBase?tCopa-tBase:0;
-    const tPct=tBase?(tLoss/tBase*100).toFixed(1):0;
-    const totalRow=`<tr style="background:#f7f8fa;border-top:2px solid #e0e3e8">
-      <td style="padding:10px 14px;font-size:12px;font-weight:800;color:#1a1a2e;border-left:3px solid transparent">TOTAL</td>
-      <td style="padding:10px 14px;text-align:right;font-size:12.5px;font-weight:800;color:#1a1a2e">${fmt(tBase)}</td>
-      <td style="padding:10px 14px;text-align:right;font-size:12.5px;font-weight:800;color:#1a1a2e">${fmt(tCopa)}</td>
-      <td style="padding:10px 14px;text-align:right"><span style="font-size:12.5px;font-weight:800;color:#c62828">${fmt(tLoss)} <span style="font-size:11px">(${Math.abs(tPct)}%)</span></span></td>
-      <td style="padding:10px 20px;font-size:11px;color:#6b7a8d">—</td>
-    </tr>`;
-
-    return `<div style="margin-bottom:24px">
-      <div style="font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:#6b7a8d;margin-bottom:8px;display:flex;align-items:center;gap:8px">
-        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${g.cor}"></span>
-        IMPACTOS DE CAPACIDADE — REFERÊNCIA JOGO ${g.num} · ${g.label}
-      </div>
-      <div style="background:#fff;border-radius:10px;border:1px solid #eaedf0;overflow:hidden">
-        <table style="width:100%;border-collapse:collapse">
-          <thead>
-            <tr style="background:#f7f8fa;border-bottom:1px solid #eaedf0">
-              <th style="padding:8px 14px;text-align:left;font-size:9.5px;font-weight:700;color:#6b7a8d;text-transform:uppercase;letter-spacing:.5px;border-left:3px solid transparent">CAD</th>
-              <th style="padding:8px 14px;text-align:right;font-size:9.5px;font-weight:700;color:#6b7a8d;text-transform:uppercase;letter-spacing:.5px">THP Base</th>
-              <th style="padding:8px 14px;text-align:right;font-size:9.5px;font-weight:700;color:#6b7a8d;text-transform:uppercase;letter-spacing:.5px">C/ Copa</th>
-              <th style="padding:8px 14px;text-align:right;font-size:9.5px;font-weight:700;color:#6b7a8d;text-transform:uppercase;letter-spacing:.5px">Perda</th>
-              <th style="padding:8px 20px;text-align:left;font-size:9.5px;font-weight:700;color:#6b7a8d;text-transform:uppercase;letter-spacing:.5px">ETDs Antecip.</th>
-            </tr>
-          </thead>
-          <tbody>${rows}${totalRow}</tbody>
-        </table>
-      </div>
-    </div>`;
-  }).join('');
-
-  area.innerHTML=`${disclaimer}${tables}`;
-}
-
-// ── MAIN TAB CONTROL ──
-let mainTab='gerencial'; // default = gerencial
-let activeGrupo='full';  // full or xs (for operacional filter)
-
-function openGerencial(){
-  mainTab='gerencial';
-  document.getElementById('oper-content').style.display='none';
-  document.getElementById('ger-content').style.display='block';
-  document.querySelectorAll('.gp').forEach(el=>el.classList.remove('active'));
-  document.getElementById('btn-ger').classList.add('active');
-  // render exec table for current tab
-  setTimeout(()=>setGerTab(gerTab),0);
-}
-
-
-</script>
-
-<!-- ══ SHELL ══ -->
-<div class="topbar">
-  <div class="topbar-title">Plano Operacional <span>Copa do Mundo 2026</span></div>
-  <div class="game-pills">
-    <button class="gp" id="btn-ger" style="background:var(--gold);color:var(--navy);font-weight:800" onclick="openGerencial()">📊 Gerencial</button>
-    <button class="gp gp1" onclick="setJogo(0)">J1 · Sáb 13/06 · 19h00</button>
-    <button class="gp gp2" onclick="setJogo(1)">J2 · Sex 19/06 · 21h30</button>
-    <button class="gp gp3" onclick="setJogo(2)">J3 · Qua 24/06 · 19h00</button>
-  </div>
-</div>
-<div class="subbar">Plano Operacional · 17 CADs completos · 8 parciais · 5 sem resposta · 8 XS · Atualizado 28/05/2026 · 12h40</div>
-<div class="alert">⚫ &nbsp;<span><strong>ATENÇÃO:</strong> Sem resposta: BRSP02, BRSP10, BRSP25, BRSP26, BRSP11. Parciais: BRRC03 (HCs②) · BRES01 (J1) · BRMG01 (J2/J3) · BRSP04 (HCs②) · BRSP19 (HCs J2/J3) · BRSP24 · BRMG04 (HCs②). XS parciais: BRXSP1, BRXSP10, BRXSP16, BRXSP18, XSP4.</span></div>
-
-<!-- ══ OPERACIONAL ══ -->
-<div id="oper-content" style="display:none">
-<div class="content">
-  <div class="fbar">
-    <span class="flbl">Visualizar por</span>
-    <div class="seg">
-      <button id="view-seg-cad" class="on" onclick="setView('cad')">CAD</button>
-      <button id="view-seg-cluster" onclick="setView('cluster')">Cluster</button>
-    </div>
-    <div class="fsep"></div>
-    <span class="flbl">Grupo</span>
-    <div class="seg">
-      <button class="btn-grupo on" data-g="full" onclick="setGrupo('full')">Full + RCs</button>
-      <button class="btn-grupo" data-g="xs" onclick="setGrupo('xs')">Cross Dock XS</button>
-    </div>
-    <div class="fsep"></div>
-    <span class="flbl">Filtrar</span>
-    <select class="fsel" id="fsel" onchange="setFilter(this.value)"></select>
-  </div>
-
-  <div class="sec-title">Escala do impacto — CADs respondidos</div>
-  <div class="kpi-row">
-    <div class="kpi n"><div class="kpi-lbl">CADs Respondidos</div><div class="kpi-val">25</div><div class="kpi-sub">de 30 · 5 sem resposta</div></div>
-    <div class="kpi b"><div class="kpi-lbl">THP Base Total</div><div class="kpi-val" id="kpi-base">—</div><div class="kpi-sub">CADs respondidos</div></div>
-    <div class="kpi o"><div class="kpi-lbl">THP c/Copa</div><div class="kpi-val" id="kpi-copa">—</div><div class="kpi-sub">Projeção com parada</div></div>
-    <div class="kpi r"><div class="kpi-lbl">Redução Média</div><div class="kpi-val" id="kpi-loss">—</div><div class="kpi-sub">% perda sobre baseline</div></div>
-    <div class="kpi g"><div class="kpi-lbl">HCs Impactados</div><div class="kpi-val" id="kpi-imp">—</div><div class="kpi-sub">de <span id="kpi-hcs">—</span> totais</div></div>
-  </div>
-
-  <div class="sec-title">Resumo por CAD — clique para ver detalhes completos</div>
-  <div id="main-area"></div>
-
-  <div class="sec-title">Pontos de atenção</div>
-  <div class="pda-section">
-    <div class="pda-title">⭐ Pontos de Atenção</div>
-    <div class="pda-grid">
-      <div class="pda-item">
-        <div class="pda-icon gy">⚙️</div>
-        <div><div class="pda-item-title">Ajuste de CAPs por turno</div>
-        <div class="pda-item-text">Ajustar as capacidades de acordo com o que teremos baseado no definido ops a ops em relação à entrada e saída de turnos.</div></div>
-      </div>
-      <div class="pda-item">
-        <div class="pda-icon bl">🔄</div>
-        <div><div class="pda-item-title">CPTs pós-janela — CAP first, CT last resort</div>
-        <div class="pda-item-text">Para CPTs posteriores à janela dos jogos, iremos com ajuste de CAP somente e em último caso ajuste de cycle time via CT para garantir processamento antecipado.</div></div>
-      </div>
-      <div class="pda-item">
-        <div class="pda-icon og">📦</div>
-        <div><div class="pda-item-title">On Hold — antecipação estratégica</div>
-        <div class="pda-item-text">Podemos fazer a antecipação do volume de On Hold de acordo com a estratégia local definida junto com Ops.</div></div>
-      </div>
-    </div>
-  </div>
-</div>
-</div><!-- /oper-content -->
-
-<!-- ══ GERENCIAL ══ -->
-<div id="ger-content" style="display:block">
-  <div style="padding:16px 32px 4px;display:flex;align-items:center;gap:6px;background:#fff;border-bottom:1px solid #eaedf0">
-    <button class="gtab-exec active" data-t="geral" onclick="setGerTab('geral')">Geral</button>
-    <button class="gtab-exec" data-t="j1" onclick="setGerTab('j1')">J1 · Sáb 13/06 · 19h00</button>
-    <button class="gtab-exec" data-t="j2" onclick="setGerTab('j2')">J2 · Sex 19/06 · 21h30</button>
-    <button class="gtab-exec" data-t="j3" onclick="setGerTab('j3')">J3 · Qua 24/06 · 19h00</button>
-    <span style="margin-left:auto;font-size:10px;color:#8896a7;font-style:italic">Visão Executiva — Copa do Mundo 2026 · Clique em um CAD para ver o detalhe</span>
-  </div>
-  <div style="padding:20px 32px 40px;overflow-x:auto" id="exec-area"></div>
-</div>
-
-<div class="footer">
-  <span><strong>MercadoLibre — Operações Logísticas Brasil</strong> &nbsp;·&nbsp; Uso interno restrito &nbsp;·&nbsp; Copa do Mundo 2026</span>
-  <span>17 completos · 8 parciais · 5 sem resposta · Atualizado 28/05/2026 · 12h40</span>
-</div>
-
-<div id="detail-overlay" onclick="if(event.target===this)closeDetail()"></div>
-
-<script>
-// ── EXEC TABLE CONFIG ──────────────────────────────────────
-let gerTab='geral';
-
-const EXEC_CLUSTERS=[
-  {name:'RCs',         color:'#37474f', cads:['BRRC01','BRRC02','BRRC03'],                                                                                        isXS:false},
-  {name:'Fulls',       color:'#1565c0', cads:['BRSP02','BRSP04','BRSP06','BRSP09','BRSP10','BRSP11','BRSP14','BRSP15','BRSP18','BRSP19','BRSP30','BRSP25','BRSP26','BRBA01','BRBA02','BRSC02','BRMG01','BRMG02','BRMG03','BRMG04','BRPE01','BRRJ02','BRPR01'], isXS:false},
-  {name:'Metros',      color:'#00695c', cads:['BRES01','BRDF01','BRRS01','BRSP24'],                                                                               isXS:false},
-  {name:'Cross Dock',  color:'#006064', cads:['BRXSP9','BRXSP23','BRXSP17','BRXSP10','BRXSP1','BRXSP16','BRXSP18','XSP4'],                                        isXS:true }
+const ROWS_J1=[
+ ["RC´s", "BRRC01", 1187325, 1030006, "-13,2%", "0% | 0%", "", "", "", "", "", 923, "", "", "", "", ""],
+ ["RC´s", "BRRC02", 556507, 426019, "-23,4%", "0% | 0%", "", "", "", "", "", 309, "", "", "", "", ""],
+ ["RC´s", "BRRC03", 508246, 443189, "-12,8%", "0% | 0%", "", "", "", "", "", 341, "", "", "", "", ""],
+ ["Cajamar 01", "BRSP02", 0, 0, "", "0% | 0%", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cajamar 01", "BRSP04", 271976, 225579, "-17,1%", "19% | 29%", 4, "19h->16h | 20h->16h | 21h->17h | 22h->18h", "Não há", "T3 (+2h)", "T2", 641, "18:00-19:00", "", "Necessidade de adiantar ou atrasar o envio para SC02 (20:00h)", "Não ter recebimento nos horários: 18h, 19h, 20h, 21h e 22h", ""],
+ ["São Paulo", "BRSP06", 246718, 215878, "-12,5%", "0% | 0%", "", "", "", "", "", 989, "Sem impacto", "", "", "", ""],
+ ["Cajamar 01", "BRSP09", 1374, 1132, "-17,6%", "0% | 0%", 1, "19h>15h | 21h>17h | 22h>18h", "0", "Não há", "1", 10, "18:00", "", "-", "IN em T4, vai embora mais cedo", ""],
+ ["Cajamar 02", "BRSP10", 41528, 34448, "-17,0%", "0% | 0%", "", "", "", "", "", 814, "17:00", "", "", "", ""],
+ ["GRU", "BRSP11", 43301, 34970, "-19,2%", "0% | 0%", "", "", "", "", "", 593, "17:00-20:00", "", "", "", ""],
+ ["Cajamar 01", "BRSP14", 77918, 64873, "-16,7%", "20% | 29%", 2, "19h>15h | 16h>20h | 22h>18h", "1", "Não há", "2", 216, "18:00-19:00", "", "-", "T2 assiste na OPS", ""],
+ ["Cajamar 02", "BRSP15", 64993, 51763, "-20,4%", "18% | 29%", 2, "16h>20h", "1", "Não há", "2", 142, "18:00-19:00", "", "-", "T5 assiste o jogo na OPS", ""],
+ ["GRU", "BRSP18", 56295, 43049, "-23,5%", "11% | 16%", "", "", "", "", "", 593, "", "", "", "", ""],
+ ["GRU", "BRSP19", 88417, 73386, "-17,0%", "10% | 16%", "", "", "", "", "", 388, "", "", "", "", ""],
+ ["Metros", "BRSP24", 8000, 6800, "-15,0%", "0% | 0%", "", "", "", "", "", 35, "", "", "", "", ""],
+ ["Metros", "BRSP30", 3000, 2500, "-16,7%", "0% | 0%", "", "", "", "", "", 11, "", "", "", "", ""],
+ ["Cajamar 02", "BRSP25", 57968, 47572, "-17,9%", "0% | 0%", "", "", "", "", "", 571, "18:00-19:00", "", "", "", ""],
+ ["Cajamar 02", "BRSP26", 19049, 15002, "-21,2%", "0% | 0%", "", "", "", "", "", 235, "", "", "", "", ""],
+ ["Nordeste", "BRBA01", 190664, 164108, "-13,9%", "4% | 8%", 1, "20h->16h", "Não há", "Não há", "T2", 414, "21:15-22:25", "Não há", "", "", "Alinhamento da antecipação do horário de refeição com refeitório mais preparação de lanche. | Risco estimado no dia: ~9%"],
+ ["Nordeste", "BRBA02", 16610, 14446, "-13,0%", "7% | 12%", 1, "20h->16h", "Não há", "Não há", "T2", 62, "", "Não há", "", "", "Risco estimado no dia: ~6,5% | Alavanca: sinergia de inbound para antecipar o processamento do volume e reduzir o risco"],
+ ["Rio-Sul", "BRSC02", 290000, 242500, "-16,4%", "0% | 0%", 2, "20h->18h | 22h->18h", "Não há", "Não há", "T2", 6569, "18:00-19:00", "Zerar CAP das 18h as 22h e ajustar os CPT's solicitados", "", "", ""],
+ ["MG´s", "BRMG01", 52234, 41091, "-21,3%", "18,8% | 25%", 2, "20h->16h | 21h->17h", "T3 (+2h)", "Não há", "T2", 192, "21:15-22:25", "Não há", "", "", ""],
+ ["MG´s", "BRMG02", 72859, 64477, "-11,5%", "18% | 25%", 1, "21h->17h", "Não há", "Não há", "T1, T2 & T4", 253, "21:15-22:25", "CAP 5 conforme DMO do dia", "", "", ""],
+ ["MG´s", "BRMG03", 11682, 10284, "-12,0%", "20,8% | 25,12%", 2, "19h->15h | 21h->17h", "Não há", "T1 (+0,66 hora)", "T2", 86, "21:00-22:00", "CAP 5 conforme DMO do dia", "", "", ""],
+ ["MG´s", "BRMG04", 792, 703, "-11,2%", "7,6% | 12,2%", 1, "19h->15h", "Não há", "Não há", "T2", 13, "21:00-22:00", "CAP 5 conforme DMO do dia", "", "", ""],
+ ["Nordeste", "BRPE01", 115928, 92548, "-20,2%", "6% | 12%", 2, "19h->15h | 20h->16h", "T2 (-2)", "Sem Impacto", "T2 & T3", 891, "17:30-18:30", "", "Não se Aplica", "Vai acompanhar a janela de Outbound. Onde não teremos recebimento na janela do jogo", "Horário de refeição de HE para os turnos em validação"],
+ ["Metros", "BRDF01", 8000, 6800, "-15,0%", "0% | 0%", "", "", "", "", "", 36, "", "", "", "", ""],
+ ["Metros", "BRRS01", 16000, 15000, "-6,3%", "0% | 0%", "", "", "", "", "", 24, "", "-", "", "", ""],
+ ["Metros", "BRES01", 0, 0, "", "0% | 0%", "", "", "", "", "", 26, "", "", "", "", ""],
+ ["Rio-Sul", "BRPR01", 63000, 51970, "-17,5%", "12% | 20%", 1, "19H->18H", "T2(-1H)|T5(-1H)|T3(+1H)", "T4(-1H)", "T2 E T4", 1608, "17:30-18:30 | 21:15-22:25", "-", "", "", ""],
+ ["Rio-Sul", "BRRJ02", 113663, 98560, "-13,3%", "6,5% | 10%", 0, "Não há", "T5(+1) T3(+1)", "T2(-1) T4(-1)", "T2, T3 E T5", 1135, "Em definição", "CAP 5 conforme DMO do dia", "", "", ""],
+ ["Cross Dock", "BRXSP14", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXPR02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXPR03", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXRS01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP9", 711725, 538000, "-24,41%", "30%", 15, "ETDs antecipados (15 CPTs)", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 626, "17:30-18:30, 21:00-21:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP23", 65122, 48000, "-26,29%", "30%", 3, "22h00>18h30 | 21h00>18h30 | 20h00>18h30", "T3 (-1.3H)", "T3 (-0.5H)", "T2 e T3", 198, "17:30-20:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP17", 80000, 61000, "-23,75%", "30%", 1, "20h00>18h00", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 223, "17:30-18:30, 21:00-21:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP10", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXMG1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXES1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXMG2", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXMG3", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP7", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP11", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP16", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "XSP4", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP18", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXPE01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""]
 ];
 
-function getCadJogo(cad,jogoIdx,isXS){
-  const d=isXS?DATA_XS[cad]:DATA[cad];
-  if(!d) return null;
-  return d.jogos[jogoIdx]||null;
-}
+const ROWS_J2=[
+ ["RC´s", "BRRC01", 1527246, 1340084, "-12,3%", "", "", "", "", "", "", 811, "", "", "", "", ""],
+ ["RC´s", "BRRC02", 576989, 470246, "-18,5%", "", "", "", "", "", "", 318, "", "", "", "", ""],
+ ["RC´s", "BRRC03", 531848, 437985, "-17,6%", "", "", "", "", "", "", 296, "", "", "", "", ""],
+ ["Cajamar 02", "BRSP02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cajamar 01", "BRSP04", 311860, 272072, "-12,8%", "", "", "", "", "", "", 965, "", "", "", "", ""],
+ ["São Paulo", "BRSP06", 310800, 271950, "-12,5%", "", "", "", "", "", "", 1455, "", "", "", "", ""],
+ ["Cajamar 02", "BRSP09", 2162, 1802, "-16,7%", "", "", "", "", "", "", 17, "", "", "", "", ""],
+ ["Cajamar 02", "BRSP10", 47289, 39095, "-17,3%", "", "", "", "", "", "", 480, "", "", "", "", ""],
+ ["GRU", "BRSP11", 47975, 41123, "-14,3%", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cajamar 01", "BRSP14", 104024, 84873, "-18,4%", "", "", "", "", "", "", 308, "", "", "", "", ""],
+ ["Cajamar 01", "BRSP15", 87627, 72736, "-17,0%", "", "", "", "", "", "", 362, "", "", "", "", ""],
+ ["GRU", "BRSP18", 66056, 51115, "-22,6%", "", "", "", "", "", "", 210, "", "", "", "", ""],
+ ["GRU", "BRSP19", 96205, 81954, "-14,8%", "", "", "", "", "", "", 210, "", "", "", "", ""],
+ ["Metros", "BRSP24", 12000, 10200, "-15,0%", "", "", "", "", "", "", 10, "", "", "", "", ""],
+ ["Metros", "BRSP30", 3000, 2500, "-16,7%", "", "", "", "", "", "", 7, "", "", "", "", ""],
+ ["Cajamar 02", "BRSP25", 94198, 70578, "-25,1%", "", "", "", "", "", "", 116, "", "", "", "", ""],
+ ["Cajamar 02", "BRSP26", 54616, 49836, "-8,8%", "", "", "", "", "", "", 100, "", "", "", "", ""],
+ ["Nordeste", "BRBA01", 211253, 178897, "-15,3%", "4% | 8%", 0, "-", "T3 (-1,8h)", "Não há", "T2", 652, "20:00-21:00", "Não há", "", "", "Impacto na capacidade de processamento dos cpts de 01h e 03h, gestionado via cap5. Risco estimado no dia: ~8%"],
+ ["Nordeste", "BRBA02", 17350, 14833, "-14,5%", "7% | 12%", 2, "22h->18h | 00h->20h", "Não há", "Não há", "T2 & T3", 125, "20:00-21:00", "Não há", "", "", "Não há"],
+ ["Rio-Sul", "BRSC02", 290000, 244500, "-15,7%", "", "", "", "", "", "", 2325, "", "", "", "", ""],
+ ["MG´s", "BRMG01", 84781, 69309, "-18,2%", "18,8% | 25%", 2, "21h->17h | 23h->19h", "Não há", "Não há", "T2", 360, "20:00-21:00", "Não há", "", "", ""],
+ ["MG´s", "BRMG02", 96059, 84409, "-12,1%", "18% | 25%", 2, "21h->17h | 00h->20h", "Não há", "Não há", "T1, T2 & T4", 396, "20:00-21:00", "CAP 5 conforme DMO do dia", "", "", ""],
+ ["MG´s", "BRMG03", 17139, 15145, "-11,60%", "17,12% | 25%", 2, "21h->17h | 23h->19h", "Não há", "T1 (+0,66 hora)", "T2", 126, "20:00-21:00", "CAP 5 conforme DMO do dia", "", "", ""],
+ ["MG´s", "BRMG04", 1027, 939, "-8,6%", "3,6% | 8%", 0, "-", "Não há", "Não há", "T2", 15, "20:00-21:00", "CAP 5 conforme DMO do dia", "", "", ""],
+ ["Nordeste", "BRPE01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Metros", "BRDF01", 12000, 9800, "-18,3%", "", "", "", "", "", "", 29, "", "", "", "", ""],
+ ["Metros", "BRRS01", 16000, 15200, "-5,0%", "", "", "", "", "", "", 18, "", "", "", "", ""],
+ ["Metros", "BRES01", 6000, 5000, "-16,7%", "", "", "", "", "", "", 22, "", "-", "", "", ""],
+ ["Rio-Sul", "BRPR01", 83000, 62400, "-24,8%", "", "", "", "", "", "", 750, "", "", "", "", ""],
+ ["Rio-Sul", "BRRJ02", 147487, 128193, "-13,1%", "", "", "", "", "", "", 452, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP14", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXPR02", 15840, 18800, "18,7%", "5% | 7%", 0, "Não há", "Não há", "Não há", "-", 38, "17:00-18:00", "Não há", "", "", "Sem Risco"],
+ ["Cross Dock", "BRXPR03", 17611, 15500, "-12,0%", "7% | 10%", 0, "Não há", "Não há", "Não há", "-", 48, "17:00-18:00", "Não há", "", "", "Risco de Diferimento"],
+ ["Cross Dock", "BRXRS01", 51205, 31856, "-37,8%", "6% | 9%", 0, "Não há", "Não há", "Não há", "-", 166, "19:00-20:00", "Não há", "", "", "Risco de Diferimento"],
+ ["Cross Dock", "BRXSP02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP9", 536672, 540000, "0,62%", "30%", 25, "ETDs antecipados (25 CPTs)", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 1293, "17:30-18:30, 21:00-21:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP23", 101193, 88000, "-13,04%", "30%", 3, "22h00>21h00 | 22h00>21h00 | 00h00>21h00", "T3 (-1.3H)", "T3 (-0.5H)", "T2 e T3", 395, "17:30-20:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP17", 115000, 90000, "-21,74%", "30%", 3, "23h00>21h00 | 23h00>21h00 | 01h00>02h00", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 501, "17:30-18:30, 21:00-21:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP10", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXMG1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXES1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXMG2", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXMG3", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP7", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP11", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP16", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "XSP4", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP18", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXPE01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""]
+];
 
-function etdText(etds){
-  if(!etds||!etds.length) return '—';
-  const a=etds.filter(e=>e.delta&&e.delta!=='0'&&parseFloat(e.delta)<0);
-  if(!a.length) return '—';
-  return a.map(e=>`${e.orig}→${e.ant} (${e.delta}h)`).join('<br>');
-}
+const ROWS_J3=[
+ ["RC´s", "BRRC01", 1527246, 1340084, "-12,3%", "", "", "", "", "", "", 955, "", "", "", "", ""],
+ ["RC´s", "BRRC02", 591819, 484108, "-18,2%", "", "", "", "", "", "", 326, "", "", "", "", ""],
+ ["RC´s", "BRRC03", 546545, 431953, "-21,0%", "", "", "", "", "", "", 340, "", "", "", "", ""],
+ ["Cajamar 02", "BRSP02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cajamar 01", "BRSP04", 356785, 291192, "-18,4%", "", "", "", "", "", "", 1244, "", "", "", "", ""],
+ ["São Paulo", "BRSP06", 362932, 317566, "-12,5%", "", "", "", "", "", "", 1008, "", "", "", "", ""],
+ ["Cajamar 02", "BRSP09", 2136, 1792, "-16,1%", "", "", "", "", "", "", 17, "", "", "", "", ""],
+ ["Cajamar 02", "BRSP10", 54371, 43718, "-19,6%", "", "", "", "", "", "", 335, "", "", "", "", ""],
+ ["GRU", "BRSP11", 55403, 41629, "-24,9%", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cajamar 01", "BRSP14", 136218, 109942, "-19,3%", "", "", "", "", "", "", 321, "", "", "", "", ""],
+ ["Cajamar 01", "BRSP15", 108861, 88763, "-18,5%", "", "", "", "", "", "", 387, "", "", "", "", ""],
+ ["GRU", "BRSP18", 82222, 60088, "-26,9%", "", "", "", "", "", "", 225, "", "", "", "", ""],
+ ["GRU", "BRSP19", 111657, 90775, "-18,7%", "", "", "", "", "", "", 307, "", "", "", "", ""],
+ ["Metros", "BRSP24", 16000, 13800, "-13,8%", "", "", "", "", "", "", 23, "", "", "", "", ""],
+ ["Metros", "BRSP30", 3000, 2500, "-16,7%", "", "", "", "", "", "", 7, "", "", "", "", ""],
+ ["Cajamar 02", "BRSP25", 113393, 85039, "-25,0%", "", "", "", "", "", "", 222, "", "", "", "", ""],
+ ["Cajamar 02", "BRSP26", 61516, 44506, "-27,7%", "", "", "", "", "", "", 100, "", "", "", "", ""],
+ ["Nordeste", "BRBA01", 230840, 193963, "-16,0%", "4% | 8%", 1, "20h->16h", "Não há", "Não há", "T2", 414, "21:15-22:25", "Não há", "", "", "Risco estimado no dia: ~12%"],
+ ["Nordeste", "BRBA02", 18562, 15791, "-14,9%", "7% | 12%", 1, "20h->16h", "T4 (-2,5h)", "Não há", "T2", 67, "21:15-22:25", "Não há", "", "", "Não há"],
+ ["Rio-Sul", "BRSC02", 340000, 292500, "-14,0%", "", "", "", "", "", "", 2325, "", "", "", "", ""],
+ ["MG´s", "BRMG01", 150939, 120605, "-20,1%", "18,8% | 25%", 1, "21h->17h", "Não há", "Não há", "T2", 489, "21:00-22:00", "Não há", "", "", ""],
+ ["MG´s", "BRMG02", 134445, 120044, "-10,7%", "18% | 25%", 2, "21h->17h", "Não há", "Não há", "T1, T2 & T4", 582, "21:15-22:25", "CAP 5 conforme DMO do dia", "", "", ""],
+ ["MG´s", "BRMG03", 27821, 24043, "-13,6%", "17,88% | 25%", 2, "19h->15h | 21h->17h", "Não há", "T1 (+0,66 hora)", "T2", 223, "21:00-22:00", "CAP 5 conforme DMO do dia", "", "", ""],
+ ["MG´s", "BRMG04", 1868, 1721, "-7,9%", "3,6% | 8%", 1, "19h->15h", "Não há", "Não há", "T2", 23, "21:00-22:00", "CAP 5 conforme DMO do dia", "", "", ""],
+ ["Nordeste", "BRPE01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Metros", "BRDF01", 16000, 14200, "-11,3%", "", "", "", "", "", "", 13, "", "", "", "", ""],
+ ["Metros", "BRRS01", 16000, 12300, "-23,1%", "", "", "", "", "", "", 30, "", "", "", "", ""],
+ ["Metros", "BRES01", 6000, 5000, "-16,7%", "", "", "", "", "", "", 22, "", "-", "", "", ""],
+ ["Rio-Sul", "BRPR01", 98000, 83400, "-14,9%", "", "", "", "", "", "", 634, "", "", "", "", ""],
+ ["Rio-Sul", "BRRJ02", 149971, 130050, "-13,3%", "", "", "", "", "", "", 490, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP14", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXPR02", 13612, 17100, "25,6%", "5% | 7%", 0, "Não há", "Não há", "Não há", "", 35, "17:00-18:00", "Não há", "", "", "Sem Risco"],
+ ["Cross Dock", "BRXPR03", 12789, 17000, "32,9%", "7% | 10%", 0, "Não há", "Não há", "Não há", "", 47, "17:00-18:00", "Não há", "", "", "Sem Risco"],
+ ["Cross Dock", "BRXRS01", 41644, 23892, "-42,6%", "6% | 9%", 0, "Não há", "Não há", "Não há", "", 169, "18:00-19:00", "Não há", "", "", "Risco de Diferimento"],
+ ["Cross Dock", "BRXSP02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP9", 562155, 542000, "-3,59%", "30%", 15, "ETDs antecipados (15 CPTs)", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 738, "17:30-18:30, 21:00-21:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP23", 111374, 89000, "-20,09%", "30%", 3, "22h00>18h30 | 21h00>18h30 | 20h00>18h30", "T3 (-1.3H)", "T3 (-0.5H)", "T2 e T3", 198, "17:30-20:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP17", 115000, 90000, "-21,74%", "30%", 1, "20h00>18h00", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 266, "17:30-18:30, 21:00-21:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP10", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXMG1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXES1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXMG2", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXMG3", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP7", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP11", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP16", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "XSP4", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP18", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXPE01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""]
+];
 
-function turnosImpacto(turnos){
-  if(!turnos||!turnos.length) return '—';
-  const imp=turnos.filter(t=>t.st==='Impacto'||t.st==='Andamento');
-  if(!imp.length) return '—';
-  return imp.map(t=>`<strong>${t.t}:</strong> ${t.acao}`).join('<br>');
-}
+const DATA={jogo1:ROWS_J1,jogo2:ROWS_J2,jogo3:ROWS_J3};
+const state={jogo1:{selCl:'all',selCad:'all'},jogo2:{selCl:'all',selCad:'all'},jogo3:{selCl:'all',selCad:'all'}};
 
-function turnosAssistem(turnos,hcsTbl){
-  if(!hcsTbl||!hcsTbl.length) return '—';
-  return hcsTbl.map(r=>`${r.t}: ${r.tot} HCs`).join('<br>');
-}
+function tv(x){return (x!==''&&x!==null&&x!==undefined)?x:'<span class="empty">—</span>';}
+function tn(x){return x?fmt(x):'<span class="empty">—</span>';}
 
-function configText(cfg){
-  if(!cfg||!cfg.length) return '—';
-  const items=cfg.filter(c=>c.a&&c.a!=='—'&&!c.a.toLowerCase().includes('sem impacto'));
-  if(!items.length) return '—';
-  return items.map(c=>`<strong>${c.c}</strong>${c.p&&c.p!=='—'?' · '+c.p:''}: ${c.a.substring(0,60)}${c.a.length>60?'…':''}`).join('<br>');
-}
+function renderJogo(jid){
+  const s=state[jid];
+  const ROWS=DATA[jid];
+  const fCl=document.getElementById('fcl-'+jid);
+  const cls=[...new Set(ROWS.map(r=>r[0]))];
+  const prevCl=fCl.value||'all';
+  fCl.innerHTML='<option value="all">Todos os Clusters</option>'+
+    cls.map(c=>`<option value="${c}">${c===''?'(sem cluster)':c}</option>`).join('');
+  fCl.value=prevCl;
 
-function statusChip(jg){
-  if(!jg||!jg.thpBase) return '<span class="esx-empty">—</span>';
-  const hasHcs=jg.hcsImp>0;
-  const hasCfg=jg.cfg&&jg.cfg.some(c=>c.a&&c.a!=='—');
-  if(hasHcs&&hasCfg) return '<span class="esx-ok">✓</span>';
-  if(jg.thpBase) return '<span class="esx-par">~</span>';
-  return '<span class="esx-empty">—</span>';
-}
+  const byCluster=s.selCl==='all'?ROWS:ROWS.filter(r=>r[0]===s.selCl);
+  const fCad=document.getElementById('fcad-'+jid);
+  fCad.innerHTML='<option value="all">Todos os CADs</option>'+
+    byCluster.map(r=>`<option value="${r[1]}">${r[1]}</option>`).join('');
+  if(s.selCad!=='all'&&!byCluster.find(r=>r[1]===s.selCad)) s.selCad='all';
+  fCad.value=s.selCad;
 
-// ── RENDER EXEC TABLE ─────────────────────────────────────
-function renderExecTable(jogoIdx){
-  const isGeral = jogoIdx===null;
-  const gameInfo=[
-    {label:'J1',date:'Sáb 13/06',time:'19h00',bg:'#1565c0'},
-    {label:'J2',date:'Sex 19/06',time:'21h30',bg:'#e65100'},
-    {label:'J3',date:'Qua 24/06',time:'19h00',bg:'#2e7d32'},
-  ];
+  let rows=byCluster;
+  if(s.selCad!=='all') rows=rows.filter(r=>r[1]===s.selCad);
 
-  // Shared table header (10 columns)
-  function tableHeader(badge){
-    return `<thead>
-      <tr>
-        <th class="ec-cad-th" rowspan="2">CAD</th>
-        <th class="ec-num-th">THP<br>Baseline</th>
-        <th class="ec-num-th">THP<br>c/Copa</th>
-        <th class="ec-num-th">Perda</th>
-        <th class="ec-txt-th">Alterações<br>CPTs</th>
-        <th class="ec-txt-th">ETDs<br>Antecipados</th>
-        <th class="ec-txt-th ec-wide">Movimento dos Turnos<br><span style="font-weight:500;font-size:9px;text-transform:none">(Alteração Entrada/Saída)</span></th>
-        <th class="ec-txt-th">Turnos que<br>Assistem</th>
-        <th class="ec-num-th">QTD HCs<br>que Assistam</th>
-        <th class="ec-txt-th ec-wide">Configurações<br>no Geral</th>
-      </tr>
-    </thead>`;
+  let tB=0,tC=0,tH=0;
+  let html='';
+  rows.forEach(r=>{
+    const b=Number(r[2])||0, c=Number(r[3])||0;
+    tB+=b; tC+=c; tH+=Number(r[11])||0;
+    const color=clr(r[0]);
+    html+=`<tr class="dr">
+      <td class="c-cluster"><span class="cl-dot" style="background:${color}"></span>${r[0]||'<span class="empty">—</span>'}</td>
+      <td class="c-cad" style="border-left-color:${color}">${r[1]}</td>
+      <td class="c-num">${tn(r[2])}</td><td class="c-num">${tn(r[3])}</td>
+      <td class="c-gap">${r[4]?r[4]:'<span class="empty">—</span>'}</td>
+      <td class="c-ctr">${tv(r[5])}</td>
+      <td class="c-ctr" style="font-weight:${r[6]?'700':'400'}">${(r[6]!=='')?r[6]:'<span class="empty">—</span>'}</td>
+      <td class="c-txt">${tv(r[7])}</td><td class="c-txt">${tv(r[8])}</td>
+      <td class="c-txt">${tv(r[9])}</td><td class="c-ctr c-txt">${tv(r[10])}</td>
+      <td class="c-hcs">${r[11]?fmt(r[11]):'<span class="empty">—</span>'}</td>
+      <td class="c-txt">${tv(r[12])}</td><td class="c-txt">${tv(r[13])}</td>
+      <td class="c-txt">${tv(r[14])}</td>
+      <td class="c-txt">${tv(r[15])}</td>
+      <td class="c-txt">${tv(r[16])}</td>
+    </tr>`;
+  });
+
+  if(s.selCad==='all'&&rows.length>1){
+    const tL=tB?tC-tB:0; const tP=tB?(tL/tB*100).toFixed(1):0;
+    html+=`<tr class="total">
+      <td></td><td class="c-cad" style="border-left-color:var(--navy);font-size:11px">TOTAL</td>
+      <td class="c-num">${fmt(tB)}</td><td class="c-num">${fmt(tC)}</td>
+      <td class="c-gap">${fmt(Math.abs(tB-tC))}<small>(${Math.abs(tP)}%)</small></td>
+      <td colspan="6"></td><td class="c-hcs">${fmt(tH)}</td><td colspan="5"></td>
+    </tr>`;
   }
 
-  // Build one set of data rows for a specific jogo
-  function buildRows(jogoIdx, clusters){
-    let html='<tbody>';
-    clusters.forEach(cl=>{
-      html+=`<tr class="ec-cluster-row"><td colspan="10">
-        <span class="ec-cluster-badge" style="background:${cl.color}">${cl.name}</span>
-        ${cl.isXS?'<span class="ec-xs-note">volumes em pedidos</span>':''}
-      </td></tr>`;
-      let tB=0,tC=0,tH=0;
-      cl.cads.forEach(cad=>{
-        const d=cl.isXS?DATA_XS[cad]:DATA[cad];
-        const jg=d?d.jogos[jogoIdx]:null;
-        const b=jg?.thpBase||0, c2=jg?.thpCopa||0;
-        const loss=b&&c2?c2-b:null;
-        const pct=b&&loss?(loss/b*100).toFixed(1):null;
-        tB+=b; tC+=c2; tH+=jg?.hcsImp||0;
-        const cptItems=jg?.cfg?.filter(c=>['CAP5','CPT','CT','PT'].includes(c.c)&&c.a&&c.a!=='—')||[];
-        const cptTxt=cptItems.length?cptItems.map(c=>`<b>${c.c}</b>${c.p&&c.p!=='—'?' · '+c.p:''}: ${c.a.substring(0,55)}${c.a.length>55?'…':''}`).join('<br>'):'—';
-        const onclick=d?`onclick="renderDetail('${cad}',${jogoIdx===null?0:jogoIdx})"` :'';
-        html+=`<tr class="ec-row" ${onclick}>
-          <td class="ec-cad-td" style="border-left:3px solid ${cl.color}">${cad}${statusChip(jg)}</td>
-          <td class="ec-num-td">${b?fmt(b):'<span class="ec-mt">—</span>'}</td>
-          <td class="ec-num-td">${c2?fmt(c2):'<span class="ec-mt">—</span>'}</td>
-          <td class="ec-loss-td">${pct?`${fmt(loss)}<br><small>(${Math.abs(pct)}%)</small>`:'<span class="ec-mt">—</span>'}</td>
-          <td class="ec-txt-td">${cptTxt}</td>
-          <td class="ec-txt-td">${jg?etdText(jg.etds):'—'}</td>
-          <td class="ec-txt-td">${jg?turnosImpacto(jg.turnos):'—'}</td>
-          <td class="ec-txt-td">${jg?turnosAssistem(jg.turnos,jg.hcsTbl):'—'}</td>
-          <td class="ec-num-td ec-hcs">${jg?.hcsImp||'<span class="ec-mt">—</span>'}</td>
-          <td class="ec-txt-td">${jg?configText(jg.cfg):'—'}</td>
-        </tr>`;
-      });
-      const tL=tB?tC-tB:0; const tP=tB?(tL/tB*100).toFixed(1):0;
-      html+=`<tr class="ec-sub-row">
-        <td class="ec-sub-label" style="border-left:3px solid ${cl.color}">Subtotal ${cl.name}</td>
-        <td class="ec-num-td"><b>${fmt(tB)}</b></td>
-        <td class="ec-num-td"><b>${fmt(tC)}</b></td>
-        <td class="ec-loss-td"><b>${fmt(tL)}</b><br><small>(${Math.abs(tP)}%)</small></td>
-        <td colspan="5"></td>
-        <td class="ec-num-td ec-hcs"><b>${fmt(tH)}</b></td>
-      </tr>`;
-    });
-    html+='</tbody>';
-    return html;
-  }
+  document.getElementById('tbody-'+jid).innerHTML=html;
+  document.getElementById('count-'+jid).innerHTML=`<strong>${rows.length}</strong> CADs exibidos`;
+  const tL=tB?tC-tB:0; const tP=tB?(tL/tB*100).toFixed(1):0;
+  document.getElementById('kvb-'+jid).textContent=fmt(tB);
+  document.getElementById('kvc-'+jid).textContent=fmt(tC);
+  document.getElementById('kvl-'+jid).textContent=fmt(Math.abs(tL))+' ('+Math.abs(tP)+'%)';
+  document.getElementById('kvh-'+jid).textContent=fmt(tH);
+}
 
-  if(isGeral){
-    // Geral: summed THP + per-game action breakdown
-    const G_COLORS=['#1565c0','#e65100','#2e7d32'];
-    const G_LABELS=['J1','J2','J3'];
+function switchTab(jid){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('btn-'+jid).classList.add('active');
+  document.getElementById('panel-'+jid).classList.add('active');
+  renderJogo(jid);
+}
 
-    function buildGeralRows(){
-      let html='<tbody>';
-      EXEC_CLUSTERS.forEach(cl=>{
-        html+=`<tr class="ec-cluster-row"><td colspan="10">
-          <span class="ec-cluster-badge" style="background:${cl.color}">${cl.name}</span>
-          ${cl.isXS?'<span class="ec-xs-note">volumes em pedidos</span>':''}
-        </td></tr>`;
-        let tB=0,tC=0,tH=0;
-        cl.cads.forEach(cad=>{
-          const d=cl.isXS?DATA_XS[cad]:DATA[cad];
-          const jogos=d?d.jogos:[];
-          const sumB=jogos.reduce((s,jg)=>s+(jg?.thpBase||0),0);
-          const sumC=jogos.reduce((s,jg)=>s+(jg?.thpCopa||0),0);
-          const sumH=jogos.reduce((s,jg)=>s+(jg?.hcsImp||0),0);
-          const loss=sumB&&sumC?sumC-sumB:null;
-          const pct=sumB&&loss?(loss/sumB*100).toFixed(1):null;
-          tB+=sumB; tC+=sumC; tH+=sumH;
+function theadHTML(){
+  return `<thead><tr>
+    <th class="thl" style="min-width:100px">Cluster</th>
+    <th class="thl" style="min-width:105px">CAD</th>
+    <th class="thr" style="min-width:90px">Tph<br>Teórico</th>
+    <th class="thr" style="min-width:90px">Tph<br>C/Copa</th>
+    <th class="thr" style="min-width:75px">Gap</th>
+    <th style="min-width:85px">%<br>Absen</th>
+    <th style="min-width:50px">CPTs</th>
+    <th style="min-width:145px">Alteração<br>CPTs</th>
+    <th style="min-width:155px">Turnos — Alteração<br>Entrada (h)</th>
+    <th style="min-width:155px">Turnos — Alteração<br>Saída (h)</th>
+    <th style="min-width:110px">Turnos Q Assitem<br>O Jogo</th>
+    <th class="thr" style="min-width:90px">Qtde Hc Geral<br>Assistem O Jogo</th>
+    <th style="min-width:135px">Plano<br>Refeição</th>
+    <th style="min-width:200px">Conf<br>Sistêmicas</th>
+    <th style="min-width:160px">Comentário<br>MWH</th>
+    <th style="min-width:160px">Comentários<br>Inbound</th>
+    <th style="min-width:160px">Comentário</th>
+  </tr></thead>`;
+}
 
-          // Per-game action summaries
-          function gameTag(j){return `<span style="background:${G_COLORS[j]};color:#fff;font-size:8.5px;font-weight:700;padding:1px 5px;border-radius:3px;margin-right:3px">${G_LABELS[j]}</span>`;}
+function makePanel(jid){
+  const div=document.getElementById('panel-'+jid);
+  div.innerHTML=`
+    <div class="toolbar">
+      <span class="flbl">Cluster</span>
+      <select class="fsel" id="fcl-${jid}" onchange="state['${jid}'].selCl=this.value;state['${jid}'].selCad='all';renderJogo('${jid}')"><option value="all">Todos os Clusters</option></select>
+      <div class="fsep"></div>
+      <span class="flbl">CAD</span>
+      <select class="fsel" id="fcad-${jid}" onchange="state['${jid}'].selCad=this.value;renderJogo('${jid}')"><option value="all">Todos os CADs</option></select>
+      <div class="kpi-strip">
+        <div class="ks"><div class="ks-val b" id="kvb-${jid}">—</div><div class="ks-lbl">TPH Teórico</div></div>
+        <div class="ks"><div class="ks-val" id="kvc-${jid}">—</div><div class="ks-lbl">TPH c/Copa</div></div>
+        <div class="ks"><div class="ks-val r" id="kvl-${jid}">—</div><div class="ks-lbl">Gap</div></div>
+        <div class="ks"><div class="ks-val b" id="kvh-${jid}">—</div><div class="ks-lbl">HC Geral</div></div>
+      </div>
+    </div>
+    <div class="count-bar" id="count-${jid}">—</div>
+    <div class="tbl-scroll">
+      <table class="master-tbl">${theadHTML()}<tbody id="tbody-${jid}"></tbody></table>
+    </div>`;
+}
+</script>
 
-          // Alterações CPTs — per game
-          const cptAll=jogos.map((jg,j)=>{
-            const items=jg?.cfg?.filter(c=>['CAP5','CPT','CT','PT'].includes(c.c)&&c.a&&c.a!=='—')||[];
-            if(!items.length)return '';
-            return `<div>${gameTag(j)}${items.map(c=>`<b>${c.c}</b>${c.p&&c.p!=='—'?' · '+c.p:''}: ${c.a.substring(0,45)}${c.a.length>45?'…':''}`).join('; ')}</div>`;
-          }).filter(Boolean).join('');
-
-          // ETDs — per game
-          const etdAll=jogos.map((jg,j)=>{
-            const t=etdText(jg?.etds);
-            if(t==='—')return '';
-            return `<div>${gameTag(j)}${t}</div>`;
-          }).filter(Boolean).join('');
-
-          // Movimento dos Turnos — per game
-          const movAll=jogos.map((jg,j)=>{
-            const t=turnosImpacto(jg?.turnos);
-            if(t==='—')return '';
-            return `<div>${gameTag(j)}${t}</div>`;
-          }).filter(Boolean).join('');
-
-          // Turnos que assistem — per game
-          const assAll=jogos.map((jg,j)=>{
-            const t=turnosAssistem(jg?.turnos,jg?.hcsTbl);
-            if(t==='—')return '';
-            return `<div>${gameTag(j)}${t}</div>`;
-          }).filter(Boolean).join('');
-
-          // Configurações — per game
-          const cfgAll=jogos.map((jg,j)=>{
-            const t=configText(jg?.cfg);
-            if(t==='—')return '';
-            return `<div>${gameTag(j)}${t}</div>`;
-          }).filter(Boolean).join('');
-
-          const hasAny=sumB||sumH;
-          const chip=hasAny&&sumH?'<span class="esx-ok">✓</span>':sumB?'<span class="esx-par">~</span>':'';
-          const onclick=d?`onclick="renderDetail('${cad}',0)"` :'';
-          html+=`<tr class="ec-row" ${onclick}>
-            <td class="ec-cad-td" style="border-left:3px solid ${cl.color}">${cad}${chip}</td>
-            <td class="ec-num-td">${sumB?fmt(sumB):'<span class="ec-mt">—</span>'}</td>
-            <td class="ec-num-td">${sumC?fmt(sumC):'<span class="ec-mt">—</span>'}</td>
-            <td class="ec-loss-td">${pct?`${fmt(loss)}<br><small>(${Math.abs(pct)}%)</small>`:'<span class="ec-mt">—</span>'}</td>
-            <td class="ec-txt-td">${cptAll||'—'}</td>
-            <td class="ec-txt-td">${etdAll||'—'}</td>
-            <td class="ec-txt-td">${movAll||'—'}</td>
-            <td class="ec-txt-td">${assAll||'—'}</td>
-            <td class="ec-num-td ec-hcs">${sumH||'<span class="ec-mt">—</span>'}</td>
-            <td class="ec-txt-td">${cfgAll||'—'}</td>
-          </tr>`;
-        });
-        const tL=tB?tC-tB:0; const tP=tB?(tL/tB*100).toFixed(1):0;
-        html+=`<tr class="ec-sub-row">
-          <td class="ec-sub-label" style="border-left:3px solid ${cl.color}">Subtotal ${cl.name}</td>
-          <td class="ec-num-td"><b>${fmt(tB)}</b></td>
-          <td class="ec-num-td"><b>${fmt(tC)}</b></td>
-          <td class="ec-loss-td"><b>${fmt(tL)}</b><br><small>(${Math.abs(tP)}%)</small></td>
-          <td colspan="5"></td>
-          <td class="ec-num-td ec-hcs"><b>${fmt(tH)}</b></td>
-        </tr>`;
-      });
-      html+='</tbody>';
-      return html;
-    }
-
-    return `<table class="ec-tbl">${tableHeader()}${buildGeralRows()}</table>`;
-  }
-
-  const g=gameInfo[jogoIdx];
-  return `<div class="ec-game-header" style="background:${g.bg}">
-    ⚽ ${g.label} · ${g.date} · ${g.time} &nbsp;·&nbsp; <span style="font-weight:500;font-size:11px;opacity:.85">Clique em qualquer linha para ver o detalhe completo do CAD</span>
+<div class="page-wrap">
+  <div class="topbar">
+    <div class="topbar-title">Plano Operacional <span>Copa do Mundo 2026</span></div>
   </div>
-  <table class="ec-tbl">${tableHeader()}${buildRows(jogoIdx,EXEC_CLUSTERS)}</table>`;
-}
+  <div class="tabs-bar">
+    <button class="tab-btn active" id="btn-jogo1" onclick="switchTab('jogo1')">⚽ Jogo 1 · Sáb, 13/06 · 19h00</button>
+    <button class="tab-btn" id="btn-jogo2" onclick="switchTab('jogo2')">⚽ Jogo 2 · Sex, 19/06 · 21h30</button>
+    <button class="tab-btn" id="btn-jogo3" onclick="switchTab('jogo3')">⚽ Jogo 3 · Qua, 24/06 · 19h00</button>
+  </div>
+  <div class="tab-panel active" id="panel-jogo1"></div>
+  <div class="tab-panel" id="panel-jogo2"></div>
+  <div class="tab-panel" id="panel-jogo3"></div>
+  <div class="footer">
+    <strong>MercadoLibre — Operações Logísticas Brasil</strong> &nbsp;·&nbsp; Uso interno restrito &nbsp;·&nbsp; Copa do Mundo 2026
+    <span>Master · 3 Jogos · Atualizado 28/05/2026 · 18h00</span>
+  </div>
+</div>
 
-function switchGeralJogo(j,btn){
-  document.querySelectorAll('.ec-gref').forEach(el=>el.classList.remove('active'));
-  btn.classList.add('active');
-  const wrap=document.getElementById('geral-table-wrap');
-  if(wrap){
-    const tbl=wrap.querySelector('table');
-    if(tbl){
-      // rebuild tbody only
-      const dummy=document.createElement('table');
-      dummy.innerHTML=`<thead></thead>${buildRows(j,EXEC_CLUSTERS)}`;
-      tbl.querySelector('tbody').replaceWith(dummy.querySelector('tbody'));
+<script>
+['jogo1','jogo2','jogo3'].forEach(makePanel);
+renderJogo('jogo1');
+</script>
+<script>
+/* Grid: only allow approved Grid domains to open unsandboxed tabs */
+(function(){
+  var allowedHosts = ["figma.com", "www.figma.com", "furydocs.io", "zeroheight.com", "google.com", "docs.google.com", "meet.google.com", "grid.adminml.com", "grid-artifacts.adminml.com", "mercadolibre.atlassian.net", "mercadolibre-opsgenie.atlassian.net", "app.datadoghq.com", "grafana-service.furycloud.io", "web.furycloud.io", "nasdaq-meli.app.opsgenie.com", "meli.enterprise.slack.com"];
+  var allowedSuffixes = [".adminml.com", ".atlassian.net", ".google.com", ".furycloud.io", ".melioffice.com", ".melisystems.com"];
+  var allowedPathPrefixes = {"github.com": ["/melisource/"], "www.github.com": ["/melisource/"]};
+  function normalizeUrl(rawUrl){
+    try {
+      return new URL(String(rawUrl || ""), window.location.href);
+    } catch (_err) {
+      return null;
     }
   }
-}
+  function isAllowedUrl(rawUrl){
+    var parsed = normalizeUrl(rawUrl);
+    if(!parsed) return false;
+    if(parsed.protocol === "slack:") return true;
+    if(parsed.protocol !== "https:") return false;
+    var h = (parsed.hostname || "").toLowerCase();
+    if(!h) return false;
+    if(allowedHosts.indexOf(h) !== -1) return true;
+    for(var i = 0; i < allowedSuffixes.length; i++){
+      var s = allowedSuffixes[i];
+      if(h === s.slice(1) || (h.length > s.length && h.slice(-s.length) === s)) return true;
+    }
+    var pathPrefixes = allowedPathPrefixes[h];
+    if(pathPrefixes){
+      var p = parsed.pathname || "/";
+      for(var j = 0; j < pathPrefixes.length; j++){
+        if(p.slice(0, pathPrefixes[j].length) === pathPrefixes[j]) return true;
+      }
+    }
+    return false;
+  }
+  function requestParentPopup(rawUrl){
+    var parsed = normalizeUrl(rawUrl);
+    if(!parsed || !window.parent || window.parent === window) return false;
+    try {
+      window.parent.postMessage({type: "grid-open-safe-popup", url: parsed.href}, window.location.origin);
+      return true;
+    } catch (_err) {
+      return false;
+    }
+  }
 
-function setGerTab(t){
-  gerTab=t;
-  document.querySelectorAll('.gtab-exec').forEach(el=>el.classList.toggle('active',el.dataset.t===t));
-  const area=document.getElementById('exec-area');
-  const jogoMap={geral:null,j1:0,j2:1,j3:2};
-  area.innerHTML=renderExecTable(jogoMap[t]);
-}
+  document.addEventListener("click", function(event){
+    var target = event.target;
+    var anchor = target && target.closest ? target.closest("a[href]") : null;
+    if(!anchor) return;
+    var href = anchor.getAttribute("href") || "";
+    if(!href || href.charAt(0) === "#") return;
+    var opensNewTab = anchor.target === "_blank" || event.ctrlKey || event.metaKey || event.button === 1;
+    if(!opensNewTab) return;
+    if(!isAllowedUrl(href)) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    if(requestParentPopup(href)) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
 
-
-// Init: open gerencial by default
-openGerencial();
-render();
+  var nativeOpen = window.open;
+  window.open = function(rawUrl, target, features){
+    if(!isAllowedUrl(rawUrl)) return null;
+    if(requestParentPopup(rawUrl)) return null;
+    return nativeOpen ? nativeOpen.call(window, normalizeUrl(rawUrl).href, target, features) : null;
+  };
+})();
+</script>
+<script>
+/* Grid: sync iframe URL mutations to parent address bar */
+(function(){
+  function notifyParent(search, hash){
+    if(!window.parent || window.parent === window) return;
+    try{
+      window.parent.postMessage(
+        {type:"grid-url-sync", search:search, hash:hash},
+        window.location.origin
+      );
+    }catch(_){}
+  }
+  function parseAndNotify(url){
+    try{
+      var p = new URL(String(url), window.location.href);
+      notifyParent(p.search, p.hash);
+    }catch(_){}
+  }
+  var _push = history.pushState.bind(history);
+  var _replace = history.replaceState.bind(history);
+  history.pushState = function(state, title, url){
+    _push(state, title, url);
+    if(url != null) parseAndNotify(url);
+  };
+  history.replaceState = function(state, title, url){
+    _replace(state, title, url);
+    if(url != null) parseAndNotify(url);
+  };
+  window.addEventListener("hashchange", function(){
+    notifyParent(window.location.search, window.location.hash);
+  });
+})();
 </script>
 </body>
 </html>
