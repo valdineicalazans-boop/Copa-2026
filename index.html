@@ -41,6 +41,7 @@ html,body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#1a1a2e;height
 .c-cluster{font-size:10px;font-weight:600;white-space:nowrap}
 .cl-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle}
 .c-cad{font-weight:800;font-size:12.5px;white-space:nowrap;border-left:3px solid transparent!important}
+.c-cad a:hover span{background:var(--orange)!important}
 .c-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:500}
 .c-gap{text-align:right;font-weight:700;color:var(--red);white-space:nowrap}
 .c-gap small{display:block;font-size:9.5px;font-weight:600}
@@ -263,7 +264,7 @@ function renderJogo(jid){
     const color=clr(r[0]);
     html+=`<tr class="dr">
       <td class="c-cluster"><span class="cl-dot" style="background:${color}"></span>${r[0]||'<span class="empty">—</span>'}</td>
-      <td class="c-cad" style="border-left-color:${color}">${r[1]}</td>
+      <td class="c-cad" style="border-left-color:${color}">${r[1] === 'BRPE01' ? `<a href="https://valdineicalazans-boop.github.io/Estrategia-Copa2026/" target="_blank" style="color:inherit;text-decoration:none;display:flex;align-items:center;gap:5px;">${r[1]}<span style="font-size:9px;background:var(--blue);color:#fff;padding:1px 5px;border-radius:4px;font-weight:700;letter-spacing:.3px;flex-shrink:0;">↗ VER</span></a>` : r[1]}</td>
       <td class="c-num">${tn(r[2])}</td><td class="c-num">${tn(r[3])}</td>
       <td class="c-gap">${r[4]?r[4]:'<span class="empty">—</span>'}</td>
       <td class="c-ctr">${tv(r[5])}</td>
@@ -409,7 +410,7 @@ function makePanel(jid){
   <div class="tab-panel" id="panel-jogo3"></div>
   <div class="footer">
     <strong>MercadoLibre — Operações Logísticas Brasil</strong> &nbsp;·&nbsp; Uso interno restrito &nbsp;·&nbsp; Copa do Mundo 2026
-    <span>Master · 3 Jogos · Atualizado 02/06/2026 · 11h20</span>
+    <span>Master · 3 Jogos · Atualizado 02/06/2026 · 12h24</span>
   </div>
 </div>
 
