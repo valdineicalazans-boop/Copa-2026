@@ -30,7 +30,7 @@ html,body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#1a1a2e;height
 .page-wrap{display:flex;flex-direction:column;height:100vh}
 .tab-panel{display:none;flex:1;flex-direction:column;overflow:hidden}
 .tab-panel.active{display:flex}
-.tbl-scroll{flex:1;overflow:auto;padding:0 32px 32px}
+.tbl-scroll{flex:1;overflow:auto;padding:0 32px 16px;min-height:0}
 .master-tbl{width:100%;border-collapse:collapse;font-size:11.5px;background:var(--white);border:1px solid var(--border);min-width:1400px}
 .master-tbl thead th{position:sticky;top:0;z-index:10;background:var(--navy);color:rgba(255,255,255,.88);padding:9px 11px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border:1px solid rgba(255,255,255,.1);text-align:center;vertical-align:bottom;white-space:nowrap;line-height:1.35}
 .master-tbl thead th.thl{text-align:left}
@@ -72,7 +72,7 @@ const ROWS_J1=[
  ["RC´s", "BRRC03", 508246, 443189, "-12,8%", "0% | 23% | 0%", "", "", "Não há", "Não há", "T2", 341, "17:30 - 18:30", "", "", "Impacto de 3h sem recebimento. Docas fechadas das 18:20 até 21:20. CAD fecha as 22h40 e só reabre as 22h40 do DOM, por isso estamos negociando antecipação da curva de recebimento até as 18h.", ""],
  ["Cajamar 01", "BRSP02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cajamar 01", "BRSP04", 271976, 225579, "-17,1%", "19% | 29%", 4, "19h -> 16h | 20h -> 16h | 21h -> 17h | 22h -> 18h", "Não há", "T3 (+2h)", "T2", 641, "18:00 - 19:00", "", "Necessidade de adiantar ou atrasar o envio para SC02 (20:00h)", "Não ter recebimento nos horários: 18h, 19h, 20h, 21h e 22h", ""],
- ["São Paulo", "BRSP06", 246718, 215878, "-12,5%", "0% | 0%", 1, "20h -> 16h", "", "", "", 0, "Sem impacto", "", "", "", ""],
+ ["São Paulo", "BRSP06", 246718, 215878, "-12,5%", "20% | 25%", 1, "20h -> 16h", "T3 (+1h)", "Não há", "T2", 684, "Sem impacto", "Zerar capacidade no intervalo de 18:30 às 21:30. Redução CAP de T3 em uma hora - 22:00-23:00.", "Adiantar produção MWH para CPT 09:00 de domingo", "Fechar o recebimento às 18:00 de sábado.", ""],
  ["Cajamar 01", "BRSP09", 1374, 1132, "-17,6%", "0% | 0%", 1, "19h > 15h | 21h > 17h | 22h > 18h", "0", "Não há", "1", 10, "18:00", "", "-", "IN em T4, vai embora mais cedo", ""],
  ["Cajamar 02", "BRSP10", 41528, 34448, "-17,0%", "0% | 0%", "", "", "", "", "", 0, "17:00", "", "", "", ""],
  ["GRU", "BRSP11", 43301, 34970, "-19,2%", "0% | 0%", "", "", "", "", "", 0, "17:00 - 20:00", "", "", "", ""],
@@ -84,14 +84,14 @@ const ROWS_J1=[
  ["Metros", "BRSP30", 3000, 2500, "-16,7%", "0% | 0%", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cajamar 02", "BRSP25", 57968, 47572, "-17,9%", "0% | 0%", "", "", "", "", "", 0, "18:00 - 19:00", "", "", "", ""],
  ["Cajamar 02", "BRSP26", 19049, 15002, "-21,2%", "0% | 0%", "", "", "", "", "", 0, "", "", "", "", ""],
- ["Nordeste", "BRBA01", 190664, 164108, "-13,9%", "4% | 8%", 1, "20h -> 16h", "Não há", "Não há", "T2", 414, "17:30 - 18:00", "Não há", "", "", "Alinhamento da antecipação do horário de refeição com refeitório mais preparação de lanche. | Risco de dif% estimado no dia: ~9%"],
- ["Nordeste", "BRBA02", 16610, 14446, "-13,0%", "7% | 12%", 1, "20h -> 16h", "Não há", "Não há", "T2", 62, "", "Não há", "", "", "Risco estimado no dia: ~6,5% | Alavanca: sinergia de inbound para antecipar o processamento do volume e reduzir o risco"],
+ ["Nordeste", "BRBA01", 205313, 162323, "-20,9%", "10% | 16%", 1, "20h -> 16h", "Não há", "Não há", "T2", 414, "17:30 - 19:00", "", "Alteração ETAS: 13h->09h 18h, 19h e 21h->21h30", "Acompanha a janela de parada de Out. Sem recebimento durante o horário de parada para o jogo, de 18h às 21:15h.", "Risco de dif% estimado no dia: ~9%"],
+ ["Nordeste", "BRBA02", 16328, 13665, "-16,3%", "6% | 9%", 1, "20h -> 16h", "Não há", "Não há", "T2", 62, "18:00 - 19:00", "", "Alteração ETAS: 20h->16h 18h e 21h->21h30", "Não haverá recebimento entre 18h e 21:30", "Sem risco de diferimento previsto devido a demanda -15% vs capacidade"],
  ["Rio-Sul", "BRSC02", 290000, 242500, "-16,4%", "0% | 0%", 2, "20h -> 18h | 22h -> 18h", "Não há", "Não há", "T2", 6569, "18:00 - 19:00", "Zerar CAP das 18h as 22h e ajustar os CPT's solicitados", "Restringir recebimento e expedição das 18h as 00h", "Restringir recebimento das 18h as 00h", ""],
  ["MG´s", "BRMG01", 52234, 41091, "-21,3%", "18,8% | 25%", 2, "20h -> 16h | 21h -> 17h", "T3 (+2h)", "T1 (+0,6)", "T2", 192, "21:15 - 22:25", "Não há", "", "", ""],
  ["MG´s", "BRMG02", 72859, 64477, "-11,5%", "18% | 25%", 1, "21h -> 17h", "Não há", "Não há", "T2 & T4", 253, "21:15 - 23:15", "CAP 5 conforme DMO do dia", "", "", ""],
  ["MG´s", "BRMG03", 11682, 10284, "-12,0%", "20,8% | 25,12%", 2, "19h -> 15h | 21h -> 17h", "Não há", "T1 (+0,66 hora)", "T2", 86, "21:00 - 22:00", "CAP 5 conforme DMO do dia", "", "", ""],
  ["MG´s", "BRMG04", 792, 703, "-11,2%", "7,6% | 12,2%", 1, "19h -> 15h", "Não há", "Não há", "T2", 13, "21:00 - 22:00", "CAP 5 conforme DMO do dia", "", "", ""],
- ["Nordeste", "BRPE01", 115928, 92548, "-20,2%", "6% | 12%", 2, "19h -> 15h | 20h -> 16h", "T2 (-2)", "Sem Impacto", "T2 & T3", 891, "17:30 - 18:30", "", "Não se Aplica", "Vai acompanhar a janela de Outbound. Onde não teremos recebimento na janela do jogo", "Horário de refeição de HE para os turnos em validação"],
+ ["Nordeste", "BRPE01", 115928, 93861, "-19,0%", "6% | 12%", 2, "19h -> 15h | 20h -> 16h", "T2 (-2h)", "Não há", "T2 & T3", 891, "17:30 - 19:00", "", "Não há", "Vai acompanhar a janela de Outbound. Onde não teremos recebimento na janela do jogo", "FSCT 01/06 para o dia: 90.515 | Sem Risco de Diferimento | Perda de TPH: -22,1k será reduzido do Slow para proteger Fast."],
  ["Metros", "BRDF01", 8000, 6800, "-15,0%", "0% | 0%", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Metros", "BRRS01", 16000, 15000, "-6,3%", "0% | 0%", "", "", "", "", "", 0, "", "-", "", "", ""],
  ["Metros", "BRES01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
@@ -101,9 +101,9 @@ const ROWS_J1=[
  ["Cross Dock", "BRXPR02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cross Dock", "BRXPR03", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cross Dock", "BRXRS01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
- ["Cross Dock", "BRXSP02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
- ["Cross Dock", "BRXSP9", 711725, 538000, "-24,41%", "30%", 15, "22h00 > 23h30 | 22h00 > 00h00 | 22h00 > 23h30 | 22h00 > 03h00 | 21h00 > 23h00 | 21h00 > 01h00 | 21h00 > 01h00 | 22h00 > 23h00 | 22h00 > 02h00 | 22h00 > 02h00 | 22h30 > 02h00 | 22h00 > 23h00 | 21h00 > 01h30 | 22h00 > 01h00 | 22h00 > 23h30", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 626, "17:30 - 18:30, 21:00 - 21:30", "Não há", "", "", ""],
- ["Cross Dock", "BRXSP23", 65122, 48000, "-26,29%", "30%", 3, "22h00 > 18h30 | 21h00 > 18h30 | 20h00 > 18h30", "T3 (-1.3H)", "T3 (-0.5H)", "T2 e T3", 198, "17:30 - 20:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP02", 71550, 35000, "-51,1%", "10% | 15%", "-", "Antecipar curvas de inhub", "T2 e T3 (+1 H)", "-", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP9", 730000, 538000, "-26,30%", "30%", 15, "22h00 > 23h30 | 22h00 > 00h00 | 22h00 > 23h30 | 22h00 > 03h00 | 21h00 > 23h00 | 21h00 > 01h00 | 21h00 > 01h00 | 22h00 > 23h00 | 22h00 > 02h00 | 22h00 > 02h00 | 22h30 > 02h00 | 22h00 > 23h00 | 21h00 > 01h30 | 22h00 > 01h00 | 22h00 > 23h30", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 626, "17:30 - 18:30, 21:00 - 21:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP23", 80000, 48000, "-40,00%", "30%", 3, "22h00 > 18h30 | 21h00 > 18h30 | 20h00 > 18h30", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 198, "17:30 - 18:30, 21:00 - 21:30", "Não há", "", "", ""],
  ["Cross Dock", "BRXSP17", 80000, 61000, "-23,75%", "30%", 1, "20h00 > 18h00", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 223, "17:30 - 18:30, 21:00 - 21:30", "Não há", "", "", ""],
  ["Cross Dock", "BRXSP10", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cross Dock", "BRXMG1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
@@ -125,7 +125,7 @@ const ROWS_J2=[
  ["RC´s", "BRRC03", 531848, 437985, "-17,6%", "0% | 23% | 30%", "", "", "T3 (+2,6h)", "T2 (-2,6h)", "T3", 296, "18:00 - 20:00", "", "", "Impacto de 3h sem recebimento. Docas fechadas das 20:40 até 23:40, possível impacto em SLA de pátio com curvas concentradas próximo ao horario do jogo.", ""],
  ["Cajamar 02", "BRSP02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cajamar 01", "BRSP04", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
- ["São Paulo", "BRSP06", 0, 0, "", "", 2, "", "", "", "", 0, "", "", "", "", ""],
+ ["São Paulo", "BRSP06", 310800, 271950, "-12,5%", "20% | 25%", 2, "22h > 18h | 00h > 18h", "T3 (-1h)", "T2 (+1h)", "T2, T3 & T5", 1455, "17:00 - 20:00", "Zerar capacidade no intervalo de 21:00 às 00:00.", "Sem impacto", "Fechar recebimento de 20:30 às 23:59", ""],
  ["Cajamar 02", "BRSP09", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cajamar 02", "BRSP10", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["GRU", "BRSP11", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
@@ -137,14 +137,14 @@ const ROWS_J2=[
  ["Metros", "BRSP30", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cajamar 02", "BRSP25", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cajamar 02", "BRSP26", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
- ["Nordeste", "BRBA01", 211253, 178897, "-15,3%", "4% | 8%", 0, "-", "T3 (-1,8h)", "Não há", "T2", 652, "18:00 - 19:00", "Não há", "", "", "Impacto na capacidade de processamento dos cpts de 01h e 03h, gestionado via cap5. Risco de diferimento: CPT 01h: 9.650 unid. CPT 03h: 5.650 unid. Risco estimado no dia: ~8%"],
- ["Nordeste", "BRBA02", 17350, 14833, "-14,5%", "7% | 12%", 2, "22h -> 18h | 00h -> 20h", "Não há", "Não há", "T2 & T3", 125, "20:00 - 21:00", "Não há", "", "", "Não há"],
+ ["Nordeste", "BRBA01", 211253, 161636, "-23,49%", "10% | 16%", 0, "-", "T3 (-1,8h)", "Não há", "T2", 652, "18:00 - 20:00", "Zerar CAP5 das 21h as 00h. Ajustar CAP60 conforme o TPH perdido/dia", "Alteração ETAS: 12h->08h 13h->09h 14h->10h 15h->11h 19h->15h", "Acompanha a janela de parada de Out. Sem recebimento durante o horário do jogo, de 21h às 23:15h", "Impacto na capacidade de processamento dos cpts de 01h e 03h, gestionado via cap5. Risco de diferimento: CPT 01h: 9.650 unid. CPT 03h: 5.650 unid. Risco estimado no dia: ~8%"],
+ ["Nordeste", "BRBA02", 17068, 13863, "-18,78%", "6% | 9%", 2, "22h -> 18h | 00h -> 20h", "Não há", "Não há", "T2 & T3", 125, "20:00 - 21:00", "Zerar CAP5 das 21h as 00h. Ajustar CAP60 conforme o TPH perdido/dia", "Alteração ETAS: 15h->11h 21h e 22h->00h", "Não haverá recebimento entre 18h e 21:30", "Risco de dif% estimado de até 23%"],
  ["Rio-Sul", "BRSC02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["MG´s", "BRMG01", 84781, 69309, "-18,2%", "18,8% | 25%", 2, "21h -> 17h | 23h -> 19h", "Não há", "Não há", "T2 e T3", 360, "20:00 - 21:00", "Não há", "", "", ""],
  ["MG´s", "BRMG02", 96059, 84409, "-12,1%", "18% | 25%", 2, "21h -> 17h | 00h -> 20h", "Não há", "Não há", "T2 & T4", 396, "19:00 - 21:00", "CAP 5 conforme DMO do dia", "", "", ""],
  ["MG´s", "BRMG03", 17139, 15145, "-11,60%", "17,12% | 25%", 2, "21h -> 17h | 23h -> 19h", "Não há", "T1 (+0,66 hora)", "T2", 126, "20:00 - 21:00", "CAP 5 conforme DMO do dia", "", "", ""],
  ["MG´s", "BRMG04", 1027, 939, "-8,6%", "3,6% | 8%", 0, "-", "Não há", "Não há", "T2", 15, "20:00 - 21:00", "CAP 5 conforme DMO do dia", "", "", ""],
- ["Nordeste", "BRPE01", 122732, 99020, "-19,3%", "6% | 6%", 0, "-", "T3 (-2)", "T2 (+2)", "T2 & T3", 296, "18:00 - 20:00", "CAP 5 conforme DMO do dia", "", "Segue janela de OUT, Janta as 18. E não haverá recebimento na janela do jogo", "Janta: INB: 18h | OUT: 50% 19h | 50% 20h"],
+ ["Nordeste", "BRPE01", 122732, 104948, "-14,5%", "6% | 12%", 0, "-", "T3 (-2)", "T2 (+2)", "T2 & T3", 296, "18:00 - 20:00", "Proteção do FAST & Diferir Slow | CAP 5 Conforme o dia.", "", "Vai acompanhar a janela de Outbound. Onde não teremos recebimento na janela do jogo", "FSCT 01/06 para o dia: 112.443 | Diferimento: 10,6% - 7,5k | Perda de TPH: -17,7k será reduzido do Slow para proteger Fast."],
  ["Metros", "BRDF01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Metros", "BRRS01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Metros", "BRES01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
@@ -154,10 +154,10 @@ const ROWS_J2=[
  ["Cross Dock", "BRXPR02", 15840, 18800, "18,7%", "5% | 7%", 0, "Não há", "Não há", "Não há", "-", 38, "17:00 - 18:00", "Não há", "", "", "Sem Risco"],
  ["Cross Dock", "BRXPR03", 17611, 15500, "-12,0%", "7% | 10%", 0, "Não há", "Não há", "Não há", "-", 48, "17:00 - 18:00", "Não há", "", "", "Risco de Diferimento"],
  ["Cross Dock", "BRXRS01", 51205, 31856, "-37,8%", "6% | 9%", 0, "Não há", "Não há", "Não há", "-", 166, "19:00 - 20:00", "Não há", "", "", "Risco de Diferimento"],
- ["Cross Dock", "BRXSP02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
- ["Cross Dock", "BRXSP9", 536672, 540000, "0,62%", "30%", 25, "22h00 > 21h00 | 22h00 > 21h00 | 22h00 > 21h00 | 22h00 > 21h00 | 23h00 > 21h00 | 23h00 > 21h00 | 23h00 > 17h00 | 23h00 > 17h00 | 01h00 > 02h00 | 01h00 > 02h00 | 01h00 > 04h00 | 00h00 > 05h00 | 01h00 > 04h00 | 00h30 > 22h00 | 00h30 > 18h00 | 00h00 > 04h00 | 23h30 > 02h00 | 00h30 > 02h00 | 00h00 > 05h00 | 23h00 > 04h30 | 00h30 > 04h00 | 01h00 > 04h00 | 01h00 > 21h00 | 00h00 > 21h00 | 01h00 > 02h00", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 1293, "17:30 - 18:30, 21:00 - 21:30", "Não há", "", "", ""],
- ["Cross Dock", "BRXSP23", 101193, 88000, "-13,04%", "30%", 3, "22h00 > 21h00 | 22h00 > 21h00 | 00h00 > 21h00", "T3 (-1.3H)", "T3 (-0.5H)", "T2 e T3", 395, "17:30 - 20:30", "Não há", "", "", ""],
- ["Cross Dock", "BRXSP17", 115000, 90000, "-21,74%", "30%", 3, "23h00 > 21h00 | 23h00 > 21h00 | 01h00 > 02h00", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 501, "17:30 - 18:30, 21:00 - 21:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP02", 168218, 135000, "-19,7%", "5% | 10%", "", "", "T2 e T3 (+1 H)", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP9", 730000, 540000, "-26,03%", "30%", 25, "22h00 > 21h00 | 22h00 > 21h00 | 22h00 > 21h00 | 22h00 > 21h00 | 23h00 > 21h00 | 23h00 > 21h00 | 23h00 > 17h00 | 23h00 > 17h00 | 01h00 > 02h00 | 01h00 > 02h00 | 01h00 > 04h00 | 00h00 > 05h00 | 01h00 > 04h00 | 00h30 > 22h00 | 00h30 > 18h00 | 00h00 > 04h00 | 23h30 > 02h00 | 00h30 > 02h00 | 00h00 > 05h00 | 23h00 > 04h30 | 00h30 > 04h00 | 01h00 > 04h00 | 01h00 > 21h00 | 00h00 > 21h00 | 01h00 > 02h00", "T3 (-1.3H)", "T3 (-0.5H)", "T2 e T3", 1293, "17:30 - 20:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP23", 120000, 88000, "-26,67%", "30%", 3, "22h00 > 21h00 | 22h00 > 21h00 | 00h00 > 21h00", "T3 (-1.3H)", "T3 (-0.5H)", "T2 e T3", 395, "17:30 - 20:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP17", 115000, 90000, "-21,74%", "30%", 3, "23h00 > 21h00 | 23h00 > 21h00 | 01h00 > 02h00", "T3 (-1.3H)", "T3 (-0.5H)", "T2 e T3", 501, "17:30 - 20:30", "Não há", "", "", ""],
  ["Cross Dock", "BRXSP10", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cross Dock", "BRXMG1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cross Dock", "BRXES1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
@@ -165,8 +165,8 @@ const ROWS_J2=[
  ["Cross Dock", "BRXMG3", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cross Dock", "BRXSP7", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cross Dock", "BRXSP11", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
- ["Cross Dock", "BRXSP1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
- ["Cross Dock", "BRXSP16", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP1", 400000, 250000, "-37,50%", "17%", 3, "01h00 > 02h00 | 02h00 > 03h00", "T2/T4/ST/NT (antecipar 1hr)", "T2/T4/ST/NT (antecipar 1hr)", "T2/T3/T4/ST/NT", 936, "19:00 - 21:00", "", "", "", ""],
+ ["Cross Dock", "BRXSP16", 147332, 110000, "-25,34%", "16%", 0, "Não há", "T5/T3 (-1h)", "Não há", "T2/T3/T5", 686, "18:00 - 21:00", "Não há", "", "", ""],
  ["Cross Dock", "XSP4", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cross Dock", "BRXSP18", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cross Dock", "BRXPE01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""]
@@ -178,7 +178,7 @@ const ROWS_J3=[
  ["RC´s", "BRRC03", 546545, 431953, "-21,0%", "0% | 23% | 30%", "", "", "Não há", "Não há", "T2", 340, "17:30 - 18:30", "", "", "Impacto de 3h sem recebimento. Docas fechadas das 18:20 até 21:20, possível impacto em SLA de pátio com curvas concentradas próximo ao horario do jogo.", ""],
  ["Cajamar 02", "BRSP02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cajamar 01", "BRSP04", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
- ["São Paulo", "BRSP06", 0, 0, "", "", 1, "", "", "", "", 0, "", "", "", "", ""],
+ ["São Paulo", "BRSP06", 362932, 317566, "-12,5%", "20% | 25%", 1, "20h -> 16h", "", "T4 (-1,5h)", "", 0, "", "Zerar capacidade no intervalo de 18:30 às 21:30. Redução CAP em uma hora para: T4 (18h às 19h) e T3 (22h às 23h).", "Sem impacto", "Fechar o recebimento às 18:00 e retornar às 23:00", ""],
  ["Cajamar 02", "BRSP09", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cajamar 02", "BRSP10", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["GRU", "BRSP11", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
@@ -190,14 +190,14 @@ const ROWS_J3=[
  ["Metros", "BRSP30", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cajamar 02", "BRSP25", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cajamar 02", "BRSP26", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
- ["Nordeste", "BRBA01", 230840, 193963, "-16,0%", "4% | 8%", 1, "20h -> 16h", "Não há", "Saída antecipada do T4 às 17:30h", "T2", 414, "17:30 - 18:00", "Não há", "", "", "Risco estimado no dia: ~12%"],
- ["Nordeste", "BRBA02", 18562, 15791, "-14,9%", "7% | 12%", 1, "20h -> 16h", "T4 (-2,5h)", "Não há", "T2", 67, "21:15 - 22:25", "Não há", "", "", "Não há"],
+ ["Nordeste", "BRBA01", 220723, 176168, "-20,19%", "4% | 16%", 1, "20h -> 16h", "Não há", "T4 (-2,5h)", "T2", 414, "17:30 - 19:00", "Não há", "Alteração ETAS: 13h->09h 18h e 19h->21h30", "Acompanha a janela de parada de Out. Sem recebimento durante o horário de parada para o jogo, de 18h às 21:15h.", "Risco de dif% estimado no dia: ~12%"],
+ ["Nordeste", "BRBA02", 18094, 14789, "-18,27%", "6% | 9%", 1, "20h -> 16h", "T4 (-2,5h)", "Não há", "T2", 67, "18:00 - 19:00", "Zerar CAP5 das 18h as 21h30. Ajustar CAP60 conforme o TPH perdido/dia", "Alteração ETAS: 20h->16h 18h e 21h->21h30", "Não haverá recebimento entre 18h e 21:30", "Risco de dif% estimado de até 22%"],
  ["Rio-Sul", "BRSC02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["MG´s", "BRMG01", 150939, 120605, "-20,1%", "18,8% | 25%", 1, "21h -> 17h", "T3 (+2h)", "Não há", "T2", 489, "21:00 - 22:00", "Não há", "", "", ""],
  ["MG´s", "BRMG02", 134445, 120044, "-10,7%", "18% | 25%", 2, "21h -> 17h", "Não há", "Não há", "T2 & T4", 582, "21:15 - 23:15", "CAP 5 conforme DMO do dia", "", "", ""],
  ["MG´s", "BRMG03", 27821, 24043, "-13,6%", "17,88% | 25%", 2, "19h -> 15h | 21h -> 17h", "Não há", "T1 (+0,66 hora)", "T2", 223, "21:00 - 22:00", "CAP 5 conforme DMO do dia", "", "", ""],
  ["MG´s", "BRMG04", 1868, 1721, "-7,9%", "3,6% | 8%", 1, "19h -> 15h", "Não há", "Não há", "T2", 23, "21:00 - 22:00", "CAP 5 conforme DMO do dia", "", "", ""],
- ["Nordeste", "BRPE01", 115928, 92548, "-20,2%", "6% | 12%", 2, "19h -> 15h | 20h -> 16h", "T2 (-2)", "Sem Impacto", "T2 & T3", 891, "17:30 - 18:30", "", "Não se Aplica", "Vai acompanhar a janela de Outbound. Onde não teremos recebimento na janela do jogo", "Horário de refeição de HE para os turnos em validação"],
+ ["Nordeste", "BRPE01", 134886, 112846, "-16,3%", "6% | 6%", 2, "19h -> 15h | 20h -> 16h", "T2 (-2)", "T4 (-2)", "T2 & T3", 891, "17:30 - 19:00", "", "Não se Aplica", "Vai acompanhar a janela de Outbound. Onde não teremos recebimento na janela do jogo", "FSCT 01/06 para o dia: 122.846 | Diferimento: 12,2% - 9,4k | Perda de TPH: -9,4k será reduzido do Slow para proteger Fast."],
  ["Metros", "BRDF01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Metros", "BRRS01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Metros", "BRES01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
@@ -208,8 +208,8 @@ const ROWS_J3=[
  ["Cross Dock", "BRXPR03", 12789, 17000, "32,9%", "7% | 10%", 0, "Não há", "Não há", "Não há", "", 47, "17:00 - 18:00", "Não há", "", "", "Sem Risco"],
  ["Cross Dock", "BRXRS01", 41644, 23892, "-42,6%", "6% | 9%", 0, "Não há", "Não há", "Não há", "", 169, "18:00 - 19:00", "Não há", "", "", "Risco de Diferimento"],
  ["Cross Dock", "BRXSP02", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
- ["Cross Dock", "BRXSP9", 562155, 542000, "-3,59%", "30%", 15, "22h00 > 23h30 | 22h00 > 00h00 | 22h00 > 23h30 | 22h00 > 03h00 | 21h00 > 23h00 | 21h00 > 01h00 | 21h00 > 01h00 | 22h00 > 23h00 | 22h00 > 02h00 | 22h00 > 02h00 | 22h30 > 02h00 | 22h00 > 23h00 | 21h00 > 01h30 | 22h00 > 01h00 | 22h00 > 23h30", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 738, "17:30 - 18:30, 21:00 - 21:30", "Não há", "", "", ""],
- ["Cross Dock", "BRXSP23", 111374, 89000, "-20,09%", "30%", 3, "22h00 > 18h30 | 21h00 > 18h30 | 20h00 > 18h30", "T3 (-1.3H)", "T3 (-0.5H)", "T2 e T3", 198, "17:30 - 20:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP9", 770000, 542000, "-29,61%", "30%", 15, "22h00 > 23h30 | 22h00 > 00h00 | 22h00 > 23h30 | 22h00 > 03h00 | 21h00 > 23h00 | 21h00 > 01h00 | 21h00 > 01h00 | 22h00 > 23h00 | 22h00 > 02h00 | 22h00 > 02h00 | 22h30 > 02h00 | 22h00 > 23h00 | 21h00 > 01h30 | 22h00 > 01h00 | 22h00 > 23h30", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 738, "17:30 - 18:30, 21:00 - 21:30", "Não há", "", "", ""],
+ ["Cross Dock", "BRXSP23", 120000, 89000, "-25,83%", "30%", 3, "22h00 > 18h30 | 21h00 > 18h30 | 20h00 > 18h30", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 198, "17:30 - 18:30, 21:00 - 21:30", "Não há", "", "", ""],
  ["Cross Dock", "BRXSP17", 115000, 90000, "-21,74%", "30%", 1, "20h00 > 18h00", "T3 (+0.5H)", "T2 (+0.5H)", "T2", 266, "17:30 - 18:30, 21:00 - 21:30", "Não há", "", "", ""],
  ["Cross Dock", "BRXSP10", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cross Dock", "BRXMG1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
@@ -218,8 +218,8 @@ const ROWS_J3=[
  ["Cross Dock", "BRXMG3", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cross Dock", "BRXSP7", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cross Dock", "BRXSP11", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
- ["Cross Dock", "BRXSP1", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
- ["Cross Dock", "BRXSP16", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
+ ["Cross Dock", "BRXSP1", 490000, 250000, "-48,98%", "17%", 3, "01h00 > 02h00 | 02h00 > 03h00", "T2/T4/ST/NT (antecipar 1hr)", "T2/T4/ST/NT (antecipar 1hr)", "T2/T3/T4/ST/NT", 986, "21:00 - 00:00", "", "", "", ""],
+ ["Cross Dock", "BRXSP16", 149928, 101000, "-32,63%", "16%", "Não há", "Não há", "Não há", "Não há", "T2/T3/T4/T5", 686, "18:00 / 21:00 / 22:00", "", "", "", "Possível HE Sorting"],
  ["Cross Dock", "XSP4", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cross Dock", "BRXSP18", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""],
  ["Cross Dock", "BRXPE01", 0, 0, "", "", "", "", "", "", "", 0, "", "", "", "", ""]
@@ -315,7 +315,7 @@ function theadHTML(){
     <th style="min-width:155px">Turnos — Alteração<br>Saída (h)</th>
     <th style="min-width:110px">Turnos Q Assitem<br>O Jogo</th>
     <th class="thr" style="min-width:90px">Qtde Hc Geral<br>Assistem O Jogo</th>
-    <th style="min-width:135px">Plano<br>Refeição</th>
+    <th style="min-width:135px">Intervalo<br>Refeição</th>
     <th style="min-width:200px">Conf<br>Sistêmicas</th>
     <th style="min-width:160px">Comentário<br>MWH</th>
     <th style="min-width:160px">Comentários<br>Inbound</th>
@@ -342,6 +342,28 @@ function makePanel(jid){
     <div class="count-bar" id="count-${jid}">—</div>
     <div class="tbl-scroll">
       <table class="master-tbl">${theadHTML()}<tbody id="tbody-${jid}"></tbody></table>
+      <div style="background:#fff;border:1px solid var(--border);border-radius:12px;margin:20px 0 8px;padding:16px 20px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;font-weight:800;font-size:11.5px;color:var(--navy);">
+          <span style="color:var(--gold);font-size:13px">✦</span> Pontos de Atenção
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+          <div style="background:#f8f9fb;border-radius:8px;padding:12px 14px;border-left:3px solid var(--blue);display:flex;gap:10px;align-items:flex-start;">
+            <span style="background:#e3f2fd;border-radius:5px;padding:3px;font-size:13px;flex-shrink:0;">⚙️</span>
+            <div><div style="font-weight:700;font-size:11px;color:var(--navy);margin-bottom:4px;">Ajuste de CAPs por turno</div>
+            <p style="font-size:10.5px;color:#5a6472;line-height:1.5;margin:0;">Ajustar as capacidades de acordo com o que teremos baseado no definido ops a ops em relação a entrada e saída de turnos.</p></div>
+          </div>
+          <div style="background:#f8f9fb;border-radius:8px;padding:12px 14px;border-left:3px solid var(--blue);display:flex;gap:10px;align-items:flex-start;">
+            <span style="background:#e3f2fd;border-radius:5px;padding:3px;font-size:13px;flex-shrink:0;">📋</span>
+            <div><div style="font-weight:700;font-size:11px;color:var(--navy);margin-bottom:4px;">CPTs pós-janela — CAP first, CT last resort</div>
+            <p style="font-size:10.5px;color:#5a6472;line-height:1.5;margin:0;">Para CPTs posteriores à janela dos jogos, iremos com ajuste de CAP somente e em último caso ajuste de cycle time via CT para garantir processamento antecipado.</p></div>
+          </div>
+          <div style="background:#f8f9fb;border-radius:8px;padding:12px 14px;border-left:3px solid var(--blue);display:flex;gap:10px;align-items:flex-start;">
+            <span style="background:#e3f2fd;border-radius:5px;padding:3px;font-size:13px;flex-shrink:0;">📦</span>
+            <div><div style="font-weight:700;font-size:11px;color:var(--navy);margin-bottom:4px;">On Hold — antecipação estratégica</div>
+            <p style="font-size:10.5px;color:#5a6472;line-height:1.5;margin:0;">Podemos fazer a antecipação do volume de On Hold de acordo com a estratégia local definida junto com Ops.</p></div>
+          </div>
+        </div>
+      </div>
     </div>`;
 }
 </script>
@@ -360,7 +382,7 @@ function makePanel(jid){
   <div class="tab-panel" id="panel-jogo3"></div>
   <div class="footer">
     <strong>MercadoLibre — Operações Logísticas Brasil</strong> &nbsp;·&nbsp; Uso interno restrito &nbsp;·&nbsp; Copa do Mundo 2026
-    <span>Master · 3 Jogos · Atualizado 01/06/2026 · 13h36</span>
+    <span>Master · 3 Jogos · Atualizado 02/06/2026 · 07h00</span>
   </div>
 </div>
 
