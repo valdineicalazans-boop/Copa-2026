@@ -342,27 +342,46 @@ function makePanel(jid){
     <div class="count-bar" id="count-${jid}">—</div>
     <div class="tbl-scroll">
       <table class="master-tbl">${theadHTML()}<tbody id="tbody-${jid}"></tbody></table>
-      <div style="background:#fff;border:1px solid var(--border);border-radius:12px;margin:20px 0 8px;padding:16px 20px;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;font-weight:800;font-size:11.5px;color:var(--navy);">
-          <span style="color:var(--gold);font-size:13px">✦</span> Pontos de Atenção
+            <div style="background:#fff;border:1px solid var(--border);border-radius:12px;margin:20px 0 8px;padding:20px 24px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;font-weight:800;font-size:12px;color:var(--navy);">
+          <span style="color:var(--gold);font-size:14px">✦</span> Ponto de Atenção!
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
-          <div style="background:#f8f9fb;border-radius:8px;padding:12px 14px;border-left:3px solid var(--blue);display:flex;gap:10px;align-items:flex-start;">
-            <span style="background:#e3f2fd;border-radius:5px;padding:3px;font-size:13px;flex-shrink:0;">⚙️</span>
-            <div><div style="font-weight:700;font-size:11px;color:var(--navy);margin-bottom:4px;">Ajuste de CAPs por turno</div>
-            <p style="font-size:10.5px;color:#5a6472;line-height:1.5;margin:0;">Ajustar as capacidades de acordo com o que teremos baseado no definido ops a ops em relação a entrada e saída de turnos.</p></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+          <div style="background:#f8f9fb;border-radius:8px;padding:14px 16px;border-left:3px solid var(--blue);">
+            <div style="font-weight:700;font-size:11.5px;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+              <span style="background:#e3f2fd;border-radius:5px;padding:3px 5px;font-size:12px;">⏱️</span>
+              1. Impacto no Tempo de Operação
+            </div>
+            <p style="font-size:10.5px;color:#374151;line-height:1.6;margin:0 0 6px;font-weight:600;">▶ Tempo total de parada: 2h45 (das 18h30 às 21h15)</p>
+            <p style="font-size:10px;color:#5a6472;font-weight:700;margin:6px 0 4px;">Cronograma da Parada:</p>
+            <p style="font-size:10px;color:#5a6472;line-height:1.7;margin:0;">
+              18h30: Último Bip (Fim da operação)<br>
+              18h30 às 19h00: Deslocamento<br>
+              19h00 às 20h55: Jogo (com 10 min de acréscimo)<br>
+              20h55 às 21h15: Deslocamento<br>
+              21h15: Primeiro Bip (Retorno da operação)
+            </p>
           </div>
-          <div style="background:#f8f9fb;border-radius:8px;padding:12px 14px;border-left:3px solid var(--blue);display:flex;gap:10px;align-items:flex-start;">
-            <span style="background:#e3f2fd;border-radius:5px;padding:3px;font-size:13px;flex-shrink:0;">📋</span>
-            <div><div style="font-weight:700;font-size:11px;color:var(--navy);margin-bottom:4px;">CPTs pós-janela — CAP first, CT last resort</div>
-            <p style="font-size:10.5px;color:#5a6472;line-height:1.5;margin:0;">Para CPTs posteriores à janela dos jogos, iremos com ajuste de CAP somente e em último caso ajuste de cycle time via CT para garantir processamento antecipado.</p></div>
+          <div style="background:#f8f9fb;border-radius:8px;padding:14px 16px;border-left:3px solid var(--blue);">
+            <div style="font-weight:700;font-size:11.5px;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+              <span style="background:#e3f2fd;border-radius:5px;padding:3px 5px;font-size:12px;">📋</span>
+              2. Impacto na CAP5
+            </div>
+            <p style="font-size:10.5px;color:#374151;line-height:1.6;margin:0;">
+              <span style="font-weight:600;">▶ Status:</span> Totalmente zerada no período das 18h30 às 21h30 (proteger CPTs pós janela)
+            </p>
           </div>
-          <div style="background:#f8f9fb;border-radius:8px;padding:12px 14px;border-left:3px solid var(--blue);display:flex;gap:10px;align-items:flex-start;">
-            <span style="background:#e3f2fd;border-radius:5px;padding:3px;font-size:13px;flex-shrink:0;">📦</span>
-            <div><div style="font-weight:700;font-size:11px;color:var(--navy);margin-bottom:4px;">On Hold — antecipação estratégica</div>
-            <p style="font-size:10.5px;color:#5a6472;line-height:1.5;margin:0;">Podemos fazer a antecipação do volume de On Hold de acordo com a estratégia local definida junto com Ops.</p></div>
+          <div style="background:#f8f9fb;border-radius:8px;padding:14px 16px;border-left:3px solid var(--blue);">
+            <div style="font-weight:700;font-size:11.5px;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+              <span style="background:#e3f2fd;border-radius:5px;padding:3px 5px;font-size:12px;">🚛</span>
+              3. Impacto Inbound (recebimento)
+            </div>
+            <p style="font-size:10.5px;color:#374151;line-height:1.6;margin:0;">
+              Não teremos recebimento de veículos no período das 18h30 às 21h30
+            </p>
           </div>
         </div>
+      </div>
       </div>
     </div>`;
 }
@@ -382,7 +401,7 @@ function makePanel(jid){
   <div class="tab-panel" id="panel-jogo3"></div>
   <div class="footer">
     <strong>MercadoLibre — Operações Logísticas Brasil</strong> &nbsp;·&nbsp; Uso interno restrito &nbsp;·&nbsp; Copa do Mundo 2026
-    <span>Master · 3 Jogos · Atualizado 02/06/2026 · 07h00</span>
+    <span>Master · 3 Jogos · Atualizado 02/06/2026 · 09h30</span>
   </div>
 </div>
 
