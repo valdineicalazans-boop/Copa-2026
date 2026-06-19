@@ -357,18 +357,20 @@ function makePanel(jid){
               <span style="background:#e3f2fd;border-radius:5px;padding:3px 5px;font-size:12px;">⏱️</span>
               1. Impacto no Tempo de Operação
             </div>
-            <p style="font-size:10.5px;color:#374151;line-height:1.6;margin:0 0 6px;font-weight:600;">▶ Tempo total de parada: 2h45</p>
-            <p style="font-size:10px;color:#374151;font-weight:700;margin:6px 0 3px;">▶ Jogo 1 &amp; Jogo 3:</p>
+            <p style="font-size:10.5px;color:#374151;line-height:1.6;margin:0 0 8px;font-weight:600;">▶ Tempo total de parada: 2h45</p>
+            <p style="font-size:10px;color:#374151;font-weight:700;margin:4px 0 3px;">▶ Jogo 1 &amp; Jogo 3:</p>
             <p style="font-size:10px;color:#5a6472;font-weight:700;margin:2px 0 3px;">Cronograma da Parada:</p>
-            <p style="font-size:10px;color:#5a6472;line-height:1.7;margin:0 0 6px;">
+            <p style="font-size:10px;color:#5a6472;line-height:1.7;margin:0 0 8px;">
               18h30: Último Bip (Fim da operação)<br>
-              18h30 às 19h00: Deslocamento | 19h00 às 20h55: Jogo (com 10 min de acréscimo) | 20h55 às 21h15: Deslocamento<br>
-              21h15: Primeiro Bip (Retorno da operação)
+              18h30 às 19h00: Deslocamento | 19h00 às 21h01: Jogo (Acréscimo: 10min | Intervalo: 15min | Hidratação: 6min) | 21h01 às 21h21: Deslocamento<br>
+              21h21: Primeiro Bip (Retorno da operação)
             </p>
             <p style="font-size:10px;color:#374151;font-weight:700;margin:4px 0 3px;">▶ Jogo 2:</p>
+            <p style="font-size:10px;color:#5a6472;font-weight:700;margin:2px 0 3px;">Cronograma da Parada:</p>
             <p style="font-size:10px;color:#5a6472;line-height:1.7;margin:0;">
-              Horário: 21:30h às 23h25 (considerando 5 minutos de prorrogação no primeiro tempo e 5 minutos no 2 tempo)<br>
-              Orientação: Liberar o time para assistir o jogo as 21h e o retorno para a operação as 23h40 - (primeiro bip)
+              21h00: Último Bip (Fim da operação)<br>
+              21h00 às 21h30: Deslocamento | 21h30 às 23h31: Jogo (Acréscimo: 10min | Intervalo: 15min | Hidratação: 6min) | 23h31 às 23h51: Deslocamento<br>
+              23h51: Primeiro Bip (Retorno da operação)
             </p>
           </div>
           <div style="background:#f8f9fb;border-radius:8px;padding:14px 16px;border-left:3px solid var(--blue);">
@@ -376,11 +378,15 @@ function makePanel(jid){
               <span style="background:#e3f2fd;border-radius:5px;padding:3px 5px;font-size:12px;">📋</span>
               2. Impacto na CAP5
             </div>
-            <p style="font-size:10.5px;color:#374151;line-height:1.6;margin:0 0 6px;">
-              <span style="font-weight:600;">▶ Status:</span> Totalmente zerada no período das 18h30 às 21h30 (proteger CPTs pós janela)
+            <p style="font-size:10px;color:#374151;font-weight:700;margin:0 0 4px;">▶ Jogo 1 &amp; Jogo 3 — 2h30min:</p>
+            <p style="font-size:10px;color:#5a6472;line-height:1.6;margin:0 0 8px;">
+              Status: Totalmente zerada no período das 18h30 às 21h30 (proteger CPTs pós janela)<br>
+              Reduzir Slow conforme redução da CAP5
             </p>
-            <p style="font-size:10.5px;color:#374151;line-height:1.6;margin:0;">
-              <span style="font-weight:600;">▶</span> Reduzir Slow conforme redução da CAP5
+            <p style="font-size:10px;color:#374151;font-weight:700;margin:0 0 4px;">▶ Jogo 2 — 3h:</p>
+            <p style="font-size:10px;color:#5a6472;line-height:1.6;margin:0;">
+              Status: Totalmente zerada no período das 21h às 00h (proteger CPTs pós janela)<br>
+              Reduzir Slow conforme redução da CAP5
             </p>
           </div>
           <div style="background:#f8f9fb;border-radius:8px;padding:14px 16px;border-left:3px solid var(--blue);">
@@ -388,8 +394,9 @@ function makePanel(jid){
               <span style="background:#e3f2fd;border-radius:5px;padding:3px 5px;font-size:12px;">🚛</span>
               3. Impacto Inbound (recebimento)
             </div>
-            <p style="font-size:10.5px;color:#374151;line-height:1.6;margin:0;">
-              ▶ Não teremos recebimento de veículos no período das 18h30 às 21h30
+            <p style="font-size:10px;color:#5a6472;line-height:1.7;margin:0;">
+              ▶ <strong>Jogo 1 &amp; Jogo 3:</strong> Não teremos recebimento de veículos no período das 18h30 às 21h30<br>
+              ▶ <strong>Jogo 2:</strong> Não teremos recebimento de veículos no período das 21h às 00h
             </p>
           </div>
         </div>
